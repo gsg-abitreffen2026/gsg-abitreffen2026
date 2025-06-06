@@ -1,291 +1,246 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>20 Jahre Abi – Jahrgang 2006</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    :root {
-      --accent: rgb(30, 41, 122);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      font-family: "Roboto", sans-serif;
-      background: #fdfcf9;
-      color: #222;
-      line-height: 1.8;
+      font-family: Arial, sans-serif;
+      background-color: #f3f2ef;
+      color: #1c1e21;
     }
-
-    .top-bar {
-      height: 1.5rem;
-      background: #faf9f6;
-    }
-
     header {
-      position: relative;
+      background: url('banner.jpg') no-repeat center center;
+      background-size: cover;
+      padding: 80px 20px;
       text-align: center;
-      margin-top: 1.5rem;
-      height: 50vh;
-    }
-
-    header img.hero-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 40%;
-      filter: sepia(1) contrast(1.1) brightness(0.9);
-    }
-
-    header .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.45);
       color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem;
     }
-
     header h1 {
-      margin: 0;
-      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-size: 2.5em;
+      margin-bottom: 0.3em;
     }
-
-    header h2 {
-      margin: 1rem 0 0;
-      font-size: clamp(1rem, 3.5vw, 1.4rem);
+    header p {
+      font-size: 1.2em;
       font-weight: 300;
     }
-
-    main {
-      max-width: 80ch;
-      margin: 0 auto;
-      padding: 2rem 1rem 4rem;
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
     }
-
-    section {
-      margin-bottom: 3rem;
-    }
-
-    section h3 {
-      font-size: 1.5rem;
-      padding-bottom: 0.3rem;
-      border-bottom: 3px solid var(--accent);
-      text-align: center;
-    }
-
-    #news p {
-      white-space: pre-line;
-    }
-
-    .share {
-      text-align: center;
-      margin-top: 1rem;
-    }
-
-    .share button {
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      background: var(--accent);
-      border: none;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    form {
-      display: grid;
-      gap: 1rem;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    input, textarea {
-      padding: 0.6rem 0.8rem;
-      border: 1px solid #aaa;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-
-    button[type="submit"] {
-      background: var(--accent);
-      color: white;
-      padding: 0.8rem 1.1rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    #popup {
-      position: fixed;
+    nav {
+      flex: 0 0 220px;
+      position: sticky;
       top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #333;
-      color: white;
-      padding: 1rem 1.5rem;
+      align-self: flex-start;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      background-color: white;
       border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      z-index: 1000;
-      display: none;
-      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
     }
-
-    #popup p {
-      margin: 0.5rem 0;
+    nav li {
+      border-bottom: 1px solid #eee;
     }
-
+    nav a {
+      display: block;
+      padding: 12px 16px;
+      text-decoration: none;
+      color: #333;
+      transition: background 0.2s;
+    }
+    nav a:hover {
+      background-color: #f0f0f0;
+    }
+    nav i {
+      margin-right: 8px;
+      color: #0073b1;
+    }
+    main {
+      flex: 1;
+      margin: 0 20px;
+    }
+    aside.right-column {
+      flex: 0 0 250px;
+      position: sticky;
+      top: 20px;
+      align-self: flex-start;
+    }
+    .content-box {
+      background-color: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    h2 {
+      margin-top: 0;
+      color: #1c1e21;
+    }
+    .button {
+      background-color: #0073b1;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .button:hover {
+      background-color: #005f90;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
     footer {
       text-align: center;
-      font-size: 0.85rem;
-      background: #faf9f6;
-      padding: 2rem 1rem;
+      font-size: 0.9em;
+      padding: 20px;
+      color: #666;
     }
-
-    footer .pride-bar {
-      width: 100%;
-      height: 6px;
-      background: linear-gradient(
-        90deg,
-        #e41f3f 0%, #f18f2d 16%, #f9d42b 32%, #438e46 48%,
-        #2b61d6 64%, #6d318f 80%, #e41f3f 100%
-      );
-      opacity: 0.6;
-      margin-top: 1.2rem;
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      nav, aside.right-column {
+        display: none;
+      }
     }
-
-    #newsletter,
-    #kontakt {
-      text-align: center;
-    }
-
   </style>
 </head>
 <body>
-  <div class="top-bar"></div>
-
   <header>
-    <img src="GSG_Bearbeitet_NEU.jpg" alt="Eingang des Geschwister‑Scholl‑Gymnasiums" class="hero-img" />
-    <div class="overlay">
-      <h1>20 Jahre Abi – Der Jahrgang von 2006</h1>
-      <h2>Wir feiern unser 20‑jähriges Abiturjubiläum – sei dabei!</h2>
-    </div>
+    <h1>20 Jahre Abi – Jahrgang 2006</h1>
+    <p>Wir feiern unser Abiturjubiläum – sei dabei!</p>
   </header>
 
-  <main>
-    <section id="facts" style="text-align: center; margin-top: 2rem;">
-      <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; font-size: 1.1rem;">
-        <div><strong>📅 Datum:</strong> Frühsommer 2026</div>
-        <div><strong>📍 Ort:</strong> Raum Stuttgart</div>
+  <div class="container">
+    <!-- Linkes Menü -->
+    <nav>
+      <ul>
+        <li><a href="#news"><i class="fas fa-bullhorn"></i>Aktuelle News</a></li>
+        <li><a href="#newsletter"><i class="fas fa-envelope-open-text"></i>Newsletter</a></li>
+        <li><a href="#kontakt"><i class="fas fa-comments"></i>Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <!-- Hauptinhalt -->
+    <main>
+      <!-- News -->
+      <div class="content-box" id="news">
+        <h2>Aktuelle News</h2>
+        <p>Hallo zusammen! Wir sind in der frühen Planungsphase für unser großes Wiedersehen zum 20-jährigen Abiturjubiläum im Sommer 2026. Sobald Ort und Zeit feststehen, melden wir uns. Bis dahin: Tragt euch in den Newsletter ein und gebt die Info gerne weiter!</p>
+        <p>Liebe Grüße,<br />Maxi</p>
       </div>
-    </section>
 
-    <section id="news">
-      <h3>Aktuelle News</h3>
-      <p>
-Willkommen auf der Anmeldeseite für das Abi‑Treffen 2026!
+      <!-- Newsletter -->
+      <div class="content-box" id="newsletter">
+        <h2>Immer auf dem Laufenden bleiben</h2>
+        <p>Trag dich in unseren Newsletter ein, damit du keine Infos zum Treffen verpasst. Wir schicken dir Updates, sobald es Neuigkeiten gibt!</p>
+        <form id="newsletter-form">
+          <div class="form-group">
+            <label for="newsletter-name">Dein Name</label>
+            <input type="text" id="newsletter-name" name="name" placeholder="Max Mustermann" required />
+          </div>
+          <div class="form-group">
+            <label for="newsletter-email">Deine E-Mail</label>
+            <input type="email" id="newsletter-email" name="email" placeholder="max@example.com" required />
+          </div>
+          <button type="submit" class="button">Anmelden</button>
+        </form>
+      </div>
+      <!-- Kontakt -->
+      <div class="content-box" id="kontakt">
+        <h2>Du hast Fragen oder willst mithelfen?</h2>
+        <p>Schreib uns einfach über das Kontaktformular – wir freuen uns über jede Unterstützung und beantworten gerne deine Fragen.</p>
+        <form id="kontakt-form">
+          <div class="form-group">
+            <label for="kontakt-name">Dein Name</label>
+            <input type="text" id="kontakt-name" name="name" placeholder="Max Mustermann" required />
+          </div>
+          <div class="form-group">
+            <label for="kontakt-email">Deine E-Mail</label>
+            <input type="email" id="kontakt-email" name="email" placeholder="max@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="kontakt-nachricht">Nachricht</label>
+            <textarea id="kontakt-nachricht" name="message" rows="4" placeholder="Deine Nachricht..." required></textarea>
+          </div>
+          <button type="submit" class="button">Absenden</button>
+        </form>
+      </div>
+    </main>
 
-Unfassbar aber wahr: Es ist schon fast 20 Jahre her, als wir unser Abitur gemacht haben!
-In den ersten 10 Jahren habe ich immer ein Abitreffen veranstaltet, aber wegen sinkendem Interesse und geringer Teilnahme habe ich nach dem 10 jährigen Jubiläum damit aufgehört.
-Den nächsten "Runden" will ich allerdings nochmal als Anlass nehmen, ein großes Fest mit euch allen zu Feiern!
-
-Bisher sind noch viele Punkte offen bzw. in der Planung, aber ich werde euch per Mail informieren, sobald es Neuigkeiten zu Veranstaltungsort, Datum usw. gibt.
-
-Dabei würde es mir sehr helfen, wenn ihr euch <a href="#newsletter">zum Newsletter anmeldet</a>, damit ich sehen kann, wie viele wir etwa werden und damit ich direkt mit allen kommunizieren kann.
-<a href="#" onclick="shareLink(); return false;">Bitte leitet die Seite an alle weiter, die damals in unserer Klassenstufe waren</a>, damit wir möglichst viele aus dem Jahrgang erreichen.
-
-Die Anmeldung zum eigentlichen Treffen kommt erst, wenn alles organisatorisch steht.
-
-Vielen Dank und liebe Grüße  
-Maxi
-      </p>
-    </section>
-
-    <div class="share">
-      <button onclick="shareLink()">🔗 Seite teilen</button>
-    </div>
-
-    <section id="newsletter">
-      <h3>Newsletter abonnieren</h3>
-      <form 
-        action="https://script.google.com/macros/s/AKfycbz3f_Yaj_lp-GJkrgK5Kit9JG5cccnhAkcSV-oxGrTHAUFyORTfY8MiqYdE_DJwfu7d/exec"
-        method="POST"
-        onsubmit="return handleFormSubmit(event)"
-      >
-        <input type="text" name="vorname" placeholder="Vorname" />
-        <input type="text" name="nachname" placeholder="Nachname" />
-        <input type="email" name="email" placeholder="E-Mail" required />
-        <input type="text" name="_honey" style="display:none" />
-        <button type="submit">Anmelden</button>
-      </form>
-    </section>
-
-    <section id="kontakt">
-      <h3>Kontakt</h3>
-      <form 
-        action="https://script.google.com/macros/s/AKfycbxYT1R888mhW0clVOqJWOVGfdWj6n4n6XkmwYHw2tdRz0A9l-q4S-47s1ZIzIANyVelVg/exec"
-        method="POST"
-        onsubmit="return handleFormSubmit(event)"
-      >
-        <input type="text" name="name" placeholder="Dein Name" required />
-        <input type="email" name="email" placeholder="Deine E-Mail" required />
-        <textarea name="message" placeholder="Deine Nachricht" required></textarea>
-        <button type="submit">Absenden</button>
-      </form>
-    </section>
-  </main>
-
-  <footer>
-    <div>© 2025 – by Maxi</div>
-    <div class="pride-bar"></div>
-  </footer>
-
-  <div id="popup">
-    <p>🎉 Vielen Dank für deine Anmeldung!</p>
-    <p>Du solltest in Kürze eine Bestätigungsmail erhalten – prüfe ggf. auch deinen Spam‑Ordner.</p>
-    <p>Bei Problemen nutze bitte das Kontaktformular unten auf der Seite.</p>
-    <button onclick="document.getElementById('popup').style.display='none'">Schließen</button>
+    <!-- Rechte Spalte -->
+    <aside class="right-column">
+      <div class="content-box">
+        <h3><i class="fas fa-calendar-alt"></i> Datum</h3>
+        <p>Sommer 2026<br>(genaues Datum folgt)</p>
+      </div>
+      <div class="content-box">
+        <h3><i class="fas fa-map-marker-alt"></i> Ort</h3>
+        <p>wird noch bekanntgegeben</p>
+      </div>
+      <div class="content-box">
+        <h3><i class="fas fa-hourglass-half"></i> Countdown</h3>
+        <p id="countdown">Läuft...</p>
+      </div>
+    </aside>
   </div>
 
+  <footer>
+    <p>&copy; 2025 Jahrgang 2006 – Abi-Treffen</p>
+    <p><a href="admin-login.html" style="color: #666; text-decoration: none;">Admin-Login</a></p>
+  </footer>
+
   <script>
-    function shareLink() {
-      const url = window.location.href;
-      if (navigator.share) {
-        navigator.share({ title: document.title, url });
-      } else {
-        navigator.clipboard.writeText(url).then(() => {
-          alert("🔗 Link kopiert!");
-        });
+    // Countdown
+    const zielDatum = new Date("2026-07-01T00:00:00");
+    function aktualisiereCountdown() {
+      const jetzt = new Date();
+      const diff = zielDatum - jetzt;
+      if (diff <= 0) {
+        document.getElementById("countdown").textContent = "Es ist so weit!";
+        return;
       }
+      const tage = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const stunden = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minuten = Math.floor((diff / (1000 * 60)) % 60);
+      document.getElementById("countdown").textContent =
+        `${tage} Tage, ${stunden} Std, ${minuten} Min`;
     }
+    aktualisiereCountdown();
+    setInterval(aktualisiereCountdown, 60000);
 
-    function handleFormSubmit(event) {
-      event.preventDefault();
-      const form = event.target;
+    // Newsletter-Formular: localStorage-Name speichern
+    document.getElementById("newsletter-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("newsletter-name").value;
+      localStorage.setItem("newsletterName", name);
+      alert(`Willkommen zurück, ${name}!`);
+      // TODO: Google Apps Script-Aufruf integrieren
+      this.reset();
+    });
 
-      fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-      })
-      .then(response => response.text())
-      .then(text => {
-        form.reset();
-        document.getElementById("popup").style.display = "block";
-      })
-      .catch(error => {
-        alert("❌ Fehler beim Senden: " + error.message);
-      });
-
-      return false;
-    }
+    // Kontaktformular (Platzhalter für zukünftige Integration)
+    document.getElementById("kontakt-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Deine Nachricht wurde versendet.");
+      // TODO: Google Apps Script-Aufruf integrieren
+      this.reset();
+    });
   </script>
 </body>
 </html>
