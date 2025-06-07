@@ -321,14 +321,18 @@
         <h3><i class="fas fa-hourglass-half"></i> Countdown</h3>
         <p id="countdown">Läuft...</p>
       </div>
-      <div class="box login-box" id="gallery-login-box">
-  <h3>📸 Galerie-Zugang</h3>
-  <p>Du hast einen persönlichen Zugangscode erhalten?<br>Dann melde dich hier an:</p>
-  <input type="email" id="login-email" placeholder="Deine E-Mail" required>
-  <input type="text" id="login-code" placeholder="Zugangscode" required>
-  <button onclick="loginToGallery()">Anmelden</button>
-  <p id="login-message" style="margin-top: 10px; color: red;"></p>
-</div>
+       <div class="card">
+    <h3>Login für die Galerie</h3>
+    <form id="loginForm">
+      <label for="loginEmail">E-Mail:</label><br>
+      <input type="email" id="loginEmail" name="email" required><br><br>
+      <label for="loginCode">Zugangscode:</label><br>
+      <input type="text" id="loginCode" name="code" required><br><br>
+      <button type="submit">Einloggen</button>
+    </form>
+    <p id="loginMessage" style="margin-top: 10px;"></p>
+  </div>
+
     </aside>
 
   </div>
