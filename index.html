@@ -361,30 +361,52 @@
   }, 1000 * 60 * 60); // nur jede Stunde aktualisieren
 
   // === Newsletter-Formular ===
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
   const newsletterForm = document.getElementById("newsletter-form");
-  newsletterForm.addEventListener("submit", async function (e) {
-    e.preventDefault();
-    const data = {
-      vorname: document.getElementById("newsletter-vorname").value,
-      name: document.getElementById("newsletter-nachname").value,
-      email: document.getElementById("newsletter-email").value
-    };
 
-    try {
-      const res = await fetch("https://script.google.com/macros/s/AKfycbz3f_Yaj_lp-GJkrgK5Kit9JG5cccnhAkcSV-oxGrTHAUFyORTfY8MiqYdE_DJwfu7d/exec", {
-        method: "POST",
-        body: JSON.stringify({ typ: "newsletter", ...data }),
-        headers: { "Content-Type": "application/json" }
+  newsletterForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById("newsletter-email").value.trim();
+    const vorname = document.getElementById("newsletter-vorname").value.trim();
+    const nachname = document.getElementById("newsletter-nachname").value.trim();
+    const honey = document.getElementById("newsletter-honey").value; // das versteckte Honeypot-Feld
+
+    // Einfacher Spam-Schutz
+    if (honey) return;
+
+    fetch("https://script.google.com/macros/s/DEIN-SCRIPT-ID/exec", {
+      method: "POST",
+      body: new URLSearchParams({
+        email: email,
+        vorname: vorname,
+        nachname: nachname,
+        _honey: honey
+        // KEIN action → wird vom Script als Newsletter-Anmeldung interpretiert
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.result === "success") {
+          localStorage.setItem("newsletterVorname", vorname); // für spätere personalisierte Begrüßung
+          alert(`Danke für deine Anmeldung, ${vorname || "Freund/in"}!`);
+          newsletterForm.reset();
+        } else if (data.result === "ignored") {
+          console.log("Spam-Schutz ausgelöst");
+        } else {
+          alert("Fehler bei der Anmeldung. Bitte versuche es später noch einmal.");
+          console.error(data.message || "Unbekannter Fehler");
+        }
+      })
+      .catch(error => {
+        alert("Es ist ein Fehler aufgetreten.");
+        console.error("Fetch-Fehler:", error);
       });
-      const result = await res.json();
-      alert(result.message || "Danke für deine Anmeldung!");
-      localStorage.setItem("vorname", data.vorname); // für spätere personalisierte Begrüßung
-      newsletterForm.reset();
-    } catch (error) {
-      alert("Fehler beim Absenden. Bitte versuche es später noch einmal.");
-      console.error(error);
-    }
   });
+});
+</script>
+
 
   // === Kontaktformular ===
   const kontaktForm = document.getElementById("kontakt-form");
