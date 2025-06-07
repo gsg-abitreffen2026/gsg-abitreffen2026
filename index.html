@@ -322,7 +322,17 @@
         <p id="countdown">Läuft...</p>
       </div>
     </aside>
+
   </div>
+  <div class="box login-box" id="gallery-login-box">
+  <h3>📸 Galerie-Zugang</h3>
+  <p>Du hast einen persönlichen Zugangscode erhalten?<br>Dann melde dich hier an:</p>
+  <input type="email" id="login-email" placeholder="Deine E-Mail" required>
+  <input type="text" id="login-code" placeholder="Zugangscode" required>
+  <button onclick="loginToGallery()">Anmelden</button>
+  <p id="login-message" style="margin-top: 10px; color: red;"></p>
+</div>
+
 
   <footer>
     <p>&copy; 2025 Jahrgang 2006 – Abi-Treffen</p>
@@ -385,6 +395,59 @@ document.getElementById("nextBtn").addEventListener("click", () => {
   galleryImage.src = bilder[aktuellesBild];
 });
 
+    async function loginToGallery() {
+    const email = document.getElementById("login-email").value.trim();
+    const code = document.getElementById("login-code").value.trim();
+    const messageEl = document.getElementById("login-message");
+
+    if (!email || !code) {
+      messageEl.textContent = "Bitte fülle beide Felder aus.";
+      return;
+    }
+
+    try {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbz3f_Yaj_lp-GJkrgK5Kit9JG5cccnhAkcSV-oxGrTHAUFyORTfY8MiqYdE_DJwfu7d/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email: email, code: code })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Zugang erlaubt – Galerie anzeigen
+        localStorage.setItem("galleryAccess", "true");
+        messageEl.style.color = "green";
+        messageEl.textContent = "Zugang erfolgreich! Galerie wird geladen...";
+
+        // Galerie-Sektion einblenden
+        document.getElementById("gallery-section").style.display = "block";
+
+        // Optional: Login-Bereich ausblenden
+        document.getElementById("gallery-login-box").style.display = "none";
+
+        // Optional: Willkommensnachricht setzen
+        if (result.name) {
+          document.getElementById("gallery-title").innerHTML = `Willkommen in der Galerie, ${result.name}!`;
+        }
+      } else {
+        messageEl.textContent = result.message || "Zugangsdaten sind nicht korrekt.";
+      }
+    } catch (error) {
+      console.error("Login-Fehler:", error);
+      messageEl.textContent = "Fehler bei der Anmeldung. Bitte versuche es erneut.";
+    }
+  }
+
+  // Galerie bei erneutem Seitenaufruf sichtbar lassen, wenn Login bereits erfolgt ist
+  window.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("galleryAccess") === "true") {
+      document.getElementById("gallery-section").style.display = "block";
+      document.getElementById("gallery-login-box").style.display = "none";
+    }
+  });
   </script>
 </body>
 </html>
