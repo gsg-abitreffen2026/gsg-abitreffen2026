@@ -412,17 +412,22 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
   // === Kontaktformular ===
+// === Kontaktformular ===
+const kontaktForm = document.getElementById("kontakt-form");
+
 kontaktForm.addEventListener("submit", async function (e) {
   e.preventDefault();
+
   const formData = new FormData(kontaktForm);
 
   try {
     const res = await fetch("https://script.google.com/macros/s/AKfycbxYT1R888mhW0clVOqJWOVGfdWj6n4n6XkmwYHw2tdRz0A9l-q4S-47s1ZIzIANyVelVg/exec", {
       method: "POST",
       body: formData
+      // Kein Content-Type manuell setzen!
     });
 
-    const result = await res.text(); // Script gibt nur Text zurück!
+    const result = await res.text(); // Script gibt nur Text aus, kein JSON
     alert("Nachricht erfolgreich gesendet!");
     kontaktForm.reset();
   } catch (error) {
@@ -430,6 +435,7 @@ kontaktForm.addEventListener("submit", async function (e) {
     console.error(error);
   }
 });
+
 
 
 
