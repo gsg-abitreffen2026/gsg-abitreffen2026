@@ -397,7 +397,7 @@
     };
 
     try {
-      const res = await fetch("https://script.google.com/macros/s/AKfycbz3f_Yaj_lp-GJkrgK5Kit9JG5cccnhAkcSV-oxGrTHAUFyORTfY8MiqYdE_DJwfu7d/exec", {
+      const res = await fetch("https://script.google.com/macros/s/AKfycbxYT1R888mhW0clVOqJWOVGfdWj6n4n6XkmwYHw2tdRz0A9l-q4S-47s1ZIzIANyVelVg/exec", {
         method: "POST",
         body: JSON.stringify({ typ: "kontakt", ...data }),
         headers: { "Content-Type": "application/json" }
@@ -421,7 +421,7 @@
     const code = document.getElementById("loginCode").value.trim();
 
     try {
-      const res = await fetch("https://script.google.com/macros/s/AKfycbz3f_Yaj_lp-GJkrgK5Kit9JG5cccnhAkcSV-oxGrTHAUFyORTfY8MiqYdE_DJwfu7d/exec", {
+      const res = await fetch("https://script.google.com/macros/s/AKfycbwBmTXShIkkuocH4X9394tVAvGvkEDxmM-y-Z0an-c9Nm9Ul8hKsqB-S_MeeO9CR7tQPA/exec", {
         method: "POST",
         body: JSON.stringify({ typ: "login", email, code }),
         headers: { "Content-Type": "application/json" }
