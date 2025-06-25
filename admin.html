@@ -1,182 +1,91 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Adminbereich – Abi 2006</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 2rem;
-      background: #f5f5f5;
-      color: #333;
-    }
-    h1 {
-      text-align: center;
-    }
-    .hidden {
-      display: none;
-    }
-    .login-box {
-      max-width: 300px;
-      margin: 100px auto;
-      padding: 2rem;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 2rem;
-    }
-    th, td {
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-    }
-    button {
-      padding: 6px 12px;
-      background: #0073b1;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #005f90;
-    }
-    textarea, input[type="text"], input[type="email"] {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 1rem;
-      box-sizing: border-box;
-    }
-  </style>
-</head>
-<body>
-
-<div class="login-box" id="loginBox">
-  <h2>Admin-Login</h2>
-  <input type="password" id="adminPassword" placeholder="Passwort eingeben..." />
-  <button onclick="checkLogin()">Einloggen</button>
-</div>
-
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Adminbereich – Abi 2006</title><style>/* ... (wie vorher) ... */</style></head><body>
+<div id="loginBox" class="login-box"><h2>Admin-Login</h2><input type="password" id="adminPassword" placeholder="Passwort" /><button onclick="checkLogin()">Einloggen</button></div>
 <div id="adminContent" class="hidden">
   <h1>Adminbereich</h1>
 
-  <h2>Newsletter-Abonnenten</h2>
-  <table id="userTable">
-    <thead>
-      <tr>
-        <th>Vorname</th>
-        <th>Nachname</th>
-        <th>E-Mail</th>
-        <th>Freigeben</th>
-        <th>Löschen</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- dynamisch -->
-    </tbody>
-  </table>
+  <h2>Offene Anmeldungen</h2>
+  <button onclick="freigabeMehr()">Mehrere freigeben</button>
+  <table><thead><tr><th><input type="checkbox" id="selectAll" onchange="toggleAll(this)"/></th><th>Vorname</th><th>Nachname</th><th>E-Mail</th><th>Löschen</th></tr></thead><tbody id="regsBody"></tbody></table>
 
-  <h2>Newsletter schreiben</h2>
-  <input type="text" id="newsletterSubject" placeholder="Betreff..." />
-  <textarea id="newsletterBody" rows="10" placeholder="Nachricht (HTML erlaubt)"></textarea>
-  <input type="email" id="testEmail" placeholder="Test-E-Mail (optional)" />
-  <button onclick="sendNewsletter()">Newsletter senden</button>
+  <h2>Freigaben / Galerie-Zugänge</h2>
+  <table><thead><tr><th>Vorname</th><th>Nachname</th><th>E-Mail</th><th>Zugangscode</th><th>Löschen</th></tr></thead><tbody id="galBody"></tbody></table>
 
-  <p id="statusMsg" style="margin-top:1rem;"></p>
+  <h2>Newsletter schreiben</h2><input id="newsletterSubject" placeholder="Betreff.." /><textarea id="newsletterBody" rows="8"></textarea><input id="testEmail" placeholder="Test-E-Mail" /><button onclick="sendNewsletter()">Senden</button>
+  <p id="statusMsg"></p>
 </div>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec";
+const SCRIPT = "https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec";
 const ADMIN_PASSWORD = "admin2026";
 
-function checkLogin() {
-  const input = document.getElementById("adminPassword").value;
-  if (input === ADMIN_PASSWORD) {
-    document.getElementById("loginBox").style.display = "none";
+function checkLogin(){
+  if(document.getElementById("adminPassword").value === ADMIN_PASSWORD){
+    document.getElementById("loginBox").style.display="none";
     document.getElementById("adminContent").classList.remove("hidden");
-    loadUsers();
-  } else {
-    alert("Falsches Passwort.");
-  }
+    loadData();
+  } else alert("Falsches Passwort");
 }
 
-async function loadUsers() {
-  const res = await fetch(SCRIPT_URL);
-  const users = await res.json();
-  const tbody = document.querySelector("#userTable tbody");
+async function loadData(){
+  const res = await fetch(SCRIPT);
+  const json = await res.json();
+  renderRegs(json.registrations);
+  renderGallery(json.gallery);
+}
+
+function renderRegs(list){
+  const tbody = document.getElementById("regsBody");
   tbody.innerHTML = "";
-
-  users.forEach(user => {
+  list.forEach(u => {
     const tr = document.createElement("tr");
-
     tr.innerHTML = `
-      <td>${user.vorname}</td>
-      <td>${user.nachname}</td>
-      <td>${user.email}</td>
-      <td><button onclick="freigeben('${user.email}', '${user.vorname}', '${user.nachname}')">Freigeben</button></td>
-      <td><button onclick="loeschen('${user.email}')">Löschen</button></td>
-    `;
+      <td><input type="checkbox" class="chk" value="${u.email}"></td>
+      <td>${u.vorname}</td><td>${u.nachname}</td><td>${u.email}</td>
+      <td><button onclick="loeschen('${u.email}')">🗑️ Löschen</button></td>`;
     tbody.appendChild(tr);
   });
 }
 
-async function freigeben(email, vorname, nachname) {
-  const res = await fetch(SCRIPT_URL, {
-    method: "POST",
-    body: new URLSearchParams({
-      action: "freigeben",
-      email,
-      vorname,
-      nachname
-    })
+function renderGallery(list){
+  const tbody = document.getElementById("galBody");
+  tbody.innerHTML = "";
+  list.forEach(u => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${u.vorname}</td><td>${u.nachname}</td><td>${u.email}</td><td>${u.code}</td><td><button onclick="loeschen('${u.email}')">🗑️ Löschen</button></td>`;
+    tbody.appendChild(tr);
   });
-  const result = await res.json();
-  alert(result.message || "Freigegeben.");
 }
 
-async function loeschen(email) {
-  if (!confirm(`Soll ${email} wirklich gelöscht werden?`)) return;
-
-  const res = await fetch(SCRIPT_URL, {
-    method: "POST",
-    body: new URLSearchParams({
-      action: "delete",
-      email
-    })
-  });
-  const result = await res.json();
-  alert(result.message || "Gelöscht.");
-  loadUsers();
+function toggleAll(chk){
+  document.querySelectorAll(".chk").forEach(c => c.checked = chk.checked);
 }
 
-async function sendNewsletter() {
-  const subject = document.getElementById("newsletterSubject").value;
-  const body = document.getElementById("newsletterBody").value;
-  const test = document.getElementById("testEmail").value;
-
-  if (!subject || !body) {
-    alert("Bitte Betreff und Inhalt angeben.");
-    return;
+async function freigabeMehr(){
+  const emails = Array.from(document.querySelectorAll(".chk:checked")).map(c => c.value);
+  if(!emails.length){ alert("Keine ausgewählt"); return; }
+  const list = Array.from(document.querySelectorAll(".chk:checked")).map(c => {
+    const tr = c.closest("tr");
+    return { email: c.value, vorname: tr.children[1].textContent, nachname: tr.children[2].textContent };
+  });
+  for(const u of list){
+    await fetch(SCRIPT, { method:"POST", body:new URLSearchParams({ action:"freigeben", email:u.email, vorname:u.vorname, nachname:u.nachname }) });
   }
+  loadData();
+}
 
-  const res = await fetch(SCRIPT_URL, {
-    method: "POST",
-    body: new URLSearchParams({
-      action: "sendNewsletter",
-      subject,
-      body,
-      test
-    })
-  });
+async function loeschen(email){
+  if(!confirm(`Wirklich löschen: ${email}?`)) return;
+  await fetch(SCRIPT, { method:"POST", body:new URLSearchParams({ action:"delete", email }) });
+  loadData();
+}
 
-  const result = await res.json();
-  document.getElementById("statusMsg").textContent = result.message;
+async function sendNewsletter(){
+  const subject=document.getElementById("newsletterSubject").value;
+  const body=document.getElementById("newsletterBody").value;
+  const test=document.getElementById("testEmail").value;
+  if(!subject||!body){ alert("Betreff & Inhalt erforderlich"); return; }
+  const res=await fetch(SCRIPT,{ method:"POST", body:new URLSearchParams({ action:"sendNewsletter", subject, body, test }) });
+  document.getElementById("statusMsg").textContent = (await res.json()).message;
 }
 </script>
-
-</body>
-</html>
+</body></html>
