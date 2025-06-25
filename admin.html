@@ -1,91 +1,237 @@
-<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Adminbereich – Abi 2006</title><style>/* ... (wie vorher) ... */</style></head><body>
-<div id="loginBox" class="login-box"><h2>Admin-Login</h2><input type="password" id="adminPassword" placeholder="Passwort" /><button onclick="checkLogin()">Einloggen</button></div>
-<div id="adminContent" class="hidden">
-  <h1>Adminbereich</h1>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Adminbereich – Abi 2006</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2rem;
+      background-color: #f9f9f9;
+      color: #333;
+    }
 
-  <h2>Offene Anmeldungen</h2>
-  <button onclick="freigabeMehr()">Mehrere freigeben</button>
-  <table><thead><tr><th><input type="checkbox" id="selectAll" onchange="toggleAll(this)"/></th><th>Vorname</th><th>Nachname</th><th>E-Mail</th><th>Löschen</th></tr></thead><tbody id="regsBody"></tbody></table>
+    h2 {
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.3rem;
+    }
 
-  <h2>Freigaben / Galerie-Zugänge</h2>
-  <table><thead><tr><th>Vorname</th><th>Nachname</th><th>E-Mail</th><th>Zugangscode</th><th>Löschen</th></tr></thead><tbody id="galBody"></tbody></table>
+    #login-section {
+      margin-bottom: 2rem;
+    }
 
-  <h2>Newsletter schreiben</h2><input id="newsletterSubject" placeholder="Betreff.." /><textarea id="newsletterBody" rows="8"></textarea><input id="testEmail" placeholder="Test-E-Mail" /><button onclick="sendNewsletter()">Senden</button>
-  <p id="statusMsg"></p>
-</div>
+    input, button, textarea {
+      padding: 0.5rem;
+      margin: 0.2rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
 
-<script>
-const SCRIPT = "https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec";
-const ADMIN_PASSWORD = "admin2026";
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
 
-function checkLogin(){
-  if(document.getElementById("adminPassword").value === ADMIN_PASSWORD){
-    document.getElementById("loginBox").style.display="none";
-    document.getElementById("adminContent").classList.remove("hidden");
-    loadData();
-  } else alert("Falsches Passwort");
-}
+    th, td {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
 
-async function loadData(){
-  const res = await fetch(SCRIPT);
-  const json = await res.json();
-  renderRegs(json.registrations);
-  renderGallery(json.gallery);
-}
+    th {
+      background-color: #eee;
+    }
 
-function renderRegs(list){
-  const tbody = document.getElementById("regsBody");
-  tbody.innerHTML = "";
-  list.forEach(u => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td><input type="checkbox" class="chk" value="${u.email}"></td>
-      <td>${u.vorname}</td><td>${u.nachname}</td><td>${u.email}</td>
-      <td><button onclick="loeschen('${u.email}')">🗑️ Löschen</button></td>`;
-    tbody.appendChild(tr);
-  });
-}
+    .section {
+      margin-bottom: 3rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.05);
+    }
 
-function renderGallery(list){
-  const tbody = document.getElementById("galBody");
-  tbody.innerHTML = "";
-  list.forEach(u => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${u.vorname}</td><td>${u.nachname}</td><td>${u.email}</td><td>${u.code}</td><td><button onclick="loeschen('${u.email}')">🗑️ Löschen</button></td>`;
-    tbody.appendChild(tr);
-  });
-}
+    .btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
 
-function toggleAll(chk){
-  document.querySelectorAll(".chk").forEach(c => c.checked = chk.checked);
-}
+    .btn:hover {
+      background-color: #0056b3;
+    }
 
-async function freigabeMehr(){
-  const emails = Array.from(document.querySelectorAll(".chk:checked")).map(c => c.value);
-  if(!emails.length){ alert("Keine ausgewählt"); return; }
-  const list = Array.from(document.querySelectorAll(".chk:checked")).map(c => {
-    const tr = c.closest("tr");
-    return { email: c.value, vorname: tr.children[1].textContent, nachname: tr.children[2].textContent };
-  });
-  for(const u of list){
-    await fetch(SCRIPT, { method:"POST", body:new URLSearchParams({ action:"freigeben", email:u.email, vorname:u.vorname, nachname:u.nachname }) });
-  }
-  loadData();
-}
+    .checkbox {
+      transform: scale(1.2);
+      margin-right: 0.5rem;
+    }
 
-async function loeschen(email){
-  if(!confirm(`Wirklich löschen: ${email}?`)) return;
-  await fetch(SCRIPT, { method:"POST", body:new URLSearchParams({ action:"delete", email }) });
-  loadData();
-}
+    textarea {
+      width: 100%;
+      height: 120px;
+    }
 
-async function sendNewsletter(){
-  const subject=document.getElementById("newsletterSubject").value;
-  const body=document.getElementById("newsletterBody").value;
-  const test=document.getElementById("testEmail").value;
-  if(!subject||!body){ alert("Betreff & Inhalt erforderlich"); return; }
-  const res=await fetch(SCRIPT,{ method:"POST", body:new URLSearchParams({ action:"sendNewsletter", subject, body, test }) });
-  document.getElementById("statusMsg").textContent = (await res.json()).message;
-}
-</script>
-</body></html>
+    .input-inline {
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="login-section">
+    <h2>Admin-Login</h2>
+    <input type="password" id="adminPassword" placeholder="Passwort">
+    <button class="btn" onclick="login()">Einloggen</button>
+  </div>
+
+  <div id="adminContent" style="display:none;">
+    <div class="section">
+      <h2>Offene Anmeldungen</h2>
+      <button class="btn" onclick="freigabeMehrfach()">Mehrere freigeben</button>
+      <table id="registrationsTable">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="selectAll" onchange="toggleAllCheckboxes(this)"></th>
+            <th>Vorname</th>
+            <th>Nachname</th>
+            <th>E-Mail</th>
+            <th>Aktion</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Freigaben / Galerie-Zugänge</h2>
+      <table id="galleryTable">
+        <thead>
+          <tr>
+            <th>Vorname</th>
+            <th>Nachname</th>
+            <th>E-Mail</th>
+            <th>Zugangscode</th>
+            <th>Aktion</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Newsletter schreiben</h2>
+      <input type="text" id="newsletterSubject" class="input-inline" placeholder="Betreff">
+      <input type="email" id="testEmail" class="input-inline" placeholder="Test-E-Mail">
+      <br>
+      <textarea id="newsletterBody" placeholder="Newsletter-Inhalt (HTML erlaubt)"></textarea>
+      <br>
+      <button class="btn" onclick="sendNewsletter()">Senden</button>
+    </div>
+  </div>
+
+  <script>
+    const ADMIN_PASS = "admin2026";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec";
+
+    function login() {
+      const entered = document.getElementById("adminPassword").value;
+      if (entered === ADMIN_PASS) {
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("adminContent").style.display = "block";
+        loadData();
+      } else {
+        alert("Falsches Passwort");
+      }
+    }
+
+    function loadData() {
+      fetch(SCRIPT_URL)
+        .then(res => res.json())
+        .then(data => {
+          fillRegistrations(data.registrations);
+          fillGallery(data.gallery);
+        });
+    }
+
+    function fillRegistrations(list) {
+      const tbody = document.querySelector("#registrationsTable tbody");
+      tbody.innerHTML = "";
+      list.forEach(r => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td><input type="checkbox" class="regCheck" data-email="${r.email}" data-vorname="${r.vorname}" data-nachname="${r.nachname}"></td>
+          <td>${r.vorname}</td>
+          <td>${r.nachname}</td>
+          <td>${r.email}</td>
+          <td><button class="btn" onclick="freigeben('${r.vorname}','${r.nachname}','${r.email}')">Freigeben</button>
+              <button class="btn" onclick="loeschen('${r.email}')">Löschen</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function fillGallery(list) {
+      const tbody = document.querySelector("#galleryTable tbody");
+      tbody.innerHTML = "";
+      list.forEach(r => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${r.vorname}</td>
+          <td>${r.nachname}</td>
+          <td>${r.email}</td>
+          <td>${r.code}</td>
+          <td><button class="btn" onclick="loeschen('${r.email}')">Löschen</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function freigeben(vorname, nachname, email) {
+      const form = new FormData();
+      form.append("action", "freigeben");
+      form.append("vorname", vorname);
+      form.append("nachname", nachname);
+      form.append("email", email);
+      fetch(SCRIPT_URL, { method: "POST", body: form })
+        .then(() => loadData());
+    }
+
+    function freigabeMehrfach() {
+      const checked = document.querySelectorAll(".regCheck:checked");
+      checked.forEach(box => {
+        freigeben(box.dataset.vorname, box.dataset.nachname, box.dataset.email);
+      });
+    }
+
+    function loeschen(email) {
+      if (!confirm("Wirklich löschen?")) return;
+      const form = new FormData();
+      form.append("action", "delete");
+      form.append("email", email);
+      fetch(SCRIPT_URL, { method: "POST", body: form })
+        .then(() => loadData());
+    }
+
+    function sendNewsletter() {
+      const subject = document.getElementById("newsletterSubject").value;
+      const body = document.getElementById("newsletterBody").value;
+      const test = document.getElementById("testEmail").value;
+
+      const form = new FormData();
+      form.append("action", "sendNewsletter");
+      form.append("subject", subject);
+      form.append("body", body);
+      if (test) form.append("test", test);
+
+      fetch(SCRIPT_URL, { method: "POST", body: form })
+        .then(res => res.json())
+        .then(data => alert(data.message || "Versendet!"));
+    }
+
+    function toggleAllCheckboxes(master) {
+      document.querySelectorAll(".regCheck").forEach(cb => cb.checked = master.checked);
+    }
+  </script>
+</body>
+</html>
