@@ -225,52 +225,30 @@
   }
 
   async function loadAdminData() {
-  document.getElementById("spinner").classList.remove("hidden");
+  const spinner = document.getElementById("spinner");
+  spinner.classList.remove("hidden");
 
   try {
     const res = await fetch(SCRIPT_URL);
-    const text = await res.text();
-    console.log("Antwort vom Server:", text); // Debug-Ausgabe
+    const data = await res.json();
 
-    const data = JSON.parse(text);
+    console.log("Empfangene Daten:", data); // Debug-Log
 
-    const offene = data.anmeldungen.sort((a, b) => a.vorname.localeCompare(b.vorname));
-    const galerie = data.galerie.sort((a, b) => a.vorname.localeCompare(b.vorname));
+    // Fehlerrobuste Verarbeitung
+    const offene = (data.anmeldungen || [])
+      .filter(entry => entry && entry.vorname)
+      .sort((a, b) => a.vorname.localeCompare(b.vorname));
 
+    const galerie = (data.galerie || [])
+      .filter(entry => entry && entry.vorname)
+      .sort((a, b) => a.vorname.localeCompare(b.vorname));
+
+    // Tabellen zurücksetzen
     const t1 = document.querySelector("#offeneTabelle tbody");
     const t2 = document.querySelector("#freigabeTabelle tbody");
     t1.innerHTML = "";
-    t2.innerHTML = "";
+    t2.inne
 
-    offene.forEach((row, i) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td><input type="checkbox" class="freigabe-checkbox" data-index="${i}"></td>
-        <td>${row.vorname}</td>
-        <td>${row.nachname}</td>
-        <td>${row.email}</td>
-        <td><button onclick="loeschen('${row.email}')">Löschen</button></td>`;
-      t1.appendChild(tr);
-    });
-
-    galerie.forEach(row => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${row.vorname}</td>
-        <td>${row.nachname}</td>
-        <td>${row.email}</td>
-        <td>${row.code}</td>
-        <td><button onclick="loeschen('${row.email}')">Löschen</button></td>`;
-      t2.appendChild(tr);
-    });
-
-  } catch (err) {
-    alert("Fehler beim Laden der Daten");
-    console.error(err);
-  } finally {
-    document.getElementById("spinner").classList.add("hidden");
-  }
-}
 
   function toggleAll(master) {
     document.querySelectorAll(".freigabe-checkbox").forEach(cb => cb.checked = master.checked);
