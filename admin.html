@@ -230,6 +230,7 @@
     try {
       const res = await fetch(SCRIPT_URL);
       const data = await res.json();
+      console.log(await res.text());
 
       const offene = data.anmeldungen.sort((a,b)=>a.vorname.localeCompare(b.vorname));
       const galerie = data.galerie.sort((a,b)=>a.vorname.localeCompare(b.vorname));
