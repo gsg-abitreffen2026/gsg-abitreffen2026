@@ -195,6 +195,27 @@ footer {
   font-size: 1.2rem;
 }
 
+.share-button {
+  width: 100%;
+  background-color: #0073b1;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0;
+  transition: background 0.2s;
+}
+
+.share-button:hover {
+  background-color: #005f90;
+}
+
+.share-button i {
+  margin-right: 8px;
+}
+
 #prevBtn {
   left: 10px;
 }
