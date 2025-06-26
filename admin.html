@@ -259,6 +259,7 @@
       method: "POST",
       body: new URLSearchParams({
         action: "freigeben",
+        passwort: "wallnuss26",
         emails: JSON.stringify(selected)
       })
     });
@@ -274,6 +275,7 @@
       method: "POST",
       body: new URLSearchParams({
         action: "loeschen",
+        passwort: "wallnuss26",
         email: email
       })
     });
@@ -292,6 +294,7 @@
       method: "POST",
       body: new URLSearchParams({
         action: "testmail",
+        passwort: "wallnuss26",
         text: text,
         subject: subject,
         email: test
@@ -310,6 +313,7 @@
       method: "POST",
       body: new URLSearchParams({
         action: "newsletter",
+        passwort: "wallnuss26",
         text: text,
         subject: subject
       })
