@@ -1,4 +1,4 @@
-/* Grundlayout */
+/* Allgemeines Layout */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -34,7 +34,7 @@ header .hero-text {
   bottom: 5%;
   transform: translateX(-50%);
   text-align: center;
-  color: #ffffff;
+  color: #fff;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
   padding: 0 1rem;
 }
@@ -49,14 +49,12 @@ header p {
   margin: 0;
 }
 
-/* Layout-Spalten */
+/* Layout: Container & Spalten */
 .container {
   display: flex;
-  flex-wrap: wrap;
   max-width: 1200px;
   margin: auto;
   padding: 20px;
-  gap: 20px;
 }
 
 nav {
@@ -66,63 +64,12 @@ nav {
   align-self: flex-start;
 }
 
-main {
-  flex: 1 1 500px;
-  margin: 0;
-}
-
-aside.right-column {
-  flex: 0 0 250px;
-  align-self: flex-start;
-  position: sticky;
-  top: 20px;
-}
-
-/* Inhaltselemente */
-.content-box {
-  background-color: white;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-h2 {
-  margin-top: 0;
-  color: #1c1e21;
-}
-
-.button {
-  background-color: #0073b1;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.button:hover {
-  background-color: #005f90;
-}
-
-input,
-textarea {
-  width: 100%;
-  padding: 10px;
-  margin: 6px 0 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-/* Navigation */
 nav ul {
   list-style: none;
   padding: 0;
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
@@ -147,6 +94,55 @@ nav i {
   color: #0073b1;
 }
 
+main {
+  flex: 1;
+  margin: 0 20px;
+}
+
+aside.right-column {
+  flex: 0 0 250px;
+  position: sticky;
+  top: 20px;
+  align-self: flex-start;
+}
+
+/* Inhaltliche Boxen */
+.content-box {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+h2, h3 {
+  margin-top: 0;
+  color: #1c1e21;
+}
+
+.button {
+  background-color: #0073b1;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.button:hover {
+  background-color: #005f90;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
 /* Galerie */
 .gallery-wrapper {
   position: relative;
@@ -155,7 +151,7 @@ nav i {
 
 .gallery-wrapper img {
   width: 100%;
-  max-width: 100%;
+  max-width: 600px;
   height: auto;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -186,33 +182,6 @@ nav i {
   background-color: rgba(0,0,0,0.6);
 }
 
-/* Hamburger Menü */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  color: #0073b1;
-  cursor: pointer;
-  margin-left: 1rem;
-}
-
-nav.mobile-nav {
-  display: none;
-  margin: 10px 0;
-}
-
-nav.mobile-nav ul {
-  padding: 0;
-  margin: 0;
-}
-
-nav.mobile-nav a {
-  padding: 10px;
-  display: block;
-  color: #333;
-}
-
 /* Footer */
 footer {
   text-align: center;
@@ -221,11 +190,30 @@ footer {
   color: #666;
 }
 
-/* Mobile */
+/* Mobile Navigation (Hamburger) */
+.mobile-nav {
+  display: none;
+  background-color: white;
+  padding: 10px;
+  text-align: right;
+}
+
+.hamburger {
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* MOBILE Layout (unter 768px) */
 @media (max-width: 768px) {
   header {
     height: 24vh;
     margin: 2.4rem 1rem 1rem;
+  }
+
+  header .hero-text {
+    bottom: 18%;
   }
 
   header h1 {
@@ -238,33 +226,40 @@ footer {
 
   .container {
     flex-direction: column;
-    padding: 10px;
   }
 
   nav {
     display: none;
   }
 
-  .menu-toggle {
+  .mobile-nav {
     display: block;
   }
 
-  nav.mobile-nav {
-    display: block;
-  }
-
-  aside.right-column {
-    position: static;
-    flex: 1 1 auto;
+  .right-column {
+    order: 2;
+    width: 100%;
     margin-top: 20px;
   }
+}
 
-  .gallery-wrapper img {
-    width: 100%;
+/* DESKTOP Layout (ab 769px) */
+@media (min-width: 769px) {
+  .container {
+    flex-direction: row;
   }
 
-  input,
-  textarea {
-    font-size: 1rem;
+  nav {
+    display: block;
+  }
+
+  .right-column {
+    display: block;
+    margin-top: 0;
+    width: auto;
+  }
+
+  .mobile-nav {
+    display: none;
   }
 }
