@@ -49,29 +49,81 @@ header p {
   margin: 0;
 }
 
+/* Layout-Spalten */
 .container {
   display: flex;
+  flex-wrap: wrap;
   max-width: 1200px;
   margin: auto;
   padding: 20px;
   gap: 20px;
 }
 
-/* Navigation */
 nav {
   flex: 0 0 220px;
   position: sticky;
   top: 20px;
   align-self: flex-start;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+main {
+  flex: 1 1 500px;
+  margin: 0;
+}
+
+aside.right-column {
+  flex: 0 0 250px;
+  align-self: flex-start;
+  position: sticky;
+  top: 20px;
+}
+
+/* Inhaltselemente */
+.content-box {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+h2 {
+  margin-top: 0;
+  color: #1c1e21;
+}
+
+.button {
+  background-color: #0073b1;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.button:hover {
+  background-color: #005f90;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Navigation */
 nav ul {
   list-style: none;
   padding: 0;
-  margin: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
 nav li {
@@ -95,57 +147,6 @@ nav i {
   color: #0073b1;
 }
 
-main {
-  flex: 1;
-}
-
-aside.right-column {
-  flex: 0 0 250px;
-  position: sticky;
-  top: 20px;
-  align-self: flex-start;
-}
-
-.content-box {
-  background-color: white;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-h2, h3 {
-  margin-top: 0;
-  color: #1c1e21;
-}
-
-.button {
-  background-color: #0073b1;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.button:hover {
-  background-color: #005f90;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  margin: 6px 0 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-form {
-  padding: 1rem 0;
-}
-
 /* Galerie */
 .gallery-wrapper {
   position: relative;
@@ -154,9 +155,9 @@ form {
 
 .gallery-wrapper img {
   width: 100%;
+  max-width: 100%;
   height: auto;
   border-radius: 8px;
-  max-width: 100%;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
@@ -185,6 +186,33 @@ form {
   background-color: rgba(0,0,0,0.6);
 }
 
+/* Hamburger Menü */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #0073b1;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+nav.mobile-nav {
+  display: none;
+  margin: 10px 0;
+}
+
+nav.mobile-nav ul {
+  padding: 0;
+  margin: 0;
+}
+
+nav.mobile-nav a {
+  padding: 10px;
+  display: block;
+  color: #333;
+}
+
 /* Footer */
 footer {
   text-align: center;
@@ -193,59 +221,50 @@ footer {
   color: #666;
 }
 
-/* Hamburger Menü */
-.hamburger {
-  display: none;
-  font-size: 2rem;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  cursor: pointer;
-}
-
-.mobile-nav {
-  display: none;
-  background: white;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
-.mobile-nav.active {
-  display: block;
-}
-
-/* Mobil */
+/* Mobile */
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
-
-  nav,
-  aside.right-column {
-    display: none;
-  }
-
-  .hamburger {
-    display: block;
-    z-index: 10;
-  }
-
   header {
-    height: auto;
-    margin: 1rem;
+    height: 24vh;
+    margin: 2.4rem 1rem 1rem;
   }
 
   header h1 {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   header p {
     font-size: 1.3rem;
   }
 
+  .container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  nav.mobile-nav {
+    display: block;
+  }
+
+  aside.right-column {
+    position: static;
+    flex: 1 1 auto;
+    margin-top: 20px;
+  }
+
   .gallery-wrapper img {
     width: 100%;
-    height: auto;
+  }
+
+  input,
+  textarea {
+    font-size: 1rem;
   }
 }
