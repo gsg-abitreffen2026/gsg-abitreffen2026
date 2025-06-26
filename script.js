@@ -1,36 +1,152 @@
+// === Hamburger-Menü ===
 document.addEventListener("DOMContentLoaded", () => {
-  // === Hamburger-Menü ===
-  const menuToggle = document.getElementById("menuToggle");
-  const mobileNav = document.getElementById("mobileNav");
+  const menuToggle = document.querySelector(".menu-toggle");
+  const nav = document.querySelector("nav");
 
-  if (menuToggle && mobileNav) {
+  if (menuToggle && nav) {
     menuToggle.addEventListener("click", () => {
-      mobileNav.classList.toggle("visible");
+      nav.classList.toggle("active");
     });
   }
+});
 
-  // === Countdown ===
-  const countdownEl = document.getElementById("countdown");
-  const countdownDate = new Date("2026-07-01T00:00:00").getTime();
+// === Countdown ===
+const countdownDate = new Date("2026-07-01T00:00:00").getTime();
+const countdownEl = document.getElementById("countdown");
 
-  function updateCountdown() {
-    const now = Date.now();
-    const diff = countdownDate - now;
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = countdownDate - now;
+  if (diff < 0) {
+    countdownEl.textContent = "Es ist so weit!";
+    return;
+  }
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  countdownEl.textContent = `${days} Tage noch!`;
+}, 1000 * 60 * 60);
 
-    if (diff < 0) {
-      countdownEl.textContent = "Es ist so weit!";
-      return;
+// === Newsletter-Formular ===
+document.addEventListener("DOMContentLoaded", function () {
+  const newsletterForm = document.getElementById("newsletter-form");
+
+  newsletterForm?.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById("newsletter-email").value.trim();
+    const vorname = document.getElementById("newsletter-vorname").value.trim();
+    const nachname = document.getElementById("newsletter-nachname").value.trim();
+    const honey = document.getElementById("newsletter-honey").value;
+
+    if (honey) return;
+
+    fetch("https://script.google.com/macros/s/AKfycbz3f_Yaj_lp-GJkrgK5Kit9JG5cccnhAkcSV-oxGrTHAUFyORTfY8MiqYdE_DJwfu7d/exec", {
+      method: "POST",
+      body: new URLSearchParams({
+        email: email,
+        vorname: vorname,
+        nachname: nachname,
+        _honey: honey
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.result === "success") {
+          localStorage.setItem("newsletterVorname", vorname);
+          alert(`Danke für deine Anmeldung, ${vorname || "Freund/in"}!`);
+          newsletterForm.reset();
+        } else if (data.result === "ignored") {
+          console.log("Spam-Schutz ausgelöst");
+        } else {
+          alert("Fehler bei der Anmeldung. Bitte versuche es später.");
+          console.error(data.message || "Unbekannter Fehler");
+        }
+      })
+      .catch(error => {
+        alert("Es ist ein Fehler aufgetreten.");
+        console.error("Fetch-Fehler:", error);
+      });
+  });
+});
+
+// === Kontaktformular ===
+const kontaktForm = document.getElementById("kontakt-form");
+
+kontaktForm?.addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const formData = new FormData(kontaktForm);
+
+  try {
+    const res = await fetch("https://script.google.com/macros/s/AKfycbxYT1R888mhW0clVOqJWOVGfdWj6n4n6XkmwYHw2tdRz0A9l-q4S-47s1ZIzIANyVelVg/exec", {
+      method: "POST",
+      body: formData
+    });
+
+    const text = await res.text();
+    alert(text === "Erfolg" ? "Nachricht erfolgreich gesendet!" : "Unbekannte Antwort.");
+    kontaktForm.reset();
+  } catch (error) {
+    alert("Fehler beim Absenden. Bitte versuche es später.");
+    console.error(error);
+  }
+});
+
+// === Galerie-Login & Navigation ===
+document.addEventListener("DOMContentLoaded", () => {
+  const greetingName = localStorage.getItem("subscriberName");
+  if (greetingName) {
+    const headline = document.querySelector("h1");
+    if (headline) {
+      headline.textContent = `Willkommen zurück, ${greetingName}!`;
     }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    countdownEl.textContent = `${days} Tage noch!`;
   }
 
-  updateCountdown();
-  setInterval(updateCountdown, 60 * 60 * 1000); // stündlich aktualisieren
+  const loginForm = document.getElementById("loginForm");
+  const loginMessage = document.getElementById("loginMessage");
+  const galerieSection = document.getElementById("galerie");
 
-  // === Galerie ===
-  const galleryImage = document.getElementById("gallery-image");
+  if (localStorage.getItem("loggedIn") === "true") {
+    galerieSection.style.display = "block";
+  } else {
+    galerieSection.style.display = "none";
+  }
+
+  loginForm?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById("loginEmail").value.trim();
+    const code = document.getElementById("loginCode").value.trim();
+
+    if (!email || !code) return;
+
+    try {
+      const res = await fetch("https://script.google.com/macros/s/AKfycbw-lreBTRtyeqtmibO8NGYKc0oKgZ2Du7Sdl3BhpOIC9nSENWOlwQrlIH7DxYDGJhPi/exec", {
+        method: "POST",
+        body: new URLSearchParams({
+          action: "login",
+          email: email,
+          code: code
+        })
+      });
+
+      const data = await res.json();
+      if (data.result === "success") {
+        localStorage.setItem("loggedIn", "true");
+        loginMessage.textContent = "Erfolgreich eingeloggt.";
+        loginMessage.style.color = "green";
+        galerieSection.style.display = "block";
+      } else {
+        loginMessage.textContent = "Login fehlgeschlagen. Bitte prüfe deine Angaben.";
+        loginMessage.style.color = "red";
+      }
+    } catch (error) {
+      console.error("Login-Fehler:", error);
+      loginMessage.textContent = "Ein Fehler ist aufgetreten.";
+      loginMessage.style.color = "red";
+    }
+  });
+
+  // === Galerie-Bilder ===
   const images = [
     "bilder/bild1.jpg",
     "bilder/bild2.jpg",
@@ -38,124 +154,27 @@ document.addEventListener("DOMContentLoaded", () => {
     "bilder/bild4.jpg",
     "bilder/bild5.jpg"
   ];
+
   let currentIndex = 0;
+  const galleryImage = document.getElementById("gallery-image");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
 
   function updateImage() {
     galleryImage.src = images[currentIndex];
   }
 
-  document.getElementById("prevBtn")?.addEventListener("click", () => {
+  prevBtn?.addEventListener("click", () => {
     currentIndex = (currentIndex - 1 + images.length) % images.length;
     updateImage();
   });
 
-  document.getElementById("nextBtn")?.addEventListener("click", () => {
+  nextBtn?.addEventListener("click", () => {
     currentIndex = (currentIndex + 1) % images.length;
     updateImage();
   });
 
-  // === Newsletter-Formular ===
-  const newsletterForm = document.getElementById("newsletter-form");
-  if (newsletterForm) {
-    newsletterForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const email = document.getElementById("newsletter-email").value.trim();
-      const vorname = document.getElementById("newsletter-vorname").value.trim();
-      const nachname = document.getElementById("newsletter-nachname").value.trim();
-      const honey = document.getElementById("newsletter-honey").value;
-
-      if (honey) return; // Spam-Schutz
-
-      try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbz3f_Yaj_lp-GJkrgK5Kit9JG5cccnhAkcSV-oxGrTHAUFyORTfY8MiqYdE_DJwfu7d/exec", {
-          method: "POST",
-          body: new URLSearchParams({ email, vorname, nachname, _honey: honey })
-        });
-        const data = await res.json();
-
-        if (data.result === "success") {
-          localStorage.setItem("subscriberName", vorname);
-          alert(`Danke für deine Anmeldung, ${vorname || "Freund/in"}!`);
-          newsletterForm.reset();
-        } else if (data.result === "ignored") {
-          console.log("Spam-Schutz ausgelöst.");
-        } else {
-          alert("Fehler bei der Anmeldung. Bitte später erneut versuchen.");
-        }
-      } catch (error) {
-        alert("Es ist ein Fehler aufgetreten.");
-        console.error(error);
-      }
-    });
-  }
-
-  // === Kontaktformular ===
-  const kontaktForm = document.getElementById("kontakt-form");
-  if (kontaktForm) {
-    kontaktForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const formData = new FormData(kontaktForm);
-
-      try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbxYT1R888mhW0clVOqJWOVGfdWj6n4n6XkmwYHw2tdRz0A9l-q4S-47s1ZIzIANyVelVg/exec", {
-          method: "POST",
-          body: formData
-        });
-        const text = await res.text();
-        alert(text === "Erfolg" ? "Nachricht erfolgreich gesendet!" : "Unbekannte Antwort vom Server.");
-        kontaktForm.reset();
-      } catch (error) {
-        alert("Fehler beim Absenden.");
-        console.error(error);
-      }
-    });
-  }
-
-  // === Galerie-Login ===
-  const loginForm = document.getElementById("loginForm");
-  const loginMessage = document.getElementById("loginMessage");
-  const galerieSection = document.getElementById("galerie");
-
-  if (localStorage.getItem("loggedIn") === "true" && galerieSection) {
-    galerieSection.style.display = "block";
-  }
-
-  if (loginForm) {
-    loginForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("loginEmail").value.trim();
-      const code = document.getElementById("loginCode").value.trim();
-
-      try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbw-lreBTRtyeqtmibO8NGYKc0oKgZ2Du7Sdl3BhpOIC9nSENWOlwQrlIH7DxYDGJhPi/exec", {
-          method: "POST",
-          body: new URLSearchParams({ action: "login", email, code })
-        });
-        const data = await res.json();
-
-        if (data.result === "success") {
-          localStorage.setItem("loggedIn", "true");
-          loginMessage.textContent = "Erfolgreich eingeloggt.";
-          loginMessage.style.color = "green";
-          galerieSection.style.display = "block";
-        } else {
-          loginMessage.textContent = "Login fehlgeschlagen.";
-          loginMessage.style.color = "red";
-        }
-      } catch (error) {
-        loginMessage.textContent = "Ein Fehler ist aufgetreten.";
-        loginMessage.style.color = "red";
-      }
-    });
-  }
-
-  // === Personalisierte Begrüßung ===
-  const greetingName = localStorage.getItem("subscriberName");
-  if (greetingName) {
-    const headline = document.querySelector("header h1");
-    if (headline) {
-      headline.textContent = `Willkommen zurück, ${greetingName}!`;
-    }
-  }
+  galleryImage.onerror = () => {
+    console.error(`Bild nicht gefunden: ${galleryImage.src}`);
+  };
 });
