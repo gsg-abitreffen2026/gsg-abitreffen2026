@@ -1,30 +1,77 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Adminbereich – Abi 2006</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin – Abi 2006</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     body {
-      font-family: sans-serif;
-      margin: 2rem;
-      background-color: #f9f9f9;
-      color: #333;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f3f2ef;
+      color: #1c1e21;
     }
 
-    h2 {
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 0.3rem;
+    header {
+      background-color: #0073b1;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
     }
 
-    #login-section {
-      margin-bottom: 2rem;
+    h1 {
+      margin: 0;
+      font-size: 2rem;
     }
 
-    input, button, textarea {
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea {
+      width: 100%;
+      max-width: 500px;
       padding: 0.5rem;
-      margin: 0.2rem;
       border: 1px solid #ccc;
       border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #0073b1;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #005f90;
     }
 
     table {
@@ -34,204 +81,244 @@
     }
 
     th, td {
-      padding: 0.5rem;
-      border: 1px solid #ddd;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
       text-align: left;
     }
 
     th {
-      background-color: #eee;
-    }
-
-    .section {
-      margin-bottom: 3rem;
-      padding: 1rem;
-      background: white;
-      border-radius: 6px;
-      box-shadow: 0 0 4px rgba(0,0,0,0.05);
-    }
-
-    .btn {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      background-color: #0056b3;
+      background-color: #f0f0f0;
     }
 
     .checkbox {
       transform: scale(1.2);
-      margin-right: 0.5rem;
+      margin-right: 8px;
+    }
+
+    .section {
+      margin-top: 2rem;
+    }
+
+    .newsletter-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 1rem;
+    }
+
+    .newsletter-controls input[type="text"] {
+      flex: 1;
     }
 
     textarea {
-      width: 100%;
       height: 120px;
     }
 
-    .input-inline {
-      display: inline-block;
-      margin-right: 0.5rem;
+    @media (max-width: 600px) {
+      .newsletter-controls {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
-  <div id="login-section">
-    <h2>Admin-Login</h2>
-    <input type="password" id="adminPassword" placeholder="Passwort">
-    <button class="btn" onclick="login()">Einloggen</button>
+
+<header>
+  <h1>Admin-Login</h1>
+</header>
+
+<div class="container">
+  <!-- Login-Bereich -->
+  <div id="loginSection">
+    <div class="form-group">
+      <label for="adminPassword">Passwort</label>
+      <input type="password" id="adminPassword" placeholder="Admin-Passwort" />
+    </div>
+    <button onclick="login()">Einloggen</button>
+    <p id="loginError" style="color: red; margin-top: 1rem;"></p>
   </div>
 
-  <div id="adminContent" style="display:none;">
+  <!-- Adminbereich -->
+  <div id="adminSection" class="hidden">
+    <h2>Adminbereich</h2>
+
+    <!-- Anmeldungen -->
     <div class="section">
-      <h2>Offene Anmeldungen</h2>
-      <button class="btn" onclick="freigabeMehrfach()">Mehrere freigeben</button>
-      <table id="registrationsTable">
+      <h3>Offene Anmeldungen</h3>
+      <button onclick="freigabeMehrerer()">Mehrere freigeben</button>
+      <table id="offeneTabelle">
         <thead>
           <tr>
-            <th><input type="checkbox" id="selectAll" onchange="toggleAllCheckboxes(this)"></th>
+            <th><input type="checkbox" id="checkAll" onclick="toggleAll(this)"></th>
             <th>Vorname</th>
             <th>Nachname</th>
             <th>E-Mail</th>
-            <th>Aktion</th>
+            <th>Löschen</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
     </div>
 
+    <!-- Galerie -->
     <div class="section">
-      <h2>Freigaben / Galerie-Zugänge</h2>
-      <table id="galleryTable">
+      <h3>Freigaben / Galerie-Zugänge</h3>
+      <table id="freigabeTabelle">
         <thead>
           <tr>
             <th>Vorname</th>
             <th>Nachname</th>
             <th>E-Mail</th>
             <th>Zugangscode</th>
-            <th>Aktion</th>
+            <th>Löschen</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
     </div>
 
+    <!-- Newsletter -->
     <div class="section">
-      <h2>Newsletter schreiben</h2>
-      <input type="text" id="newsletterSubject" class="input-inline" placeholder="Betreff">
-      <input type="email" id="testEmail" class="input-inline" placeholder="Test-E-Mail">
-      <br>
-      <textarea id="newsletterBody" placeholder="Newsletter-Inhalt (HTML erlaubt)"></textarea>
-      <br>
-      <button class="btn" onclick="sendNewsletter()">Senden</button>
+      <h3>Newsletter schreiben</h3>
+      <div class="form-group">
+        <label for="newsletterText">Nachricht</label>
+        <textarea id="newsletterText" placeholder="Text hier eingeben..."></textarea>
+      </div>
+      <div class="newsletter-controls">
+        <input type="text" id="newsletterSubject" placeholder="Betreff..." />
+        <input type="email" id="testEmail" placeholder="Test-E-Mail" />
+        <button onclick="sendTest()">Test senden</button>
+        <button onclick="sendNewsletter()">An alle senden</button>
+      </div>
+      <p id="newsletterStatus" style="margin-top: 1rem;"></p>
     </div>
   </div>
+</div>
 
-  <script>
-    const ADMIN_PASS = "admin2026";
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec";
+<script>
+  const ADMIN_PASSWORD = "deinpasswort123"; // ✨ hier anpassen
 
-    function login() {
-      const entered = document.getElementById("adminPassword").value;
-      if (entered === ADMIN_PASS) {
-        document.getElementById("login-section").style.display = "none";
-        document.getElementById("adminContent").style.display = "block";
-        loadData();
-      } else {
-        alert("Falsches Passwort");
-      }
+  function login() {
+    const pw = document.getElementById("adminPassword").value;
+    if (pw === ADMIN_PASSWORD) {
+      document.getElementById("loginSection").classList.add("hidden");
+      document.getElementById("adminSection").classList.remove("hidden");
+      loadAdminData();
+    } else {
+      document.getElementById("loginError").textContent = "Falsches Passwort!";
     }
+  }
 
-    function loadData() {
-      fetch(SCRIPT_URL)
-        .then(res => res.json())
-        .then(data => {
-          fillRegistrations(data.registrations);
-          fillGallery(data.gallery);
-        });
-    }
+  async function loadAdminData() {
+    const res = await fetch("https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec");
+    const data = await res.json();
 
-    function fillRegistrations(list) {
-      const tbody = document.querySelector("#registrationsTable tbody");
-      tbody.innerHTML = "";
-      list.forEach(r => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td><input type="checkbox" class="regCheck" data-email="${r.email}" data-vorname="${r.vorname}" data-nachname="${r.nachname}"></td>
-          <td>${r.vorname}</td>
-          <td>${r.nachname}</td>
-          <td>${r.email}</td>
-          <td><button class="btn" onclick="freigeben('${r.vorname}','${r.nachname}','${r.email}')">Freigeben</button>
-              <button class="btn" onclick="loeschen('${r.email}')">Löschen</button></td>
-        `;
-        tbody.appendChild(row);
-      });
-    }
+    const offene = data.anmeldungen.sort((a,b)=>a.vorname.localeCompare(b.vorname));
+    const galerie = data.galerie.sort((a,b)=>a.vorname.localeCompare(b.vorname));
 
-    function fillGallery(list) {
-      const tbody = document.querySelector("#galleryTable tbody");
-      tbody.innerHTML = "";
-      list.forEach(r => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${r.vorname}</td>
-          <td>${r.nachname}</td>
-          <td>${r.email}</td>
-          <td>${r.code}</td>
-          <td><button class="btn" onclick="loeschen('${r.email}')">Löschen</button></td>
-        `;
-        tbody.appendChild(row);
-      });
-    }
+    const t1 = document.querySelector("#offeneTabelle tbody");
+    const t2 = document.querySelector("#freigabeTabelle tbody");
+    t1.innerHTML = "";
+    t2.innerHTML = "";
 
-    function freigeben(vorname, nachname, email) {
-      const form = new FormData();
-      form.append("action", "freigeben");
-      form.append("vorname", vorname);
-      form.append("nachname", nachname);
-      form.append("email", email);
-      fetch(SCRIPT_URL, { method: "POST", body: form })
-        .then(() => loadData());
-    }
+    offene.forEach((row, i) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><input type="checkbox" class="freigabe-checkbox" data-index="${i}"></td>
+        <td>${row.vorname}</td>
+        <td>${row.nachname}</td>
+        <td>${row.email}</td>
+        <td><button onclick="loeschen('${row.email}')">Löschen</button></td>`;
+      t1.appendChild(tr);
+    });
 
-    function freigabeMehrfach() {
-      const checked = document.querySelectorAll(".regCheck:checked");
-      checked.forEach(box => {
-        freigeben(box.dataset.vorname, box.dataset.nachname, box.dataset.email);
-      });
-    }
+    galerie.forEach(row => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${row.vorname}</td>
+        <td>${row.nachname}</td>
+        <td>${row.email}</td>
+        <td>${row.code}</td>
+        <td><button onclick="loeschen('${row.email}')">Löschen</button></td>`;
+      t2.appendChild(tr);
+    });
+  }
 
-    function loeschen(email) {
-      if (!confirm("Wirklich löschen?")) return;
-      const form = new FormData();
-      form.append("action", "delete");
-      form.append("email", email);
-      fetch(SCRIPT_URL, { method: "POST", body: form })
-        .then(() => loadData());
-    }
+  function toggleAll(master) {
+    document.querySelectorAll(".freigabe-checkbox").forEach(cb => cb.checked = master.checked);
+  }
 
-    function sendNewsletter() {
-      const subject = document.getElementById("newsletterSubject").value;
-      const body = document.getElementById("newsletterBody").value;
-      const test = document.getElementById("testEmail").value;
+  async function freigabeMehrerer() {
+    const selected = Array.from(document.querySelectorAll(".freigabe-checkbox"))
+      .filter(cb => cb.checked)
+      .map(cb => cb.closest("tr").children[3].textContent); // E-Mail-Zelle
 
-      const form = new FormData();
-      form.append("action", "sendNewsletter");
-      form.append("subject", subject);
-      form.append("body", body);
-      if (test) form.append("test", test);
+    if (selected.length === 0) return;
 
-      fetch(SCRIPT_URL, { method: "POST", body: form })
-        .then(res => res.json())
-        .then(data => alert(data.message || "Versendet!"));
-    }
+    const res = await fetch("https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec", {
+      method: "POST",
+      body: new URLSearchParams({
+        action: "freigeben",
+        emails: JSON.stringify(selected)
+      })
+    });
 
-    function toggleAllCheckboxes(master) {
-      document.querySelectorAll(".regCheck").forEach(cb => cb.checked = master.checked);
-    }
-  </script>
+    const result = await res.text();
+    alert(result);
+    loadAdminData();
+  }
+
+  async function loeschen(email) {
+    if (!confirm("Willst du den Nutzer wirklich löschen?")) return;
+    const res = await fetch("https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec", {
+      method: "POST",
+      body: new URLSearchParams({
+        action: "loeschen",
+        email: email
+      })
+    });
+
+    const result = await res.text();
+    alert(result);
+    loadAdminData();
+  }
+
+  async function sendTest() {
+    const text = document.getElementById("newsletterText").value;
+    const subject = document.getElementById("newsletterSubject").value;
+    const test = document.getElementById("testEmail").value;
+
+    const res = await fetch("https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec", {
+      method: "POST",
+      body: new URLSearchParams({
+        action: "testmail",
+        text: text,
+        subject: subject,
+        email: test
+      })
+    });
+
+    const result = await res.text();
+    document.getElementById("newsletterStatus").textContent = result;
+  }
+
+  async function sendNewsletter() {
+    const text = document.getElementById("newsletterText").value;
+    const subject = document.getElementById("newsletterSubject").value;
+
+    const res = await fetch("https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec", {
+      method: "POST",
+      body: new URLSearchParams({
+        action: "newsletter",
+        text: text,
+        subject: subject
+      })
+    });
+
+    const result = await res.text();
+    document.getElementById("newsletterStatus").textContent = result;
+  }
+</script>
+
 </body>
 </html>
