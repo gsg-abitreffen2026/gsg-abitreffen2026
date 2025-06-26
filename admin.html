@@ -209,46 +209,70 @@
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec";
 
   function login() {
-    const email = document.getElementById("adminEmail").value.trim().toLowerCase();
+    const email = document.getElementById("adminEmail").value;
     const pw = document.getElementById("adminPassword").value;
-
-    const errorEl = document.getElementById("loginError");
-    errorEl.textContent = "";
 
     if (email === ADMIN_EMAIL && pw === ADMIN_PASSWORD) {
       document.getElementById("loginSection").classList.add("hidden");
       document.getElementById("adminSection").classList.remove("hidden");
       loadAdminData();
     } else {
-      errorEl.textContent = "E-Mail oder Passwort falsch!";
+      document.getElementById("loginError").textContent = "E-Mail oder Passwort falsch!";
     }
   }
 
   async function loadAdminData() {
-  const spinner = document.getElementById("spinner");
-  spinner.classList.remove("hidden");
+    const spinner = document.getElementById("spinner");
+    spinner.classList.remove("hidden");
 
-  try {
-    const res = await fetch(SCRIPT_URL);
-    const data = await res.json();
+    try {
+      const res = await fetch(SCRIPT_URL);
+      const data = await res.json();
 
-    console.log("Empfangene Daten:", data); // Debug-Log
+      console.log("Empfangene Daten:", data);
 
-    // Fehlerrobuste Verarbeitung
-    const offene = (data.anmeldungen || [])
-      .filter(entry => entry && entry.vorname)
-      .sort((a, b) => a.vorname.localeCompare(b.vorname));
+      const offene = (data.anmeldungen || [])
+        .filter(entry => entry && entry.vorname)
+        .sort((a, b) => a.vorname.localeCompare(b.vorname));
 
-    const galerie = (data.galerie || [])
-      .filter(entry => entry && entry.vorname)
-      .sort((a, b) => a.vorname.localeCompare(b.vorname));
+      const galerie = (data.galerie || [])
+        .filter(entry => entry && entry.vorname)
+        .sort((a, b) => a.vorname.localeCompare(b.vorname));
 
-    // Tabellen zurücksetzen
-    const t1 = document.querySelector("#offeneTabelle tbody");
-    const t2 = document.querySelector("#freigabeTabelle tbody");
-    t1.innerHTML = "";
-    t2.inne
+      const t1 = document.querySelector("#offeneTabelle tbody");
+      const t2 = document.querySelector("#freigabeTabelle tbody");
+      t1.innerHTML = "";
+      t2.innerHTML = "";
 
+      offene.forEach((row, i) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><input type="checkbox" class="freigabe-checkbox" data-index="${i}"></td>
+          <td>${row.vorname}</td>
+          <td>${row.nachname}</td>
+          <td>${row.email}</td>
+          <td><button onclick="loeschen('${row.email}')">Löschen</button></td>`;
+        t1.appendChild(tr);
+      });
+
+      galerie.forEach(row => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${row.vorname}</td>
+          <td>${row.nachname}</td>
+          <td>${row.email}</td>
+          <td>${row.code}</td>
+          <td><button onclick="loeschen('${row.email}')">Löschen</button></td>`;
+        t2.appendChild(tr);
+      });
+
+    } catch (err) {
+      alert("Fehler beim Laden der Daten");
+      console.error("Fehler beim Laden:", err);
+    } finally {
+      spinner.classList.add("hidden");
+    }
+  }
 
   function toggleAll(master) {
     document.querySelectorAll(".freigabe-checkbox").forEach(cb => cb.checked = master.checked);
@@ -277,7 +301,6 @@
 
   async function loeschen(email) {
     if (!confirm("Willst du den Nutzer wirklich löschen?")) return;
-
     const res = await fetch(SCRIPT_URL, {
       method: "POST",
       body: new URLSearchParams({
@@ -330,6 +353,7 @@
     document.getElementById("newsletterStatus").textContent = result;
   }
 </script>
+
 
 </body>
 </html>
