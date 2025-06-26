@@ -10,6 +10,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const shareButton = document.getElementById("shareButton");
+  if (shareButton && navigator.share) {
+    shareButton.addEventListener("click", () => {
+      navigator.share({
+        title: "Abi-Treffen 2026",
+        text: "Sei dabei beim 20-jährigen Abiturjubiläum!",
+        url: window.location.href
+      }).catch(err => {
+        console.error("Teilen abgebrochen oder nicht möglich:", err);
+      });
+    });
+  } else if (shareButton) {
+    // Fallback
+    shareButton.style.display = "none"; // verstecken, wenn nicht unterstützt
+  }
+});
+
 // === Countdown ===
 const countdownDate = new Date("2026-07-01T00:00:00").getTime();
 const countdownEl = document.getElementById("countdown");
