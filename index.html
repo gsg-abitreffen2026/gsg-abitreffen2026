@@ -4,24 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>20 Jahre Abi – Jahrgang 2006</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 
 <body>
-  <!-- Hamburger-Menü für Mobilgeräte -->
-  <div class="hamburger" id="hamburger">
-    <i class="fas fa-bars"></i>
-  </div>
-
-  <!-- Mobiles Menü -->
-  <nav class="mobile-nav" id="mobile-nav">
-    <ul>
-      <li><a href="#news"><i class="fas fa-bullhorn"></i>Aktuelle News</a></li>
-      <li><a href="#newsletter"><i class="fas fa-envelope-open-text"></i>Newsletter</a></li>
-      <li><a href="#kontakt"><i class="fas fa-comments"></i>Kontakt</a></li>
-    </ul>
-  </nav>
 
   <header>
     <img src="GSG_Bearbeitet_NEU.jpg" alt="Bannerbild" class="hero-img" />
@@ -30,23 +17,18 @@
       <p>Wir feiern unser Abiturjubiläum – sei dabei!</p>
     </div>
   </header>
-  
-<button id="menuToggle" class="menu-toggle"><i class="fas fa-bars"></i> Menü</button>
-<nav id="mobileNav" class="mobile-nav">
-  <ul>
-    <li><a href="#news">Aktuelle News</a></li>
-    <li><a href="#newsletter">Newsletter</a></li>
-    <li><a href="#kontakt">Kontakt</a></li>
-  </ul>
-</nav>
+
+  <!-- Mobile Menü-Button -->
+  <button class="menu-toggle" aria-label="Menü öffnen"><i class="fas fa-bars"></i></button>
 
   <div class="container">
-    <!-- Navigation Desktop -->
+
+    <!-- Navigation -->
     <nav>
       <ul>
-        <li><a href="#news"><i class="fas fa-bullhorn"></i>Aktuelle News</a></li>
-        <li><a href="#newsletter"><i class="fas fa-envelope-open-text"></i>Newsletter</a></li>
-        <li><a href="#kontakt"><i class="fas fa-comments"></i>Kontakt</a></li>
+        <li><a href="#news"><i class="fas fa-bullhorn"></i> Aktuelle News</a></li>
+        <li><a href="#newsletter"><i class="fas fa-envelope-open-text"></i> Newsletter</a></li>
+        <li><a href="#kontakt"><i class="fas fa-comments"></i> Kontakt</a></li>
       </ul>
     </nav>
 
@@ -55,14 +37,14 @@
       <!-- News -->
       <div class="content-box" id="news">
         <h2>Aktuelle News</h2>
-        <p>Hallo zusammen! Ich bin in der frühen Planungsphase für unser großes Wiedersehen zum 20-jährigen Abijubiläum im Sommer 2026. Sobald Ort und Zeit feststehen, melde ich mich. Bis dahin: Tragt euch in den Newsletter ein und gebt die Info gerne weiter!</p>
-        <p>Liebe Grüße,<br />Maxi</p>
+        <p>Hallo zusammen! Wir sind in der frühen Planungsphase für unser großes Wiedersehen zum 20-jährigen Abiturjubiläum im Sommer 2026. Sobald Ort und Zeit feststehen, melden wir uns. Bis dahin: Tragt euch in den Newsletter ein und gebt die Info gerne weiter!</p>
+        <p>Liebe Grüße,<br>Maxi</p>
       </div>
 
       <!-- Newsletter -->
       <div class="content-box" id="newsletter">
         <h2>Immer auf dem Laufenden bleiben</h2>
-        <p>Trag dich in den Newsletter ein, damit du keine Infos zum Treffen verpasst. Ich schicken dir Updates, sobald es Neuigkeiten gibt!</p>
+        <p>Trag dich in unseren Newsletter ein, damit du keine Infos zum Treffen verpasst.</p>
         <form id="newsletter-form">
           <label for="newsletter-vorname">Vorname</label>
           <input type="text" id="newsletter-vorname" name="Vorname" placeholder="Vorname" required />
@@ -71,10 +53,9 @@
           <input type="text" id="newsletter-nachname" name="Name" placeholder="Nachname" required />
 
           <label for="newsletter-email">E-Mail</label>
-          <input type="email" id="newsletter-email" name="E-Mail" placeholder="E-mail" required />
+          <input type="email" id="newsletter-email" name="E-Mail" placeholder="E-Mail" required />
 
-          <div style="display: none;">
-            <label for="newsletter-honey">Lass dieses Feld leer</label>
+          <div style="display:none;">
             <input type="text" id="newsletter-honey" name="_honey">
           </div>
 
@@ -95,7 +76,6 @@
       <!-- Kontakt -->
       <div class="content-box" id="kontakt">
         <h2>Du hast Fragen oder willst mithelfen?</h2>
-        <p>Schreib uns einfach über das Kontaktformular – wir freuen uns über jede Unterstützung und beantworten gerne deine Fragen.</p>
         <form id="kontakt-form">
           <label for="kontakt-name">Dein Name</label>
           <input type="text" id="kontakt-name" name="name" placeholder="Max Mustermann" required />
@@ -139,15 +119,15 @@
         <div id="loginMessage" style="margin-top: 10px;"></div>
       </div>
     </aside>
+
   </div>
 
-  <!-- Footer -->
   <footer>
     <p>&copy; 2025 Jahrgang 2006 – Abi-Treffen</p>
-    <p><a href="admin.html" style="color: #666; text-decoration: none;">Admin-Login</a></p>
+    <p><a href="admin.html">Admin-Login</a></p>
   </footer>
 
-  <!-- JavaScript -->
+  <!-- JS einbinden -->
   <script src="script.js"></script>
 </body>
 </html>
