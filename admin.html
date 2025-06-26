@@ -95,6 +95,9 @@
       transform: scale(1.2);
       margin-right: 8px;
     }
+    .hidden {
+       display: none;
+    }
 
     .section {
       margin-top: 2rem;
@@ -146,10 +149,11 @@
   <!-- Adminbereich -->
   <div id="adminSection" class="hidden">
     <h2>Adminbereich</h2>
-    
-<div id="adminSection" class="hidden">
-  <h2>Adminbereich</h2>
-  <button onclick="loadAdminData()" style="margin-bottom: 1rem;">🔄 Aktualisieren</button>
+      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+    <button onclick="loadAdminData()">🔄 Aktualisieren</button>
+    <span id="spinner" class="hidden" style="font-size: 1.2rem;">⏳ Lädt...</span>
+  </div>
+
   
     <!-- Anmeldungen -->
     <div class="section">
@@ -223,7 +227,10 @@
   }
 
   async function loadAdminData() {
-    const res = await fetch(SCRIPT_URL);
+  document.getElementById("spinner").classList.remove("hidden");
+
+  try {
+    const res = await fetch("https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec");
     const data = await res.json();
 
     const offene = data.anmeldungen.sort((a,b)=>a.vorname.localeCompare(b.vorname));
@@ -255,7 +262,14 @@
         <td><button onclick="loeschen('${row.email}')">Löschen</button></td>`;
       t2.appendChild(tr);
     });
+  } catch (err) {
+    alert("Fehler beim Laden der Daten");
+    console.error(err);
+  } finally {
+    document.getElementById("spinner").classList.add("hidden");
   }
+}
+
 
   function toggleAll(master) {
     document.querySelectorAll(".freigabe-checkbox").forEach(cb => cb.checked = master.checked);
