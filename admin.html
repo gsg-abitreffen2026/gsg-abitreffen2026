@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin – Abi 2006</title>
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     body {
@@ -95,9 +94,6 @@
       transform: scale(1.2);
       margin-right: 8px;
     }
-    .hidden {
-       display: none;
-    }
 
     .section {
       margin-top: 2rem;
@@ -149,12 +145,11 @@
   <!-- Adminbereich -->
   <div id="adminSection" class="hidden">
     <h2>Adminbereich</h2>
-      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-    <button onclick="loadAdminData()">🔄 Aktualisieren</button>
-    <span id="spinner" class="hidden" style="font-size: 1.2rem;">⏳ Lädt...</span>
-  </div>
+    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+      <button onclick="loadAdminData()">🔄 Aktualisieren</button>
+      <span id="spinner" class="hidden" style="font-size: 1.2rem;">⏳ Lädt...</span>
+    </div>
 
-  
     <!-- Anmeldungen -->
     <div class="section">
       <h3>Offene Anmeldungen</h3>
@@ -214,62 +209,64 @@
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec";
 
   function login() {
-    const email = document.getElementById("adminEmail").value;
+    const email = document.getElementById("adminEmail").value.trim().toLowerCase();
     const pw = document.getElementById("adminPassword").value;
+
+    const errorEl = document.getElementById("loginError");
+    errorEl.textContent = "";
 
     if (email === ADMIN_EMAIL && pw === ADMIN_PASSWORD) {
       document.getElementById("loginSection").classList.add("hidden");
       document.getElementById("adminSection").classList.remove("hidden");
       loadAdminData();
     } else {
-      document.getElementById("loginError").textContent = "E-Mail oder Passwort falsch!";
+      errorEl.textContent = "E-Mail oder Passwort falsch!";
     }
   }
 
   async function loadAdminData() {
-  document.getElementById("spinner").classList.remove("hidden");
+    document.getElementById("spinner").classList.remove("hidden");
 
-  try {
-    const res = await fetch("https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec");
-    const data = await res.json();
+    try {
+      const res = await fetch(SCRIPT_URL);
+      const data = await res.json();
 
-    const offene = data.anmeldungen.sort((a,b)=>a.vorname.localeCompare(b.vorname));
-    const galerie = data.galerie.sort((a,b)=>a.vorname.localeCompare(b.vorname));
+      const offene = data.anmeldungen.sort((a,b)=>a.vorname.localeCompare(b.vorname));
+      const galerie = data.galerie.sort((a,b)=>a.vorname.localeCompare(b.vorname));
 
-    const t1 = document.querySelector("#offeneTabelle tbody");
-    const t2 = document.querySelector("#freigabeTabelle tbody");
-    t1.innerHTML = "";
-    t2.innerHTML = "";
+      const t1 = document.querySelector("#offeneTabelle tbody");
+      const t2 = document.querySelector("#freigabeTabelle tbody");
+      t1.innerHTML = "";
+      t2.innerHTML = "";
 
-    offene.forEach((row, i) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td><input type="checkbox" class="freigabe-checkbox" data-index="${i}"></td>
-        <td>${row.vorname}</td>
-        <td>${row.nachname}</td>
-        <td>${row.email}</td>
-        <td><button onclick="loeschen('${row.email}')">Löschen</button></td>`;
-      t1.appendChild(tr);
-    });
+      offene.forEach((row, i) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><input type="checkbox" class="freigabe-checkbox" data-index="${i}"></td>
+          <td>${row.vorname}</td>
+          <td>${row.nachname}</td>
+          <td>${row.email}</td>
+          <td><button onclick="loeschen('${row.email}')">Löschen</button></td>`;
+        t1.appendChild(tr);
+      });
 
-    galerie.forEach(row => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${row.vorname}</td>
-        <td>${row.nachname}</td>
-        <td>${row.email}</td>
-        <td>${row.code}</td>
-        <td><button onclick="loeschen('${row.email}')">Löschen</button></td>`;
-      t2.appendChild(tr);
-    });
-  } catch (err) {
-    alert("Fehler beim Laden der Daten");
-    console.error(err);
-  } finally {
-    document.getElementById("spinner").classList.add("hidden");
+      galerie.forEach(row => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${row.vorname}</td>
+          <td>${row.nachname}</td>
+          <td>${row.email}</td>
+          <td>${row.code}</td>
+          <td><button onclick="loeschen('${row.email}')">Löschen</button></td>`;
+        t2.appendChild(tr);
+      });
+    } catch (err) {
+      alert("Fehler beim Laden der Daten.");
+      console.error(err);
+    } finally {
+      document.getElementById("spinner").classList.add("hidden");
+    }
   }
-}
-
 
   function toggleAll(master) {
     document.querySelectorAll(".freigabe-checkbox").forEach(cb => cb.checked = master.checked);
@@ -298,6 +295,7 @@
 
   async function loeschen(email) {
     if (!confirm("Willst du den Nutzer wirklich löschen?")) return;
+
     const res = await fetch(SCRIPT_URL, {
       method: "POST",
       body: new URLSearchParams({
