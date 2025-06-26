@@ -58,6 +58,7 @@
 
     .container {
       display: flex;
+      flex-wrap: wrap;
       max-width: 1200px;
       margin: auto;
       padding: 20px;
@@ -73,10 +74,12 @@
     nav ul {
       list-style: none;
       padding: 0;
+      margin: 0;
       background-color: white;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       overflow: hidden;
+      display: block;
     }
 
     nav li {
@@ -102,43 +105,14 @@
 
     .hamburger {
       display: none;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
+      cursor: pointer;
       background: none;
       border: none;
-      color: #0073b1;
-      position: fixed;
+      position: absolute;
       top: 10px;
-      left: 10px;
+      left: 15px;
       z-index: 1000;
-      cursor: pointer;
-    }
-
-    .mobile-nav {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 220px;
-      height: 100vh;
-      background-color: white;
-      box-shadow: 2px 0 6px rgba(0,0,0,0.1);
-      z-index: 999;
-      padding: 20px 10px;
-    }
-
-    .mobile-nav ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .mobile-nav li {
-      margin-bottom: 10px;
-    }
-
-    .mobile-nav a {
-      text-decoration: none;
-      color: #0073b1;
-      font-size: 1.1rem;
     }
 
     main {
@@ -180,6 +154,19 @@
       background-color: #005f90;
     }
 
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    form {
+      padding: 1rem 0;
+    }
+
     footer {
       text-align: center;
       font-size: 0.9em;
@@ -187,52 +174,110 @@
       color: #666;
     }
 
-    /* Mobile Style */
+    .gallery-wrapper {
+      position: relative;
+      text-align: center;
+    }
+
+    .gallery-wrapper img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .gallery-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.4);
+      border: none;
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    #prevBtn {
+      left: 10px;
+    }
+
+    #nextBtn {
+      right: 10px;
+    }
+
+    .gallery-button:hover {
+      background-color: rgba(0,0,0,0.6);
+    }
+
+    /* === Mobile === */
     @media (max-width: 768px) {
+      header {
+        height: 24vh;
+        margin: 2.4rem 1rem 1rem;
+      }
+
+      header .hero-text {
+        bottom: 18%;
+      }
+
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      header p {
+        font-size: 1.3rem;
+      }
+
       .container {
         flex-direction: column;
         padding: 10px;
       }
 
-      nav,
-      aside.right-column {
+      nav {
         display: none;
+        width: 100%;
+      }
+
+      nav ul {
+        flex-direction: column;
+      }
+
+      nav.show {
+        display: block;
+        margin-bottom: 20px;
       }
 
       .hamburger {
         display: block;
       }
 
-      header {
-        height: 22vh;
-        margin: 2rem 1rem 1rem;
+      main {
+        margin: 0;
       }
 
-      header .hero-text {
-        bottom: 12%;
+      aside.right-column {
+        position: relative;
+        top: auto;
+        width: 100%;
+        margin-top: 20px;
       }
 
-      header h1 {
-        font-size: 1.6rem;
+      aside.right-column .content-box {
+        margin-bottom: 16px;
       }
 
-      header p {
-        font-size: 1.2rem;
+      .gallery-wrapper img {
+        max-width: 100%;
       }
     }
   </style>
 </head>
 <body>
-  <button class="hamburger" onclick="toggleMobileNav()">
-    <i class="fas fa-bars"></i>
-  </button>
-  <nav class="mobile-nav" id="mobileNav">
-    <ul>
-      <li><a href="#news" onclick="toggleMobileNav()">Aktuelle News</a></li>
-      <li><a href="#newsletter" onclick="toggleMobileNav()">Newsletter</a></li>
-      <li><a href="#kontakt" onclick="toggleMobileNav()">Kontakt</a></li>
-    </ul>
-  </nav>
+  <!-- Hamburger für Mobile -->
+  <button class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
 
   <header>
     <img src="GSG_Bearbeitet_NEU.jpg" alt="Bannerbild" class="hero-img" />
@@ -241,9 +286,10 @@
       <p>Wir feiern unser Abiturjubiläum – sei dabei!</p>
     </div>
   </header>
+
   <div class="container">
-    <!-- Linkes Menü für große Bildschirme -->
-    <nav class="desktop-nav">
+    <!-- Navigation -->
+    <nav id="mainMenu">
       <ul>
         <li><a href="#news"><i class="fas fa-bullhorn"></i>Aktuelle News</a></li>
         <li><a href="#newsletter"><i class="fas fa-envelope-open-text"></i>Newsletter</a></li>
@@ -263,24 +309,21 @@
       <!-- Newsletter -->
       <div class="content-box" id="newsletter">
         <h2>Immer auf dem Laufenden bleiben</h2>
-        <p>Trag dich in unseren Newsletter ein, damit du keine Infos zum Treffen verpasst.</p>
         <form id="newsletter-form">
-          <div class="form-group">
-            <label for="newsletter-vorname">Vorname</label>
-            <input type="text" id="newsletter-vorname" name="Vorname" required />
-          </div>
-          <div class="form-group">
-            <label for="newsletter-nachname">Nachname</label>
-            <input type="text" id="newsletter-nachname" name="Nachname" required />
-          </div>
-          <div class="form-group">
-            <label for="newsletter-email">E-Mail</label>
-            <input type="email" id="newsletter-email" name="E-Mail" required />
-          </div>
-          <div style="display: none;">
+          <label for="newsletter-vorname">Vorname</label>
+          <input type="text" id="newsletter-vorname" name="Vorname" required>
+
+          <label for="newsletter-nachname">Nachname</label>
+          <input type="text" id="newsletter-nachname" name="Name" required>
+
+          <label for="newsletter-email">E-Mail</label>
+          <input type="email" id="newsletter-email" name="E-Mail" required>
+
+          <div style="display:none;">
             <label for="newsletter-honey">Lass dieses Feld leer</label>
             <input type="text" id="newsletter-honey" name="_honey">
           </div>
+
           <button type="submit" class="button">Anmelden</button>
         </form>
       </div>
@@ -290,7 +333,7 @@
         <h2>Bildergalerie</h2>
         <div class="gallery-wrapper">
           <button class="gallery-button" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-          <img id="gallery-image" src="bilder/bild1.jpg" alt="Galeriebild" />
+          <img id="gallery-image" src="bilder/bild1.jpg" alt="Galeriebild">
           <button class="gallery-button" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
         </div>
       </div>
@@ -299,24 +342,21 @@
       <div class="content-box" id="kontakt">
         <h2>Du hast Fragen oder willst mithelfen?</h2>
         <form id="kontakt-form">
-          <div class="form-group">
-            <label for="kontakt-name">Dein Name</label>
-            <input type="text" id="kontakt-name" name="name" required />
-          </div>
-          <div class="form-group">
-            <label for="kontakt-email">Deine E-Mail</label>
-            <input type="email" id="kontakt-email" name="email" required />
-          </div>
-          <div class="form-group">
-            <label for="kontakt-nachricht">Nachricht</label>
-            <textarea id="kontakt-nachricht" name="message" rows="4" required></textarea>
-          </div>
+          <label for="kontakt-name">Dein Name</label>
+          <input type="text" id="kontakt-name" name="name" required>
+
+          <label for="kontakt-email">Deine E-Mail</label>
+          <input type="email" id="kontakt-email" name="email" required>
+
+          <label for="kontakt-nachricht">Nachricht</label>
+          <textarea id="kontakt-nachricht" name="message" rows="4" required></textarea>
+
           <button type="submit" class="button">Absenden</button>
         </form>
       </div>
     </main>
 
-    <!-- Rechte Spalte (auch mobil sichtbar!) -->
+    <!-- Rechte Spalte -->
     <aside class="right-column">
       <div class="content-box">
         <h3><i class="fas fa-calendar-alt"></i> Datum</h3>
@@ -333,171 +373,26 @@
       <div class="content-box">
         <h3>Login für die Galerie</h3>
         <form id="loginForm">
-          <label for="loginEmail">E-Mail:</label><br>
-          <input type="email" id="loginEmail" name="email" required><br><br>
-          <label for="loginCode">Zugangscode:</label><br>
-          <input type="text" id="loginCode" name="code" required><br><br>
+          <label for="loginEmail">E-Mail:</label>
+          <input type="email" id="loginEmail" name="email" required>
+          <label for="loginCode">Zugangscode:</label>
+          <input type="text" id="loginCode" name="code" required>
           <button type="submit" class="button">Einloggen</button>
         </form>
         <div id="loginMessage" style="margin-top: 10px;"></div>
       </div>
     </aside>
   </div>
+
   <footer>
     <p>&copy; 2025 Jahrgang 2006 – Abi-Treffen</p>
     <p><a href="admin.html" style="color: #666; text-decoration: none;">Admin-Login</a></p>
   </footer>
 
   <script>
-    // === Mobile Menü Toggle ===
-    const burger = document.getElementById("burger");
-    const mobileNav = document.getElementById("mobile-nav");
-    burger.addEventListener("click", () => {
-      mobileNav.style.display = mobileNav.style.display === "flex" ? "none" : "flex";
-    });
-
-    // === Countdown ===
-    const countdownDate = new Date("2026-07-01T00:00:00").getTime();
-    const countdownEl = document.getElementById("countdown");
-    setInterval(() => {
-      const now = new Date().getTime();
-      const diff = countdownDate - now;
-      if (diff < 0) {
-        countdownEl.textContent = "Es ist so weit!";
-        return;
-      }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      countdownEl.textContent = `${days} Tage noch!`;
-    }, 1000 * 60 * 60);
-
-    // === Newsletter-Formular ===
-    document.getElementById("newsletter-form").addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const email = document.getElementById("newsletter-email").value.trim();
-      const vorname = document.getElementById("newsletter-vorname").value.trim();
-      const nachname = document.getElementById("newsletter-nachname").value.trim();
-      const honey = document.getElementById("newsletter-honey").value;
-
-      if (honey) return;
-
-      fetch("https://script.google.com/macros/s/AKfycbz3f_Yaj_lp-GJkrgK5Kit9JG5cccnhAkcSV-oxGrTHAUFyORTfY8MiqYdE_DJwfu7d/exec", {
-        method: "POST",
-        body: new URLSearchParams({
-          email: email,
-          vorname: vorname,
-          nachname: nachname,
-          _honey: honey
-        })
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.result === "success") {
-            localStorage.setItem("subscriberName", vorname);
-            alert(`Danke für deine Anmeldung, ${vorname || "Freund/in"}!`);
-            document.getElementById("newsletter-form").reset();
-          } else if (data.result === "ignored") {
-            console.log("Spam-Schutz ausgelöst");
-          } else {
-            alert("Fehler bei der Anmeldung.");
-          }
-        })
-        .catch(error => {
-          alert("Fehler bei der Anmeldung.");
-          console.error("Fetch-Fehler:", error);
-        });
-    });
-
-    // === Kontaktformular ===
-    document.getElementById("kontakt-form").addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const formData = new FormData(this);
-
-      try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbxYT1R888mhW0clVOqJWOVGfdWj6n4n6XkmwYHw2tdRz0A9l-q4S-47s1ZIzIANyVelVg/exec", {
-          method: "POST",
-          body: formData
-        });
-
-        const text = await res.text();
-        alert(text === "Erfolg" ? "Nachricht erfolgreich gesendet!" : "Unbekannte Antwort.");
-        this.reset();
-      } catch (error) {
-        alert("Fehler beim Absenden.");
-        console.error(error);
-      }
-    });
-
-    // === Galerie-Login ===
-    document.addEventListener("DOMContentLoaded", () => {
-      const loginForm = document.getElementById("loginForm");
-      const loginMessage = document.getElementById("loginMessage");
-      const galerieSection = document.getElementById("galerie");
-
-      if (localStorage.getItem("loggedIn") === "true") {
-        galerieSection.style.display = "block";
-      } else {
-        galerieSection.style.display = "none";
-      }
-
-      loginForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        const email = document.getElementById("loginEmail").value.trim();
-        const code = document.getElementById("loginCode").value.trim();
-
-        try {
-          const res = await fetch("https://script.google.com/macros/s/AKfycbw-lreBTRtyeqtmibO8NGYKc0oKgZ2Du7Sdl3BhpOIC9nSENWOlwQrlIH7DxYDGJhPi/exec", {
-            method: "POST",
-            body: new URLSearchParams({
-              action: "login",
-              email: email,
-              code: code
-            })
-          });
-
-          const data = await res.json();
-          if (data.result === "success") {
-            localStorage.setItem("loggedIn", "true");
-            loginMessage.textContent = "Erfolgreich eingeloggt.";
-            loginMessage.style.color = "green";
-            galerieSection.style.display = "block";
-          } else {
-            loginMessage.textContent = "Login fehlgeschlagen.";
-            loginMessage.style.color = "red";
-          }
-        } catch (error) {
-          loginMessage.textContent = "Ein Fehler ist aufgetreten.";
-          console.error(error);
-        }
-      });
-    });
-
-    // === Galerie Navigation ===
-    const images = [
-      "bilder/bild1.jpg",
-      "bilder/bild2.jpg",
-      "bilder/bild3.jpg"
-    ];
-    let currentIndex = 0;
-    const galleryImage = document.getElementById("gallery-image");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-
-    function updateImage() {
-      galleryImage.src = images[currentIndex];
+    function toggleMenu() {
+      document.getElementById("mainMenu").classList.toggle("show");
     }
-
-    prevBtn.addEventListener("click", () => {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      updateImage();
-    });
-
-    nextBtn.addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % images.length;
-      updateImage();
-    });
-
-    updateImage(); // Initiales Bild anzeigen
   </script>
 </body>
 </html>
