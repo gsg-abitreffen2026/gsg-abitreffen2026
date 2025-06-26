@@ -131,6 +131,10 @@
   <!-- Login-Bereich -->
   <div id="loginSection">
     <div class="form-group">
+      <label for="adminEmail">E-Mail</label>
+      <input type="email" id="adminEmail" placeholder="Admin-E-Mail" />
+    </div>
+    <div class="form-group">
       <label for="adminPassword">Passwort</label>
       <input type="password" id="adminPassword" placeholder="Admin-Passwort" />
     </div>
@@ -196,21 +200,25 @@
 </div>
 
 <script>
-  const ADMIN_PASSWORD = "wallnuss26"; // ✨ hier anpassen
+  const ADMIN_EMAIL = "maximilian.junghanss@me.com";
+  const ADMIN_PASSWORD = "wallnuss26";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec";
 
   function login() {
+    const email = document.getElementById("adminEmail").value;
     const pw = document.getElementById("adminPassword").value;
-    if (pw === ADMIN_PASSWORD) {
+
+    if (email === ADMIN_EMAIL && pw === ADMIN_PASSWORD) {
       document.getElementById("loginSection").classList.add("hidden");
       document.getElementById("adminSection").classList.remove("hidden");
       loadAdminData();
     } else {
-      document.getElementById("loginError").textContent = "Falsches Passwort!";
+      document.getElementById("loginError").textContent = "E-Mail oder Passwort falsch!";
     }
   }
 
   async function loadAdminData() {
-    const res = await fetch("https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec");
+    const res = await fetch(SCRIPT_URL);
     const data = await res.json();
 
     const offene = data.anmeldungen.sort((a,b)=>a.vorname.localeCompare(b.vorname));
@@ -251,15 +259,15 @@
   async function freigabeMehrerer() {
     const selected = Array.from(document.querySelectorAll(".freigabe-checkbox"))
       .filter(cb => cb.checked)
-      .map(cb => cb.closest("tr").children[3].textContent); // E-Mail-Zelle
+      .map(cb => cb.closest("tr").children[3].textContent);
 
     if (selected.length === 0) return;
 
-    const res = await fetch("https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec", {
+    const res = await fetch(SCRIPT_URL, {
       method: "POST",
       body: new URLSearchParams({
         action: "freigeben",
-        passwort: "wallnuss26",
+        passwort: ADMIN_PASSWORD,
         emails: JSON.stringify(selected)
       })
     });
@@ -271,11 +279,11 @@
 
   async function loeschen(email) {
     if (!confirm("Willst du den Nutzer wirklich löschen?")) return;
-    const res = await fetch("https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec", {
+    const res = await fetch(SCRIPT_URL, {
       method: "POST",
       body: new URLSearchParams({
         action: "loeschen",
-        passwort: "wallnuss26",
+        passwort: ADMIN_PASSWORD,
         email: email
       })
     });
@@ -290,11 +298,11 @@
     const subject = document.getElementById("newsletterSubject").value;
     const test = document.getElementById("testEmail").value;
 
-    const res = await fetch("https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec", {
+    const res = await fetch(SCRIPT_URL, {
       method: "POST",
       body: new URLSearchParams({
         action: "testmail",
-        passwort: "wallnuss26",
+        passwort: ADMIN_PASSWORD,
         text: text,
         subject: subject,
         email: test
@@ -309,11 +317,11 @@
     const text = document.getElementById("newsletterText").value;
     const subject = document.getElementById("newsletterSubject").value;
 
-    const res = await fetch("https://script.google.com/macros/s/AKfycbxtc0G6CDfMloMew6j1LySqSsEOqUvIzHnF4dsad7mn0NXOKwPO0q3QEBQMymKqKCwg/exec", {
+    const res = await fetch(SCRIPT_URL, {
       method: "POST",
       body: new URLSearchParams({
         action: "newsletter",
-        passwort: "wallnuss26",
+        passwort: ADMIN_PASSWORD,
         text: text,
         subject: subject
       })
