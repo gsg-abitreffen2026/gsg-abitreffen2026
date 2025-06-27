@@ -31,29 +31,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // === Countdown ===
   const countdownDate = new Date("2026-07-01T00:00:00").getTime();
-  const countdownEl = document.getElementById("countdown");
+  const countdownEls = document.querySelectorAll("#countdown");
 
   function updateCountdown() {
     const now = new Date().getTime();
     const diff = countdownDate - now;
-    if (diff < 0) {
-      countdownEl.textContent = "Es ist so weit!";
-      return;
-    }
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    countdownEl.textContent = `${days} Tage noch!`;
+    const days = Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
+    const text = diff < 0 ? "Es ist so weit!" : `${days} Tage noch!`;
+
+    countdownEls.forEach(el => el.textContent = text);
   }
 
   updateCountdown();
-  setInterval(updateCountdown, 1000 * 60 * 60); // stündlich
+  setInterval(updateCountdown, 1000 * 60 * 60);
 
-  // === Newsletter-Formular ===
-  const newsletterForm = document.getElementById("newsletter-form");
+  // === Galerie-Login + Newsletter nach Status verstecken ===
+  const loginBox = document.getElementById("galerie-login-box");
+  const galerieSection = document.getElementById("galerie");
   const newsletterBox = document.getElementById("newsletter");
+
+  if (localStorage.getItem("loggedIn") === "true") {
+    loginBox?.remove();
+    galerieSection?.classList.remove("hidden");
+  } else {
+    galerieSection?.classList.add("hidden");
+  }
 
   if (localStorage.getItem("newsletterVorname")) {
     newsletterBox?.remove();
   }
+
+  // === Newsletter-Formular ===
+  const newsletterForm = document.getElementById("newsletter-form");
 
   newsletterForm?.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -74,24 +83,24 @@ document.addEventListener("DOMContentLoaded", () => {
         _honey: honey
       })
     })
-      .then(response => response.json())
-      .then(data => {
-        if (data.result === "success") {
-          localStorage.setItem("newsletterVorname", vorname);
-          alert(`Danke für deine Anmeldung, ${vorname || "Freund/in"}!`);
-          newsletterForm.reset();
-          newsletterBox?.remove();
-        } else if (data.result === "ignored") {
-          console.log("Spam-Schutz ausgelöst");
-        } else {
-          alert("Fehler bei der Anmeldung. Bitte versuche es später.");
-          console.error(data.message || "Unbekannter Fehler");
-        }
-      })
-      .catch(error => {
-        alert("Es ist ein Fehler aufgetreten.");
-        console.error("Fetch-Fehler:", error);
-      });
+    .then(response => response.json())
+    .then(data => {
+      if (data.result === "success") {
+        localStorage.setItem("newsletterVorname", vorname);
+        alert(`Danke für deine Anmeldung, ${vorname || "Freund/in"}!`);
+        newsletterForm.reset();
+        newsletterBox?.remove();
+      } else if (data.result === "ignored") {
+        console.log("Spam-Schutz ausgelöst");
+      } else {
+        alert("Fehler bei der Anmeldung. Bitte versuche es später.");
+        console.error(data.message || "Unbekannter Fehler");
+      }
+    })
+    .catch(error => {
+      alert("Es ist ein Fehler aufgetreten.");
+      console.error("Fetch-Fehler:", error);
+    });
   });
 
   // === Kontaktformular ===
@@ -117,18 +126,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // === Galerie-Login & Galerie-Sichtbarkeit ===
+  // === Galerie-Login ===
   const loginForm = document.getElementById("loginForm");
   const loginMessage = document.getElementById("loginMessage");
-  const galerieSection = document.getElementById("galerie");
-  const loginBox = document.getElementById("galerie-login-box");
-
-  if (localStorage.getItem("loggedIn") === "true") {
-    galerieSection?.classList.remove("hidden");
-    loginBox?.remove();
-  } else {
-    galerieSection?.classList.add("hidden");
-  }
 
   loginForm?.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  updateImage(); // initiales Bild anzeigen
+  updateImage();
 
   prevBtn?.addEventListener("click", () => {
     currentIndex = (currentIndex - 1 + images.length) % images.length;
