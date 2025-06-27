@@ -3,113 +3,88 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Abi-Treffen 2006</title>
+  <title>Abi-Treffen 2026</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script defer src="script.js"></script>
 </head>
 <body>
 
-<header>
-  <img src="GSG_Bearbeitet_NEU.jpg" alt="Bannerbild" class="hero-img" />
-  <div class="hero-text">
-    <h1>20 Jahre Abi</h1>
-    <p>Wir feiern unser Abiturjubiläum – sei dabei!</p>
-  </div>
-</header>
-
-<!-- Mobile Burger Button -->
-<button id="burger-menu" class="burger-button"><i class="fas fa-bars"></i></button>
-
-<!-- Mobile Navigation -->
-<nav id="mobile-nav" class="mobile-nav">
-  <ul>
-    <li><a href="#news"><i class="fas fa-bullhorn"></i>Aktuelle News</a></li>
-    <li><a href="#newsletter"><i class="fas fa-envelope-open-text"></i>Newsletter</a></li>
-    <li><a href="#kontakt"><i class="fas fa-comments"></i>Kontakt</a></li>
-    <li><button id="share-button" class="share-btn"><i class="fas fa-share-alt"></i> Seite teilen</button></li>
-  </ul>
-</nav>
-
-<div class="container">
-  <!-- Linkes Menü + Galerie-Login (Desktop only) -->
-  <nav class="sidebar">
-    <ul>
-      <li><a href="#news"><i class="fas fa-bullhorn"></i>Aktuelle News</a></li>
-      <li><a href="#newsletter"><i class="fas fa-envelope-open-text"></i>Newsletter</a></li>
-      <li><a href="#kontakt"><i class="fas fa-comments"></i>Kontakt</a></li>
-    </ul>
-
-    <div class="content-box" id="galerie-login-box">
-      <h3>Login für die Galerie</h3>
-      <form id="loginForm">
-        <input type="email" id="loginEmail" placeholder="E-Mail" required>
-        <input type="text" id="loginCode" placeholder="Zugangscode" required>
-        <button type="submit" class="button">Einloggen</button>
-        <div id="loginMessage" style="margin-top:10px;"></div>
-      </form>
+  <header>
+    <img src="header.jpg" alt="Schule" class="hero-img" />
+    <div class="hero-text">
+      <h1>20 Jahre Abi</h1>
+      <p>Wir feiern unser Abiturjubiläum – sei dabei!</p>
     </div>
+  </header>
+
+  <!-- Mobiles Burger-Menü -->
+  <button class="mobile-menu-button" onclick="toggleMobileMenu()">☰</button>
+  <nav class="mobile-nav" id="mobileNav">
+    <ul>
+      <li><a href="#news"><i class="fas fa-bullhorn"></i> Aktuelle News</a></li>
+      <li><a href="#newsletter"><i class="fas fa-envelope"></i> Newsletter</a></li>
+      <li><a href="#kontakt"><i class="fas fa-comment-dots"></i> Kontakt</a></li>
+    </ul>
+    <button class="mobile-share-button" onclick="sharePage()">🔗 Seite teilen</button>
   </nav>
 
-  <!-- Hauptinhalt -->
-  <main>
-    <section class="content-box" id="news">
-      <h2>Aktuelle News</h2>
-      <p>Wir planen das große Wiedersehen für den Sommer 2026. Bleibt dran!</p>
-    </section>
+  <div class="container">
+    <!-- Linkes Menü -->
+    <nav>
+      <ul>
+        <li><a href="#news"><i class="fas fa-bullhorn"></i> Aktuelle News</a></li>
+        <li><a href="#newsletter"><i class="fas fa-envelope"></i> Newsletter</a></li>
+        <li><a href="#kontakt"><i class="fas fa-comment-dots"></i> Kontakt</a></li>
+      </ul>
 
-    <section class="content-box" id="newsletter-box">
-      <h2>Newsletter</h2>
-      <form id="newsletter-form">
-        <input type="text" id="newsletter-vorname" placeholder="Vorname" required>
-        <input type="text" id="newsletter-nachname" placeholder="Nachname" required>
-        <input type="email" id="newsletter-email" placeholder="E-Mail" required>
-        <input type="text" id="newsletter-honey" style="display:none;">
-        <button type="submit" class="button">Anmelden</button>
-      </form>
-    </section>
-
-    <section class="content-box" id="galerie">
-      <h2>Bildergalerie</h2>
-      <div class="gallery-wrapper">
-        <button class="gallery-button" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-        <img id="gallery-image" src="bilder/bild1.jpg" alt="Galeriebild" />
-        <button class="gallery-button" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+      <!-- Galerie-Login unter dem Menü -->
+      <div class="content-box" id="galerie-login-box">
+        <h2>Galerie Login</h2>
+        <form id="galerieLoginForm" onsubmit="handleGalerieLogin(event)">
+          <input type="email" placeholder="E-Mail" required />
+          <input type="password" placeholder="Zugangscode" required />
+          <button type="submit" class="button">Login</button>
+        </form>
       </div>
-    </section>
+    </nav>
 
-    <section class="content-box" id="kontakt">
-      <h2>Kontakt</h2>
-      <form id="kontakt-form">
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="email" name="email" placeholder="E-Mail" required>
-        <textarea name="message" placeholder="Nachricht..." rows="4" required></textarea>
-        <button type="submit" class="button">Absenden</button>
-      </form>
-    </section>
-  </main>
+    <!-- Hauptinhalt -->
+    <main>
+      <section class="content-box" id="news">
+        <h2>Aktuelle News</h2>
+        <p>Wir planen das große Wiedersehen für den Sommer 2026. Bleibt dran!</p>
+      </section>
 
-  <!-- Rechte Spalte (Desktop & mobil unterhalb) -->
-  <aside class="right-column">
-    <div class="content-box">
-      <h3><i class="fas fa-calendar-alt"></i> Datum</h3>
-      <p>Sommer 2026</p>
-    </div>
-    <div class="content-box">
-      <h3><i class="fas fa-map-marker-alt"></i> Ort</h3>
-      <p>wird noch bekanntgegeben</p>
-    </div>
-    <div class="content-box">
-      <h3><i class="fas fa-hourglass-half"></i> Countdown</h3>
-      <p id="countdown">Läuft...</p>
-    </div>
-  </aside>
-</div>
+      <section class="content-box" id="galerie">
+        <h2>Bildergalerie</h2>
+        <div class="gallery-wrapper">
+          <button class="gallery-button" id="prevBtn">&#10094;</button>
+          <img src="bild1.jpg" alt="Galeriebild" id="galleryImage" />
+          <button class="gallery-button" id="nextBtn">&#10095;</button>
+        </div>
+      </section>
+    </main>
 
-<footer>
-  <p>&copy; 2025 Jahrgang 2006 – Abi-Treffen</p>
-  <p><a href="admin.html">Admin-Login</a></p>
-</footer>
+    <!-- Rechte Spalte (nur Desktop) -->
+    <aside class="right-column">
+      <section class="content-box" id="newsletter-box">
+        <h2>Immer auf dem Laufenden bleiben</h2>
+        <p>Trag dich in den Newsletter ein, damit du keine Infos zum Treffen verpasst.</p>
+        <form id="newsletterForm" onsubmit="handleNewsletterSignup(event)">
+          <input type="text" placeholder="Vorname" required />
+          <input type="text" placeholder="Nachname" required />
+          <input type="email" placeholder="E-mail" required />
+          <button type="submit" class="button">Anmelden</button>
+        </form>
+      </section>
+    </aside>
+  </div>
 
-<script src="script.js" defer></script>
+  <footer>
+    <p>&copy; 2025 Abi-Treffen Geschwister-Scholl-Gymnasium</p>
+  </footer>
+
+  <!-- FontAwesome Icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>
