@@ -20,11 +20,6 @@
       text-align: center;
     }
 
-    h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-
     .container {
       max-width: 900px;
       margin: 2rem auto;
@@ -43,21 +38,17 @@
     }
 
     label {
-      display: block;
       font-weight: bold;
+      display: block;
       margin-bottom: 0.5rem;
     }
 
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    textarea {
+    input, textarea {
       width: 100%;
       max-width: 500px;
       padding: 0.5rem;
       border: 1px solid #ccc;
       border-radius: 4px;
-      box-sizing: border-box;
     }
 
     button {
@@ -67,7 +58,6 @@
       padding: 10px 16px;
       border-radius: 4px;
       cursor: pointer;
-      font-size: 1rem;
     }
 
     button:hover {
@@ -90,11 +80,6 @@
       background-color: #f0f0f0;
     }
 
-    .checkbox {
-      transform: scale(1.2);
-      margin-right: 8px;
-    }
-
     .section {
       margin-top: 2rem;
     }
@@ -104,14 +89,6 @@
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 1rem;
-    }
-
-    .newsletter-controls input[type="text"] {
-      flex: 1;
-    }
-
-    textarea {
-      height: 120px;
     }
 
     @media (max-width: 600px) {
@@ -128,7 +105,6 @@
 </header>
 
 <div class="container">
-  <!-- Login-Bereich -->
   <div id="loginSection">
     <div class="form-group">
       <label for="adminEmail">E-Mail</label>
@@ -142,22 +118,21 @@
     <p id="loginError" style="color: red; margin-top: 1rem;"></p>
   </div>
 
-  <!-- Adminbereich -->
   <div id="adminSection" class="hidden">
     <h2>Adminbereich</h2>
-    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+
+    <div style="margin-bottom: 1rem;">
       <button onclick="loadAdminData()">🔄 Aktualisieren</button>
-      <span id="spinner" class="hidden" style="font-size: 1.2rem;">⏳ Lädt...</span>
+      <span id="spinner" class="hidden">⏳ Lädt...</span>
     </div>
 
-    <!-- Anmeldungen -->
     <div class="section">
       <h3>Offene Anmeldungen</h3>
       <button onclick="freigabeMehrerer()">Mehrere freigeben</button>
       <table id="offeneTabelle">
         <thead>
           <tr>
-            <th><input type="checkbox" id="checkAll" onclick="toggleAll(this)"></th>
+            <th><input type="checkbox" id="checkAll" onclick="toggleAll(this)" /></th>
             <th>Vorname</th>
             <th>Nachname</th>
             <th>E-Mail</th>
@@ -168,9 +143,8 @@
       </table>
     </div>
 
-    <!-- Galerie -->
     <div class="section">
-      <h3>Freigaben / Galerie-Zugänge</h3>
+      <h3>Galerie-Zugänge</h3>
       <table id="freigabeTabelle">
         <thead>
           <tr>
@@ -185,7 +159,6 @@
       </table>
     </div>
 
-    <!-- Newsletter -->
     <div class="section">
       <h3>Newsletter schreiben</h3>
       <div class="form-group">
@@ -229,15 +202,8 @@
       const res = await fetch(SCRIPT_URL);
       const data = await res.json();
 
-      console.log("Empfangene Daten:", data);
-
-      const offene = (data.anmeldungen || [])
-        .filter(entry => entry && entry.vorname)
-        .sort((a, b) => a.vorname.localeCompare(b.vorname));
-
-      const galerie = (data.galerie || [])
-        .filter(entry => entry && entry.vorname)
-        .sort((a, b) => a.vorname.localeCompare(b.vorname));
+      const offene = (data.anmeldungen || []).sort((a, b) => a.vorname.localeCompare(b.vorname));
+      const galerie = (data.galerie || []).sort((a, b) => a.vorname.localeCompare(b.vorname));
 
       const t1 = document.querySelector("#offeneTabelle tbody");
       const t2 = document.querySelector("#freigabeTabelle tbody");
@@ -251,7 +217,8 @@
           <td>${row.vorname}</td>
           <td>${row.nachname}</td>
           <td>${row.email}</td>
-          <td><button onclick="loeschen('${row.email}')">Löschen</button></td>`;
+          <td><button onclick="loeschen('${row.email}')">Löschen</button></td>
+        `;
         t1.appendChild(tr);
       });
 
@@ -262,7 +229,8 @@
           <td>${row.nachname}</td>
           <td>${row.email}</td>
           <td>${row.code}</td>
-          <td><button onclick="loeschen('${row.email}')">Löschen</button></td>`;
+          <td><button onclick="loeschen('${row.email}')">Löschen</button></td>
+        `;
         t2.appendChild(tr);
       });
 
@@ -301,12 +269,13 @@
 
   async function loeschen(email) {
     if (!confirm("Willst du den Nutzer wirklich löschen?")) return;
+
     const res = await fetch(SCRIPT_URL, {
       method: "POST",
       body: new URLSearchParams({
         action: "loeschen",
         passwort: ADMIN_PASSWORD,
-        email: email
+        email
       })
     });
 
@@ -325,8 +294,8 @@
       body: new URLSearchParams({
         action: "testmail",
         passwort: ADMIN_PASSWORD,
-        text: text,
-        subject: subject,
+        text,
+        subject,
         email: test
       })
     });
@@ -344,8 +313,8 @@
       body: new URLSearchParams({
         action: "newsletter",
         passwort: ADMIN_PASSWORD,
-        text: text,
-        subject: subject
+        text,
+        subject
       })
     });
 
@@ -353,7 +322,6 @@
     document.getElementById("newsletterStatus").textContent = result;
   }
 </script>
-
 
 </body>
 </html>
