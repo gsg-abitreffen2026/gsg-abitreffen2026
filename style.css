@@ -228,6 +228,12 @@ footer {
   display: none;
 }
 
+/* Mobiles Menü in der Desktop-Ansicht ausblenden */
+.mobile-menu {
+  display: none;
+}
+
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -274,7 +280,11 @@ footer {
     cursor: pointer;
     z-index: 1000;
   }
-
+  
+.mobile-menu {
+    display: block;
+  }
+  
   .mobile-menu {
     display: none;
     position: fixed;
