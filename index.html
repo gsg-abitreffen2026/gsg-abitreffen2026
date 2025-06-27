@@ -1,134 +1,103 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>20 Jahre Abi – Jahrgang 2006</title>
-<link rel="stylesheet" href="style.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Abi-Treffen 2006</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<header>
-<img src="GSG_Bearbeitet_NEU.jpg" alt="Bannerbild" class="hero-img" />
-<div class="hero-text">
-<h1>20 Jahre Abi</h1>
-<p>Wir feiern unser Abiturjubiläum – sei dabei!</p>
-</div>
-</header>
+  <!-- Hero-Bereich -->
+  <header>
+    <img src="bilder/header.jpg" alt="Abi-Treffen 2006" class="hero-img" />
+    <div class="hero-text">
+      <h1>Abi-Treffen 2006</h1>
+      <p>20 Jahre – wir feiern wieder!</p>
+    </div>
+  </header>
 
-<!-- Mobile Menü-Button -->
-<button class="menu-toggle" aria-label="Menü öffnen"><i class="fas fa-bars"></i></button>
+  <!-- Hauptinhalt -->
+  <div class="container">
 
-<div class="container">
+    <!-- Navigation -->
+    <nav>
+      <ul>
+        <li><a href="#infos"><i class="fas fa-info-circle"></i>Infos</a></li>
+        <li><a href="#kontakt"><i class="fas fa-envelope"></i>Kontakt</a></li>
+        <li><a href="#newsletter"><i class="fas fa-newspaper"></i>Newsletter</a></li>
+        <li><a href="#galerie"><i class="fas fa-images"></i>Galerie</a></li>
+        <li><a href="#" id="shareButton" class="share-button"><i class="fas fa-share-alt"></i>Seite teilen</a></li>
+      </ul>
 
-<!-- Navigation -->
-<nav>
-<ul>
-<li><a href="#news"><i class="fas fa-bullhorn"></i> Aktuelle News</a></li>
-<li><a href="#newsletter"><i class="fas fa-envelope-open-text"></i> Newsletter</a></li>
-<li><a href="#kontakt"><i class="fas fa-comments"></i> Kontakt</a></li>
-        <li><button id="shareButton" class="share-button"><i class="fas fa-share-alt"></i> Seite teilen</button></li>
-</ul>
-</nav>
+      <!-- Galerie-Login unter Navigation (Desktop) -->
+      <div id="galerie-login-box" class="content-box">
+        <h3>Galerie-Login</h3>
+        <form id="loginForm">
+          <input type="email" id="loginEmail" placeholder="E-Mail" required />
+          <input type="text" id="loginCode" placeholder="Zugangscode" required />
+          <button type="submit" class="button">Einloggen</button>
+        </form>
+        <p id="loginMessage"></p>
+      </div>
+    </nav>
 
-<!-- Hauptinhalt -->
-<main>
-<!-- News -->
-<div class="content-box" id="news">
-<h2>Aktuelle News</h2>
-<p>Hallo zusammen! Wir sind in der frühen Planungsphase für unser großes Wiedersehen zum 20-jährigen Abiturjubiläum im Sommer 2026. Sobald Ort und Zeit feststehen, melden wir uns. Bis dahin: Tragt euch in den Newsletter ein und gebt die Info gerne weiter!</p>
-<p>Liebe Grüße,<br>Maxi</p>
-</div>
+    <!-- Hauptbereich -->
+    <main>
+      <section id="infos" class="content-box">
+        <h2>Infos zum Treffen</h2>
+        <p>Das 20-jährige Jubiläum steht bevor! Trage dich in den Newsletter ein und bleib auf dem Laufenden.</p>
+        <div id="countdown">Lade Countdown...</div>
+      </section>
 
-<!-- Newsletter -->
-<div class="content-box" id="newsletter">
-<h2>Immer auf dem Laufenden bleiben</h2>
-<p>Trag dich in unseren Newsletter ein, damit du keine Infos zum Treffen verpasst.</p>
-<form id="newsletter-form">
-<label for="newsletter-vorname">Vorname</label>
-<input type="text" id="newsletter-vorname" name="Vorname" placeholder="Vorname" required />
+      <section id="kontakt" class="content-box">
+        <h2>Kontakt</h2>
+        <form id="kontakt-form">
+          <input type="text" name="name" placeholder="Name" required />
+          <input type="email" name="email" placeholder="E-Mail" required />
+          <textarea name="message" placeholder="Nachricht" rows="5" required></textarea>
+          <button type="submit" class="button">Absenden</button>
+        </form>
+      </section>
 
-<label for="newsletter-nachname">Nachname</label>
-<input type="text" id="newsletter-nachname" name="Name" placeholder="Nachname" required />
+      <section id="newsletter" class="content-box">
+        <h2>Newsletter</h2>
+        <form id="newsletter-form">
+          <input type="text" id="newsletter-vorname" placeholder="Vorname" required />
+          <input type="text" id="newsletter-nachname" placeholder="Nachname" required />
+          <input type="email" id="newsletter-email" placeholder="E-Mail" required />
+          <input type="text" id="newsletter-honey" style="display: none" autocomplete="off" />
+          <button type="submit" class="button">Anmelden</button>
+        </form>
+      </section>
 
-<label for="newsletter-email">E-Mail</label>
-<input type="email" id="newsletter-email" name="E-Mail" placeholder="E-Mail" required />
+      <!-- Galerie -->
+      <section id="galerie" class="content-box">
+        <h2>Galerie</h2>
+        <div class="gallery-wrapper">
+          <img id="gallery-image" src="bilder/bild1.jpg" alt="Galeriebild" />
+          <button id="prevBtn" class="gallery-button">&#8592;</button>
+          <button id="nextBtn" class="gallery-button">&#8594;</button>
+        </div>
+      </section>
+    </main>
+  </div>
 
-<div style="display:none;">
-<input type="text" id="newsletter-honey" name="_honey">
-</div>
+  <!-- Mobiles Burger-Menü -->
+  <button class="hamburger" id="burgerButton">&#9776;</button>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#infos">Infos</a>
+    <a href="#kontakt">Kontakt</a>
+    <a href="#newsletter">Newsletter</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#" id="shareButtonMobile" class="share-button">Seite teilen</a>
+  </div>
 
-<button type="submit" class="button">Anmelden</button>
-</form>
-</div>
+  <footer>
+    <p>&copy; 2025 Abi-Jahrgang 2006</p>
+  </footer>
 
-<!-- Galerie -->
-<div class="content-box" id="galerie">
-<h2>Bildergalerie</h2>
-<div class="gallery-wrapper">
-<button class="gallery-button" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-<img id="gallery-image" src="bilder/bild1.jpg" alt="Galeriebild" />
-<button class="gallery-button" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
-</div>
-</div>
-
-<!-- Kontakt -->
-<div class="content-box" id="kontakt">
-<h2>Du hast Fragen oder willst mithelfen?</h2>
-<form id="kontakt-form">
-<label for="kontakt-name">Dein Name</label>
-<input type="text" id="kontakt-name" name="name" placeholder="Max Mustermann" required />
-
-<label for="kontakt-email">Deine E-Mail</label>
-<input type="email" id="kontakt-email" name="email" placeholder="max@example.com" required />
-
-<label for="kontakt-nachricht">Nachricht</label>
-<textarea id="kontakt-nachricht" name="message" rows="4" placeholder="Deine Nachricht..." required></textarea>
-
-<button type="submit" class="button">Absenden</button>
-</form>
-</div>
-</main>
-
-<!-- Rechte Spalte -->
-<aside class="right-column">
-<div class="content-box">
-<h3><i class="fas fa-calendar-alt"></i> Datum</h3>
-<p>Sommer 2026<br>(genaues Datum folgt)</p>
-</div>
-<div class="content-box">
-<h3><i class="fas fa-map-marker-alt"></i> Ort</h3>
-<p>wird noch bekanntgegeben</p>
-</div>
-<div class="content-box">
-<h3><i class="fas fa-hourglass-half"></i> Countdown</h3>
-<p id="countdown">Läuft...</p>
-</div>
-<div class="content-box">
-<h3>Login für die Galerie</h3>
-<form id="loginForm">
-<label for="loginEmail">E-Mail:</label>
-<input type="email" id="loginEmail" name="email" required />
-
-<label for="loginCode">Zugangscode:</label>
-<input type="text" id="loginCode" name="code" required />
-
-<button type="submit" class="button">Einloggen</button>
-</form>
-<div id="loginMessage" style="margin-top: 10px;"></div>
-</div>
-</aside>
-
-</div>
-
-<footer>
-<p>&copy; 2025 Jahrgang 2006 – Abi-Treffen</p>
-<p><a href="admin.html">Admin-Login</a></p>
-</footer>
-
-<!-- JS einbinden -->
-<script src="script.js"></script>
+  <script src="script.js"></script>
+  <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 </body>
 </html>
