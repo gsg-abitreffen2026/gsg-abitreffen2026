@@ -1,223 +1,328 @@
-
-/* === Grundlayout === */
+/* ========== Allgemein ========== */
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f3f2ef;
-  color: #1c1e21;
+margin: 0;
+font-family: Arial, sans-serif;
+background-color: #f3f2ef;
+color: #1c1e21;
 }
 
-/* === Header === */
+.container {
+display: flex;
+max-width: 1200px;
+margin: auto;
+padding: 20px;
+}
+
+/* ========== Header ========== */
 header {
-  position: relative;
-  height: 30vh;
-  margin: 2rem 1.5rem;
-  border-radius: 8px;
-  overflow: hidden;
+position: relative;
+height: 30vh;
+margin: 3rem 2rem 2rem;
+border-radius: 10px;
+overflow: hidden;
 }
 
 header img.hero-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 50%;
-  filter: saturate(1.4) contrast(1.2) brightness(1.05);
-  transition: filter 0.3s ease;
-  display: block;
+width: 100%;
+height: 100%;
+object-fit: cover;
+object-position: center 52%;
+filter: saturate(1.5) contrast(1.25) brightness(1.1);
+transition: filter 0.3s ease;
+display: block;
+}
+
+header img.hero-img:hover {
+filter: saturate(1.6) contrast(1.3) brightness(1.15);
 }
 
 header .hero-text {
-  position: absolute;
-  left: 50%;
-  bottom: 10%;
-  transform: translateX(-50%);
-  text-align: center;
-  color: white;
-  text-shadow: 0 0 6px rgba(0,0,0,0.6);
+position: absolute;
+left: 50%;
+bottom: 5%;
+transform: translateX(-50%);
+text-align: center;
+color: #fff;
+text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+padding: 0 1rem;
 }
 
-/* === Layout-Container === */
-.container {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  margin: 2rem;
+header h1 {
+font-size: 3.8rem;
+margin: 0 0 0.4rem;
 }
 
-/* === Navigation (Desktop) === */
+header p {
+font-size: 1.8rem;
+margin: 0;
+}
+
+/* ========== Navigation ========== */
 nav {
-  flex: 1;
-  position: relative;
-  top: 0.5rem;
+flex: 0 0 220px;
+position: sticky;
+top: 20px;
+align-self: flex-start;
+z-index: 998;
 }
 
 nav ul {
-  list-style: none;
-  padding: 0;
+list-style: none;
+padding: 0;
+background-color: white;
+border-radius: 8px;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+overflow: hidden;
 }
 
-nav ul li {
-  margin: 0.5rem 0;
+nav li {
+border-bottom: 1px solid #eee;
 }
 
 nav a {
-  text-decoration: none;
-  color: #0073b1;
-  font-weight: bold;
+display: block;
+padding: 12px 16px;
+text-decoration: none;
+color: #333;
+transition: background 0.2s;
 }
 
-.share-button {
-  background-color: #0073b1;
-  color: white !important;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  display: inline-block;
+nav a:hover {
+background-color: #f0f0f0;
 }
 
-/* Galerie-Login */
-#galerie-login-box {
-  margin-top: 1rem;
+nav i {
+margin-right: 8px;
+color: #0073b1;
 }
 
-/* === Hauptinhalt === */
+nav .share-button {
+background-color: #0073b1;
+color: white !important;
+text-align: center;
+font-weight: bold;
+}
+
+/* ========== Hauptinhalt ========== */
 main {
-  flex: 2;
+flex: 1;
+margin: 0 20px;
 }
 
+/* ========== Galerie-Login (jetzt links) ========== */
+aside.right-column {
+flex: 0 0 250px;
+position: sticky;
+top: 20px;
+align-self: flex-start;
+}
+
+
+/* Galerie-Login als Teil der Navigation */
+#galerie-login-box {
+margin-top: 20px;
+}
+
+/* ========== Inhaltsboxen ========== */
 .content-box {
-  background: white;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+background-color: white;
+padding: 20px;
+margin-bottom: 20px;
+border-radius: 8px;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* === Rechte Spalte === */
-.right-column {
-  flex: 1;
+h2 {
+margin-top: 0;
+color: #1c1e21;
 }
 
-.right-column .content-box {
-  margin-bottom: 1rem;
+h3 {
+margin-top: 0;
 }
 
-/* === Galerie === */
+/* ========== Formulare ========== */
+form {
+padding: 1rem 0;
+}
+
+form input,
+form textarea {
+width: 100%;
+max-width: 500px;
+padding: 10px;
+margin-bottom: 1rem;
+border: 1px solid #ccc;
+border-radius: 5px;
+box-sizing: border-box;
+}
+
+/* ========== Button ========== */
+.button {
+background-color: #0073b1;
+color: white;
+border: none;
+padding: 10px 16px;
+border-radius: 4px;
+cursor: pointer;
+transition: background 0.2s;
+}
+
+.button:hover {
+background-color: #005f90;
+}
+
+/* ========== Galerie ========== */
 .gallery-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
+position: relative;
+text-align: center;
+}
+
+.gallery-wrapper img {
+width: 100%;
+max-width: 600px;
+height: auto;
+border-radius: 8px;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .gallery-button {
-  background: none;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background-color: rgba(0, 0, 0, 0.4);
+border: none;
+color: white;
+padding: 10px;
+border-radius: 50%;
+cursor: pointer;
+font-size: 1.2rem;
 }
 
-/* === Footer === */
+#prevBtn {
+left: 10px;
+}
+
+#nextBtn {
+right: 10px;
+}
+
+.gallery-button:hover {
+background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* ========== Footer ========== */
 footer {
-  text-align: center;
-  padding: 1rem;
-  margin-top: 2rem;
-  color: #888;
-  background: #f0f0f0;
+text-align: center;
+font-size: 0.9em;
+padding: 20px;
+color: #666;
 }
 
-/* === Mobiles MenÃ¼-Icon === */
-.menu-icon {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 40px;
-  height: 40px;
-  z-index: 1000;
-  cursor: pointer;
+/* ========== Hamburger-Menü (mobil) ========== */
+.menu-toggle {
+display: none;
 }
 
-.line {
-  position: absolute;
-  width: 100%;
-  height: 5px;
-  background-color: black;
-  transition: all 0.3s ease;
+.hamburger {
+display: none;
 }
 
-.top { top: 0; }
-.middle { top: 50%; transform: translateY(-50%); }
-.bottom { bottom: 0; }
-
-.menu-icon.open .top {
-  transform: rotate(45deg);
-  top: 50%;
-  margin-top: -2px;
-}
-.menu-icon.open .middle {
-  opacity: 0;
-}
-.menu-icon.open .bottom {
-  transform: rotate(-45deg);
-  bottom: 50%;
-  margin-bottom: -2px;
-}
-
-/* === Mobiles MenÃ¼ === */
+/* Mobiles Menü in der Desktop-Ansicht ausblenden */
 .mobile-menu {
   display: none;
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  padding: 0.5rem 1rem;
-  z-index: 999;
+}
+
+
+@media (max-width: 768px) {
+.container {
+flex-direction: column;
+padding-bottom: 80px; /* Platz für Menü */
+}
+
+nav {
+display: none;
+width: 100%;
+position: absolute;
+top: 60px;
+left: 0;
+background-color: white;
+z-index: 998;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+nav.active {
+display: block;
+}
+
+nav ul {
+flex-direction: column;
+margin: 0;
+padding: 0;
+}
+
+.menu-toggle {
+display: none; /* alt – wird durch neuen .hamburger ersetzt */
+}
+
+.hamburger {
+display: block;
+position: fixed;
+bottom: 20px;
+right: 20px;
+background-color: #0073b1;
+border: none;
+color: white;
+padding: 12px 16px;
+font-size: 1.2rem;
+border-radius: 50%;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+cursor: pointer;
+z-index: 1000;
+}
+
+  
+.mobile-menu {
+    display: block;
+  }
+  
+.mobile-menu {
+display: none;
+position: fixed;
+bottom: 80px;
+right: 20px;
+background: white;
+border-radius: 8px;
+box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+overflow: hidden;
+z-index: 1000;
 }
 
 .mobile-menu a {
-  display: block;
-  margin: 0.5rem 0;
-  text-decoration: none;
-  color: #0073b1;
-  font-weight: bold;
+display: block;
+padding: 14px 18px;
+border-bottom: 1px solid #eee;
+color: #333;
+text-decoration: none;
 }
 
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
+.mobile-menu a:hover {
+background-color: #f5f5f5;
+}
 
-  nav, .right-column {
-    width: 100%;
-  }
+.mobile-menu a.share-button {
+background-color: #0073b1;
+color: white;
+}
 
-  nav {
-    order: 1;
-  }
+aside.right-column {
+display: block;
+margin-top: 20px;
+position: static;
+flex: 1;
+}
 
-  main {
-    order: 2;
-  }
-
-  .right-column {
-    order: 3;
-  }
-
-  .menu-icon {
-    display: block;
-  }
-
-  .mobile-menu {
-    display: none;
-  }
-
-  .mobile-menu.active {
-    display: block;
-  }
-
-  nav {
-    display: none;
-  }
+main {
+margin: 0 1rem;
+}
 }
