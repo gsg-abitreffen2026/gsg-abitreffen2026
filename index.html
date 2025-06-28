@@ -1,123 +1,120 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Abi-Treffen 2006</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Abi-Treffen 2006</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
-  <!-- Hero-Bereich -->
-  <header>
-    <img src="GSG_Bearbeitet_NEU.jpg" alt="Abi-Treffen 2006" class="hero-img" />
-    <div class="hero-text">
-      <h1>Abi-Treffen 2006</h1>
-      <p>20 Jahre – wir feiern wieder!</p>
-    </div>
-  </header>
+<!-- Hero-Bereich -->
+<header>
+<img src="GSG_Bearbeitet_NEU.jpg" alt="Abi-Treffen 2006" class="hero-img" />
+<div class="hero-text">
+<h1>Abi-Treffen 2006</h1>
+<p>20 Jahre – wir feiern wieder!</p>
+</div>
+</header>
 
-  <div class="container">
+<div class="container">
 
-    <!-- Navigation (links) -->
-    <nav>
-      <ul>
-        <li><a href="#infos"><i class="fas fa-info-circle"></i> Infos</a></li>
-        <li><a href="#newsletter"><i class="fas fa-newspaper"></i> Newsletter</a></li>
-        <li><a href="#galerie"><i class="fas fa-images"></i> Galerie</a></li>
-        <li><a href="#kontakt"><i class="fas fa-envelope"></i> Kontakt</a></li>
-        <li><a href="#" id="shareButton" class="share-button"><i class="fas fa-share-alt"></i> Seite teilen</a></li>
-      </ul>
+<!-- Navigation (links) -->
+<nav>
+<ul>
+<li><a href="#infos"><i class="fas fa-info-circle"></i> Infos</a></li>
+<li><a href="#newsletter"><i class="fas fa-newspaper"></i> Newsletter</a></li>
+<li><a href="#galerie"><i class="fas fa-images"></i> Galerie</a></li>
+<li><a href="#kontakt"><i class="fas fa-envelope"></i> Kontakt</a></li>
+<li><a href="#" id="shareButton" class="share-button"><i class="fas fa-share-alt"></i> Seite teilen</a></li>
+</ul>
 
-      <!-- Galerie-Login -->
-      <div id="galerie-login-box" class="content-box">
-        <h3>Galerie-Login</h3>
-        <form id="loginForm">
-          <input type="email" id="loginEmail" placeholder="E-Mail" required />
-          <input type="text" id="loginCode" placeholder="Zugangscode" required />
-          <button type="submit" class="button">Einloggen</button>
-        </form>
-        <p id="loginMessage"></p>
-      </div>
-    </nav>
+<!-- Galerie-Login -->
+<div id="galerie-login-box" class="content-box">
+<h3>Galerie-Login</h3>
+<form id="loginForm">
+<input type="email" id="loginEmail" placeholder="E-Mail" required />
+<input type="text" id="loginCode" placeholder="Zugangscode" required />
+<button type="submit" class="button">Einloggen</button>
+</form>
+<p id="loginMessage"></p>
+</div>
+</nav>
 
-    <!-- Hauptinhalt -->
-    <main>
-      <section id="infos" class="content-box">
-        <h2>Infos zum Treffen</h2>
-        <p>Das 20-jährige Jubiläum steht bevor! Trage dich in den Newsletter ein und bleib auf dem Laufenden.</p>
-        <div id="countdown">Lade Countdown...</div>
-      </section>
+<!-- Hauptinhalt -->
+<main>
+<section id="infos" class="content-box">
+<h2>Infos zum Treffen</h2>
+<p>Das 20-jährige Jubiläum steht bevor! Trage dich in den Newsletter ein und bleib auf dem Laufenden.</p>
+<div id="countdown">Lade Countdown...</div>
+</section>
 
-      <section id="newsletter" class="content-box">
-        <h2>Newsletter</h2>
-        <form id="newsletter-form">
-          <input type="text" id="newsletter-vorname" placeholder="Vorname" required />
-          <input type="text" id="newsletter-nachname" placeholder="Nachname" required />
-          <input type="email" id="newsletter-email" placeholder="E-Mail" required />
-          <input type="text" id="newsletter-honey" style="display: none" autocomplete="off" />
-          <button type="submit" class="button">Anmelden</button>
-        </form>
-      </section>
+<section id="newsletter" class="content-box">
+<h2>Newsletter</h2>
+<form id="newsletter-form">
+<input type="text" id="newsletter-vorname" placeholder="Vorname" required />
+<input type="text" id="newsletter-nachname" placeholder="Nachname" required />
+<input type="email" id="newsletter-email" placeholder="E-Mail" required />
+<input type="text" id="newsletter-honey" style="display: none" autocomplete="off" />
+<button type="submit" class="button">Anmelden</button>
+</form>
+</section>
 
-      <section id="galerie" class="content-box">
-        <h2>Galerie</h2>
-        <div class="gallery-wrapper">
-          <img id="gallery-image" src="bilder/bild1.jpg" alt="Galeriebild" />
-          <button id="prevBtn" class="gallery-button">&#8592;</button>
-          <button id="nextBtn" class="gallery-button">&#8594;</button>
-        </div>
-      </section>
+<section id="galerie" class="content-box">
+<h2>Galerie</h2>
+<div class="gallery-wrapper">
+<img id="gallery-image" src="bilder/bild1.jpg" alt="Galeriebild" />
+<button id="prevBtn" class="gallery-button">&#8592;</button>
+<button id="nextBtn" class="gallery-button">&#8594;</button>
+</div>
+</section>
 
-      <section id="kontakt" class="content-box">
-        <h2>Kontakt</h2>
-        <form id="kontakt-form">
-          <input type="text" name="name" placeholder="Name" required />
-          <input type="email" name="email" placeholder="E-Mail" required />
-          <textarea name="message" placeholder="Nachricht" rows="5" required></textarea>
-          <button type="submit" class="button">Absenden</button>
-        </form>
-      </section>
-    </main>
+<section id="kontakt" class="content-box">
+<h2>Kontakt</h2>
+<form id="kontakt-form">
+<input type="text" name="name" placeholder="Name" required />
+<input type="email" name="email" placeholder="E-Mail" required />
+<textarea name="message" placeholder="Nachricht" rows="5" required></textarea>
+<button type="submit" class="button">Absenden</button>
+</form>
+</section>
+</main>
 
-    <!-- Rechte Spalte -->
-    <aside class="right-column">
-      <div class="content-box">
-        <h3><i class="fas fa-calendar-alt"></i> Datum</h3>
-        <p>Sommer 2026<br>(genaues Datum folgt)</p>
-      </div>
-      <div class="content-box">
-        <h3><i class="fas fa-map-marker-alt"></i> Ort</h3>
-        <p>wird noch bekanntgegeben</p>
-      </div>
-      <div class="content-box">
-        <h3><i class="fas fa-hourglass-half"></i> Countdown</h3>
-        <p id="countdown">Läuft...</p>
-      </div>
-    </aside>
-  </div>
+<!-- Rechte Spalte -->
+<aside class="right-column">
+<div class="content-box">
+<h3><i class="fas fa-calendar-alt"></i> Datum</h3>
+<p>Sommer 2026<br>(genaues Datum folgt)</p>
+</div>
+<div class="content-box">
+<h3><i class="fas fa-map-marker-alt"></i> Ort</h3>
+<p>wird noch bekanntgegeben</p>
+</div>
+<div class="content-box">
+<h3><i class="fas fa-hourglass-half"></i> Countdown</h3>
+<p id="countdown-box">Läuft...</p>
+</div>
+</aside>
 
-  <!-- Mobiles Menü-Icon -->
-  <div class="menu-icon" id="menuIcon">
-    <div class="line top"></div>
-    <div class="line middle"></div>
-    <div class="line bottom"></div>
-  </div>
+</div>
 
-  <!-- Mobiles Menü -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#infos">Infos</a>
-    <a href="#newsletter">Newsletter</a>
-    <a href="#galerie">Galerie</a>
-    <a href="#kontakt">Kontakt</a>
-    <a href="#" id="shareButtonMobile" class="share-button">Seite teilen</a>
-  </div>
+<!-- Mobiles Burger-Menü -->
+<button class="hamburger" id="burgerButton">&#9776;</button>
+<div class="mobile-menu" id="mobileMenu">
+<a href="#infos">Infos</a>
+<a href="#newsletter">Newsletter</a>
+<a href="#galerie">Galerie</a>
+<a href="#kontakt">Kontakt</a>
+<a href="#" id="shareButtonMobile" class="share-button">Seite teilen</a>
+</div>
 
-  <footer>
-    <p>&copy; 2025 Abi-Jahrgang 2006 | <a href="admin.html">Admin-Login</a></p>
+<footer>
+    <p>&copy; 2025 Abi-Jahrgang 2006</p>
   </footer>
+  <p>&copy; 2025 Abi-Jahrgang 2006 – <a href="admin.html">Admin-Login</a></p>
+</footer>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
