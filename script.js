@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (honey) return;
 
-    fetch("https://script.google.com/macros/s/AKfycbz3f_Yaj_lp-GJkrgK5Kit9JG5cccnhAkcSV-oxGrTHAUFyORTfY8MiqYdE_DJwfu7d/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbwBqN4VqLWUkwDGmvtKymqpUxNCIk2LbBI451vDrau-Wh7SW8hWkNv2AQJ-m4c9H0Z_/exec", {
       method: "POST",
       body: new URLSearchParams({
         email,
