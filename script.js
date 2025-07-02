@@ -75,9 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (honey) return;
 
-    fetch("https://script.google.com/macros/s/AKfycbwBqN4VqLWUkwDGmvtKymqpUxNCIk2LbBI451vDrau-Wh7SW8hWkNv2AQJ-m4c9H0Z_/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbwwlu6CF5YrsvGGYPM7lXqBjQOsiIwgUZmco5qEDaPtC_AJt_i0eucICNlYYSLosrnx/exec", {
       method: "POST",
       body: new URLSearchParams({
+        action: "newsletter",
         email,
         vorname,
         nachname,
