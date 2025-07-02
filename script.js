@@ -1,9 +1,7 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   // === Hamburger-Menü ===
   const burgerButton = document.getElementById("burgerButton");
   const mobileMenu = document.getElementById("mobileMenu");
-
   if (burgerButton && mobileMenu) {
     burgerButton.addEventListener("click", () => {
       mobileMenu.style.display = mobileMenu.style.display === "block" ? "none" : "block";
@@ -13,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // === Share Button (Desktop + Mobil) ===
   const shareButtonDesktop = document.getElementById("shareButton");
   const shareButtonMobile = document.getElementById("shareButtonMobile");
-
   [shareButtonDesktop, shareButtonMobile].forEach(button => {
     if (button && navigator.share) {
       button.addEventListener("click", () => {
@@ -33,16 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // === Countdown ===
   const countdownDate = new Date("2026-07-01T00:00:00").getTime();
   const countdownEls = document.querySelectorAll("#countdown, #countdown-box");
-
   function updateCountdown() {
     const now = new Date().getTime();
     const diff = countdownDate - now;
     const days = Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
     const text = diff < 0 ? "Es ist so weit!" : `${days} Tage noch!`;
-
     countdownEls.forEach(el => el.textContent = text);
   }
-
   updateCountdown();
   setInterval(updateCountdown, 1000 * 60 * 60);
 
@@ -50,21 +44,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginBox = document.getElementById("galerie-login-box");
   const galerieSection = document.getElementById("galerie");
   const newsletterBox = document.getElementById("newsletter");
-
   if (localStorage.getItem("loggedIn") === "true") {
     loginBox?.remove();
     galerieSection?.classList.remove("hidden");
   } else {
     galerieSection?.classList.add("hidden");
   }
-
   if (localStorage.getItem("newsletterVorname")) {
     newsletterBox?.remove();
   }
 
   // === Newsletter-Formular ===
   const newsletterForm = document.getElementById("newsletter-form");
-
   newsletterForm?.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -78,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch("https://script.google.com/macros/s/AKfycbwwlu6CF5YrsvGGYPM7lXqBjQOsiIwgUZmco5qEDaPtC_AJt_i0eucICNlYYSLosrnx/exec", {
       method: "POST",
       body: new URLSearchParams({
-        action: "newsletter",
+        action: "newsletter",   // <--- WICHTIG!
         email,
         vorname,
         nachname,
@@ -107,18 +98,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // === Kontaktformular ===
   const kontaktForm = document.getElementById("kontakt-form");
-
   kontaktForm?.addEventListener("submit", async function (e) {
     e.preventDefault();
-
     const formData = new FormData(kontaktForm);
-
     try {
       const res = await fetch("https://script.google.com/macros/s/AKfycbxYT1R888mhW0clVOqJWOVGfdWj6n4n6XkmwYHw2tdRz0A9l-q4S-47s1ZIzIANyVelVg/exec", {
         method: "POST",
         body: formData
       });
-
       const text = await res.text();
       alert(text === "Erfolg" ? "Nachricht erfolgreich gesendet!" : "Unbekannte Antwort.");
       kontaktForm.reset();
@@ -131,26 +118,23 @@ document.addEventListener("DOMContentLoaded", () => {
   // === Galerie-Login ===
   const loginForm = document.getElementById("loginForm");
   const loginMessage = document.getElementById("loginMessage");
-
   loginForm?.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const email = document.getElementById("loginEmail").value.trim();
     const code = document.getElementById("loginCode").value.trim();
-
     if (!email || !code) return;
 
-    try {
-      const res = await fetch("https://script.google.com/macros/s/AKfycbw-lreBTRtyeqtmibO8NGYKc0oKgZ2Du7Sdl3BhpOIC9nSENWOlwQrlIH7DxYDGJhPi/exec", {
-        method: "POST",
-        body: new URLSearchParams({
-          action: "login",
-          email,
-          code
-        })
-      });
-
-      const data = await res.json();
+    fetch("https://script.google.com/macros/s/AKfycbwwlu6CF5YrsvGGYPM7lXqBjQOsiIwgUZmco5qEDaPtC_AJt_i0eucICNlYYSLosrnx/exec", {
+      method: "POST",
+      body: new URLSearchParams({
+        action: "login",   // <--- WICHTIG!
+        email,
+        code
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
       if (data.result === "success") {
         localStorage.setItem("loggedIn", "true");
         localStorage.setItem("subscriberName", data.name || "");
@@ -162,11 +146,12 @@ document.addEventListener("DOMContentLoaded", () => {
         loginMessage.textContent = "Login fehlgeschlagen. Bitte prüfe deine Angaben.";
         loginMessage.style.color = "red";
       }
-    } catch (error) {
+    })
+    .catch(error => {
       console.error("Login-Fehler:", error);
       loginMessage.textContent = "Ein Fehler ist aufgetreten.";
       loginMessage.style.color = "red";
-    }
+    });
   });
 
   // === Galerie-Slideshow ===
@@ -177,30 +162,24 @@ document.addEventListener("DOMContentLoaded", () => {
     "bilder/bild4.jpg",
     "bilder/bild5.jpg"
   ];
-
   let currentIndex = 0;
   const galleryImage = document.getElementById("gallery-image");
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
-
   function updateImage() {
     if (galleryImage) {
       galleryImage.src = images[currentIndex];
     }
   }
-
   updateImage();
-
   prevBtn?.addEventListener("click", () => {
     currentIndex = (currentIndex - 1 + images.length) % images.length;
     updateImage();
   });
-
   nextBtn?.addEventListener("click", () => {
     currentIndex = (currentIndex + 1) % images.length;
     updateImage();
   });
-
   galleryImage?.addEventListener("error", () => {
     console.error(`Bild nicht gefunden: ${galleryImage.src}`);
   });
