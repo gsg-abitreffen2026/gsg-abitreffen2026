@@ -199,7 +199,7 @@
     spinner.classList.remove("hidden");
 
     try {
-      const res = await fetch(SCRIPT_URL);
+      const res = await fetch(https://gsg-proxy.vercel.app/api/proxy);
       const data = await res.json();
 
       const offene = (data.anmeldungen || []).sort((a, b) => a.vorname.localeCompare(b.vorname));
@@ -253,7 +253,7 @@
 
     if (selected.length === 0) return;
 
-    const res = await fetch(SCRIPT_URL, {
+    const res = await fetch(https://gsg-proxy.vercel.app/api/proxy, {
       method: "POST",
       body: new URLSearchParams({
         action: "freigeben",
@@ -270,7 +270,7 @@
   async function loeschen(email) {
     if (!confirm("Willst du den Nutzer wirklich löschen?")) return;
 
-    const res = await fetch(SCRIPT_URL, {
+    const res = await fetch(https://gsg-proxy.vercel.app/api/proxy, {
       method: "POST",
       body: new URLSearchParams({
         action: "loeschen",
@@ -289,7 +289,7 @@
     const subject = document.getElementById("newsletterSubject").value;
     const test = document.getElementById("testEmail").value;
 
-    const res = await fetch(SCRIPT_URL, {
+    const res = await fetch(https://gsg-proxy.vercel.app/api/proxy, {
       method: "POST",
       body: new URLSearchParams({
         action: "testmail",
@@ -308,7 +308,7 @@
     const text = document.getElementById("newsletterText").value;
     const subject = document.getElementById("newsletterSubject").value;
 
-    const res = await fetch(SCRIPT_URL, {
+    const res = await fetch(https://gsg-proxy.vercel.app/api/proxy, {
       method: "POST",
       body: new URLSearchParams({
         action: "newsletter",
