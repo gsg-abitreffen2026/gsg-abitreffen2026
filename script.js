@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (honey) return;
 
-    fetch("https://script.google.com/macros/s/AKfycbxZUfu3TZ3FL9ZP4gw1APaAgHsZsT9-u-Id3Khfb3HnlCIkyO8tKgABfjAYhqbOra7m/exec", {
+    fetch("https://gsg-proxy.vercel.app/api/proxy", {
       method: "POST",
       body: new URLSearchParams({
         action: "newsletter",   // <--- WICHTIG!
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     const formData = new FormData(kontaktForm);
     try {
-      const res = await fetch("https://script.google.com/macros/s/AKfycbxYT1R888mhW0clVOqJWOVGfdWj6n4n6XkmwYHw2tdRz0A9l-q4S-47s1ZIzIANyVelVg/exec", {
+      const res = await fetch("https://gsg-proxy.vercel.app/api/proxy", {
         method: "POST",
         body: formData
       });
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const code = document.getElementById("loginCode").value.trim();
     if (!email || !code) return;
 
-    fetch("https://script.google.com/macros/s/AKfycbxZUfu3TZ3FL9ZP4gw1APaAgHsZsT9-u-Id3Khfb3HnlCIkyO8tKgABfjAYhqbOra7m/exec", {
+    fetch("https://gsg-proxy.vercel.app/api/proxy", {
       method: "POST",
       body: new URLSearchParams({
         action: "login",   // <--- WICHTIG!
