@@ -100,19 +100,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const kontaktForm = document.getElementById("kontakt-form");
   kontaktForm?.addEventListener("submit", async function (e) {
     e.preventDefault();
-    const formData = new FormData(kontaktForm);
-    try {
-      const res = await fetch("https://gsg-proxy.vercel.app/api/proxy", {
-        method: "POST",
-        body: formData
-      });
-      const text = await res.text();
-      alert(text === "Erfolg" ? "Nachricht erfolgreich gesendet!" : "Unbekannte Antwort.");
-      kontaktForm.reset();
-    } catch (error) {
-      alert("Fehler beim Absenden. Bitte versuche es später.");
-      console.error(error);
-    }
+    const name = kontaktForm.elements["name"].value.trim();
+const email = kontaktForm.elements["email"].value.trim();
+const message = kontaktForm.elements["message"].value.trim();
+
+try {
+  const res = await fetch("https://gsg-proxy.vercel.app/api/proxy", {
+    method: "POST",
+    body: new URLSearchParams({
+      name,
+      email,
+      message
+    })
+  });
+  const text = await res.text();
+  alert(text === "Erfolg" ? "Nachricht erfolgreich gesendet!" : "Unbekannte Antwort.");
+  kontaktForm.reset();
+} catch (error) {
+  alert("Fehler beim Absenden. Bitte versuche es später.");
+  console.error(error);
+}
+
   });
 
   // === Galerie-Login ===
