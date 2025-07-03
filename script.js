@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (honey) return;
 
-    fetch("https://script.google.com/macros/s/AKfycbwwlu6CF5YrsvGGYPM7lXqBjQOsiIwgUZmco5qEDaPtC_AJt_i0eucICNlYYSLosrnx/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbxZUfu3TZ3FL9ZP4gw1APaAgHsZsT9-u-Id3Khfb3HnlCIkyO8tKgABfjAYhqbOra7m/exec", {
       method: "POST",
       body: new URLSearchParams({
         action: "newsletter",   // <--- WICHTIG!
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // === Kontaktformular ===
+  // === Kontaktformular (unverändert) ===
   const kontaktForm = document.getElementById("kontakt-form");
   kontaktForm?.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const code = document.getElementById("loginCode").value.trim();
     if (!email || !code) return;
 
-    fetch("https://script.google.com/macros/s/AKfycbwwlu6CF5YrsvGGYPM7lXqBjQOsiIwgUZmco5qEDaPtC_AJt_i0eucICNlYYSLosrnx/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbxZUfu3TZ3FL9ZP4gw1APaAgHsZsT9-u-Id3Khfb3HnlCIkyO8tKgABfjAYhqbOra7m/exec", {
       method: "POST",
       body: new URLSearchParams({
         action: "login",   // <--- WICHTIG!
