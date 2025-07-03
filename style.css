@@ -6,6 +6,10 @@ background-color: #f3f2ef;
 color: #1c1e21;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .container {
 display: flex;
 max-width: 1200px;
