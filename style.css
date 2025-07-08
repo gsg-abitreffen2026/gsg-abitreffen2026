@@ -1,4 +1,3 @@
-/* ========== Allgemein ========== */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -12,12 +11,12 @@ body {
 
 .container {
   display: flex;
+  align-items: flex-start;   /* Damit alle Spalten oben bündig starten */
   max-width: 1200px;
   margin: auto;
   padding: 20px;
 }
 
-/* ========== Header ========== */
 header {
   position: relative;
   height: 30vh;
@@ -34,10 +33,6 @@ header img.hero-img {
   filter: saturate(1.5) contrast(1.25) brightness(1.1);
   transition: filter 0.3s ease;
   display: block;
-}
-
-header img.hero-img:hover {
-  filter: saturate(1.6) contrast(1.3) brightness(1.15);
 }
 
 header .hero-text {
@@ -61,15 +56,14 @@ header p {
   margin: 0;
 }
 
-/* ========== Navigation ========== */
 nav {
   flex: 0 0 220px;
   position: sticky;
-  top: 0; /* Korrigiert: bündig ganz oben */
+  top: 0;
   align-self: flex-start;
   z-index: 998;
-  margin-top: 0;   /* Korrigiert: kein zusätzlicher Abstand */
-  padding-top: 0;  /* Korrigiert: kein zusätzlicher Abstand */
+  margin-top: 0;
+  padding-top: 0;
 }
 
 nav ul {
@@ -102,7 +96,6 @@ nav i {
   color: #0073b1;
 }
 
-/* ===== TEILEN-BUTTON (Desktop): Icon und Text weiß ==== */
 nav .share-button {
   background-color: #0073b1 !important;
   color: #fff !important;
@@ -113,33 +106,29 @@ nav .share-button i {
   color: #fff !important;
 }
 
-/* ========== Hauptinhalt ========== */
 main {
   flex: 1;
   margin: 0 20px;
 }
 
-/* ========== Galerie-Login (jetzt links) ========== */
 aside.right-column {
   flex: 0 0 250px;
   position: sticky;
-  top: 0; /* Korrigiert: bündig ganz oben */
+  top: 0;
   align-self: flex-start;
 }
 
-/* Galerie-Login als Teil der Navigation */
 #galerie-login-box {
   margin-top: 20px;
 }
 
-/* ========== Inhaltsboxen ========== */
 .content-box {
   background-color: white;
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  width: 100%; /* Für mobiles Layout wichtig */
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -152,7 +141,6 @@ h3 {
   margin-top: 0;
 }
 
-/* ========== Formulare ========== */
 form {
   padding: 1rem 0;
 }
@@ -168,7 +156,6 @@ form textarea {
   box-sizing: border-box;
 }
 
-/* ========== Button ========== */
 .button {
   background-color: #0073b1;
   color: white;
@@ -183,7 +170,6 @@ form textarea {
   background-color: #005f90;
 }
 
-/* ========== Galerie ========== */
 .gallery-wrapper {
   position: relative;
   text-align: center;
@@ -222,7 +208,6 @@ form textarea {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* ========== Footer ========== */
 footer {
   text-align: center;
   font-size: 0.9em;
@@ -234,12 +219,12 @@ footer a {
   color: #0073b1;
   text-decoration: none;
   font-weight: bold;
+  font-size: 0.95em;
 }
 footer p {
   margin: 0.3em 0;
 }
 
-/* ========== Hamburger-Menü (mobil) ========== */
 .menu-toggle {
   display: none;
 }
@@ -248,17 +233,17 @@ footer p {
   display: none;
 }
 
-/* Mobiles Menü in der Desktop-Ansicht ausblenden */
 .mobile-menu {
   display: none;
 }
 
-@media (max-width: 900px) {
+/* ------ MEDIA QUERY FÜR MOBIL (jetzt bei 650px) ------ */
+@media (max-width: 650px) {
   .container {
+    display: flex;
     flex-direction: column;
-    padding-bottom: 80px; /* Platz für Menü */
+    padding-bottom: 80px;
   }
-
   nav {
     display: none;
     width: 100%;
@@ -268,24 +253,20 @@ footer p {
     background-color: white;
     z-index: 998;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 0; /* Fix für nav mobile */
+    margin-top: 0;
     padding-top: 0;
   }
-
   nav.active {
     display: block;
   }
-
   nav ul {
     flex-direction: column;
     margin: 0;
     padding: 0;
   }
-
   .menu-toggle {
-    display: none; /* alt – wird durch neuen .hamburger ersetzt */
+    display: none;
   }
-
   .hamburger {
     display: block;
     position: fixed;
@@ -301,9 +282,8 @@ footer p {
     cursor: pointer;
     z-index: 1000;
   }
-
   .mobile-menu {
-    display: block;
+    display: none;
     position: fixed;
     bottom: 80px;
     right: 20px;
@@ -314,7 +294,9 @@ footer p {
     z-index: 1000;
     min-width: 220px;
   }
-
+  .mobile-menu.active {
+    display: block;
+  }
   .mobile-menu a {
     display: block;
     padding: 14px 18px;
@@ -322,17 +304,14 @@ footer p {
     color: #333;
     text-decoration: none;
   }
-
   .mobile-menu a:hover {
     background-color: #f5f5f5;
   }
-
   .mobile-menu a.share-button {
     background-color: #0073b1;
     color: white !important;
   }
-
-  /* ======= Rechte Spalte: Boxen wie Hauptinhalt (MOBILE) ======= */
+  /* Rechte Spalte mobil: gleiche Breite wie mittlere Spalte, mittig */
   aside.right-column {
     display: block;
     position: static;
@@ -342,11 +321,11 @@ footer p {
     width: 100%;
   }
   .right-column .content-box {
+    max-width: 600px;
+    margin: 1rem auto 0 auto;
     width: 100%;
-    margin: 1rem 0 0 0;
     box-sizing: border-box;
   }
-
   main {
     margin: 0 1rem;
   }
