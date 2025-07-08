@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // === Hamburger-Menü ===
   const burgerButton = document.getElementById("burgerButton");
   const mobileMenu = document.getElementById("mobileMenu");
+  
   if (burgerButton && mobileMenu) {
+    mobileMenu.classList.remove("active"); // Menü am Start immer zu!
     burgerButton.addEventListener("click", () => {
-      mobileMenu.style.display = mobileMenu.style.display === "block" ? "none" : "block";
+      mobileMenu.classList.toggle("active");
     });
   }
 
