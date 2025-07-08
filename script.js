@@ -76,7 +76,16 @@ document.addEventListener("DOMContentLoaded", () => {
         _honey: honey
       })
     })
-    .then(response => response.json())
+   .then(async response => {
+  const text = await response.text();
+  console.log("Roh-Response:", text); // <-- Das wollen wir sehen!
+  try {
+    return JSON.parse(text);
+  } catch (err) {
+    console.error("Konnte nicht als JSON geparst werden!");
+    throw err;
+  }
+})
     .then(data => {
       if (data.result === "success") {
         localStorage.setItem("newsletterVorname", vorname);
