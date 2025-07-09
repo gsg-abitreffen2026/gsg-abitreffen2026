@@ -11,16 +11,15 @@ body {
 
 .container {
   display: flex;
-  align-items: flex-start;   /* Damit alle Spalten oben bündig starten */
   max-width: 1200px;
-  margin: auto;
+  margin: 2rem auto 0 auto; /* OBERER Abstand für alle Spalten */
   padding: 20px;
 }
 
 header {
   position: relative;
   height: 30vh;
-  margin: 3rem 2rem 2rem;
+  margin: 2rem 2rem 0; /* Nur noch Abstand nach rechts und links, KEIN Abstand mehr nach unten! */
   border-radius: 10px;
   overflow: hidden;
 }
