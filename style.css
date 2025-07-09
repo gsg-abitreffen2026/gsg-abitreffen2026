@@ -329,4 +329,29 @@ footer p {
   main {
     margin: 0 1rem;
   }
+  @media (max-width: 650px) {
+  header {
+    height: 19vh;
+    margin: 1.2rem 0.5rem 1.2rem;
+  }
+
+  header .hero-text {
+    padding: 0 0.2rem;
+    left: 50%;
+    bottom: 6%;
+    transform: translateX(-50%);
+  }
+
+  header h1 {
+    font-size: 2.0rem;
+    margin: 0 0 0.3rem;
+    letter-spacing: -1px;
+  }
+
+  header p {
+    font-size: 1.0rem;
+    margin: 0;
+  }
+}
+
 }
