@@ -1,30 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // === Hamburger & Mobile Menü ===
   const burgerButton = document.getElementById("burgerButton");
   const mobileMenu = document.getElementById("mobileMenu");
-  
-  if (burgerButton && mobileMenu) {
-    mobileMenu.classList.remove("active"); // Menü am Start immer zu!
-    burgerButton.addEventListener("click", () => {
-      mobileMenu.classList.toggle("active");
-    });
-  }
+  burgerButton?.addEventListener("click", () => {
+    mobileMenu.style.display = mobileMenu.style.display === "block" ? "none" : "block";
+  });
+  // Menü initial immer zu (mobil)
+  if (mobileMenu) mobileMenu.style.display = "none";
 
-  // === Share Button (Desktop + Mobil) ===
+  // === Share Buttons (weißes Icon auf Desktop/Mobil) ===
   const shareButtonDesktop = document.getElementById("shareButton");
   const shareButtonMobile = document.getElementById("shareButtonMobile");
-  [shareButtonDesktop, shareButtonMobile].forEach(button => {
-    if (button && navigator.share) {
-      button.addEventListener("click", () => {
+  [shareButtonDesktop, shareButtonMobile].forEach(btn => {
+    if (btn && navigator.share) {
+      btn.addEventListener("click", e => {
+        e.preventDefault();
         navigator.share({
           title: "Abi-Treffen 2026",
           text: "Sei dabei beim 20-jährigen Abiturjubiläum!",
           url: window.location.href
-        }).catch(err => {
-          console.error("Teilen abgebrochen oder nicht möglich:", err);
-        });
+        }).catch(() => {});
       });
-    } else if (button) {
-      button.style.display = "none";
+    } else if (btn) {
+      btn.style.display = "none";
     }
   });
 
@@ -41,104 +39,90 @@ document.addEventListener("DOMContentLoaded", () => {
   updateCountdown();
   setInterval(updateCountdown, 1000 * 60 * 60);
 
-  // === Galerie-Login + Newsletter nach Status verstecken ===
-  const loginBox = document.getElementById("galerie-login-box");
-  const galerieSection = document.getElementById("galerie");
+  // === Boxen-Logik (Newsletter → Galerie-Login → Galerie) ===
   const newsletterBox = document.getElementById("newsletter");
-  if (localStorage.getItem("loggedIn") === "true") {
-    loginBox?.remove();
-    galerieSection?.classList.remove("hidden");
-  } else {
+  const galerieLoginBox = document.getElementById("galerie-login-box");
+  const galerieSection = document.getElementById("galerie");
+
+  function showNewsletter() {
+    newsletterBox?.classList.remove("hidden");
+    galerieLoginBox?.classList.add("hidden");
     galerieSection?.classList.add("hidden");
   }
-  if (localStorage.getItem("newsletterVorname")) {
-    newsletterBox?.remove();
+  function showGalerieLogin() {
+    newsletterBox?.classList.add("hidden");
+    galerieLoginBox?.classList.remove("hidden");
+    galerieSection?.classList.add("hidden");
+  }
+  function showGalerie() {
+    newsletterBox?.classList.add("hidden");
+    galerieLoginBox?.classList.add("hidden");
+    galerieSection?.classList.remove("hidden");
   }
 
-  // === Newsletter-Formular ===
+  // Initialzustand bestimmen (localStorage)
+  if (!localStorage.getItem("newsletterVorname")) {
+    showNewsletter();
+  } else if (!localStorage.getItem("loggedIn")) {
+    showGalerieLogin();
+  } else {
+    showGalerie();
+  }
+
+  // === Newsletter-Formular (Button gegen Doppelklick) ===
   const newsletterForm = document.getElementById("newsletter-form");
+  const newsletterBtn = document.getElementById("newsletter-submit-btn");
+  let btnLock = false;
   newsletterForm?.addEventListener("submit", function (e) {
     e.preventDefault();
+    if (btnLock) return;
+    btnLock = true;
+    newsletterBtn.disabled = true;
+
+    setTimeout(() => {
+      btnLock = false;
+      newsletterBtn.disabled = false;
+    }, 5000);
 
     const email = document.getElementById("newsletter-email").value.trim();
     const vorname = document.getElementById("newsletter-vorname").value.trim();
     const nachname = document.getElementById("newsletter-nachname").value.trim();
     const honey = document.getElementById("newsletter-honey").value;
-
     if (honey) return;
 
     fetch("https://gsg-proxy.vercel.app/api/proxy", {
       method: "POST",
       body: new URLSearchParams({
-        action: "newsletter",   // <--- WICHTIG!
+        action: "newsletter",
         email,
         vorname,
         nachname,
         _honey: honey
       })
     })
-   .then(async response => {
-  const text = await response.text();
-  console.log("Roh-Response:", text); // <-- Das wollen wir sehen!
-  try {
-    return JSON.parse(text);
-  } catch (err) {
-    console.error("Konnte nicht als JSON geparst werden!");
-    throw err;
-  }
-})
+    .then(response => response.json())
     .then(data => {
       if (data.result === "success") {
         localStorage.setItem("newsletterVorname", vorname);
+        showGalerieLogin();
         alert(`Danke für deine Anmeldung, ${vorname || "Freund/in"}!`);
         newsletterForm.reset();
-        newsletterBox?.remove();
       } else if (data.result === "ignored") {
-        console.log("Spam-Schutz ausgelöst");
+        // Spam-Schutz
       } else {
         alert("Fehler bei der Anmeldung. Bitte versuche es später.");
-        console.error(data.message || "Unbekannter Fehler");
       }
     })
-    .catch(error => {
+    .catch(() => {
       alert("Es ist ein Fehler aufgetreten.");
-      console.error("Fetch-Fehler:", error);
     });
-  });
-
-  // === Kontaktformular (unverändert) ===
-  const kontaktForm = document.getElementById("kontakt-form");
-  kontaktForm?.addEventListener("submit", async function (e) {
-    e.preventDefault();
-    const name = kontaktForm.elements["name"].value.trim();
-const email = kontaktForm.elements["email"].value.trim();
-const message = kontaktForm.elements["message"].value.trim();
-
-try {
-  const res = await fetch("https://gsg-proxy.vercel.app/api/proxy", {
-    method: "POST",
-    body: new URLSearchParams({
-      name,
-      email,
-      message
-    })
-  });
-  const text = await res.text();
-  alert(text === "Erfolg" ? "Nachricht erfolgreich gesendet!" : "Unbekannte Antwort.");
-  kontaktForm.reset();
-} catch (error) {
-  alert("Fehler beim Absenden. Bitte versuche es später.");
-  console.error(error);
-}
-
   });
 
   // === Galerie-Login ===
   const loginForm = document.getElementById("loginForm");
   const loginMessage = document.getElementById("loginMessage");
-  loginForm?.addEventListener("submit", async function (e) {
+  loginForm?.addEventListener("submit", function (e) {
     e.preventDefault();
-
     const email = document.getElementById("loginEmail").value.trim();
     const code = document.getElementById("loginCode").value.trim();
     if (!email || !code) return;
@@ -146,7 +130,7 @@ try {
     fetch("https://gsg-proxy.vercel.app/api/proxy", {
       method: "POST",
       body: new URLSearchParams({
-        action: "login",   // <--- WICHTIG!
+        action: "login",
         email,
         code
       })
@@ -158,18 +142,36 @@ try {
         localStorage.setItem("subscriberName", data.name || "");
         loginMessage.textContent = "Erfolgreich eingeloggt.";
         loginMessage.style.color = "green";
-        loginBox?.remove();
-        galerieSection?.classList.remove("hidden");
+        showGalerie();
       } else {
         loginMessage.textContent = "Login fehlgeschlagen. Bitte prüfe deine Angaben.";
         loginMessage.style.color = "red";
       }
     })
-    .catch(error => {
-      console.error("Login-Fehler:", error);
+    .catch(() => {
       loginMessage.textContent = "Ein Fehler ist aufgetreten.";
       loginMessage.style.color = "red";
     });
+  });
+
+  // === Kontaktformular ===
+  const kontaktForm = document.getElementById("kontakt-form");
+  kontaktForm?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const name = kontaktForm.elements["name"].value.trim();
+    const email = kontaktForm.elements["email"].value.trim();
+    const message = kontaktForm.elements["message"].value.trim();
+    try {
+      const res = await fetch("https://gsg-proxy.vercel.app/api/proxy", {
+        method: "POST",
+        body: new URLSearchParams({ name, email, message })
+      });
+      const text = await res.text();
+      alert(text === "Erfolg" ? "Nachricht erfolgreich gesendet!" : "Unbekannte Antwort.");
+      kontaktForm.reset();
+    } catch {
+      alert("Fehler beim Absenden. Bitte versuche es später.");
+    }
   });
 
   // === Galerie-Slideshow ===
@@ -198,7 +200,13 @@ try {
     currentIndex = (currentIndex + 1) % images.length;
     updateImage();
   });
-  galleryImage?.addEventListener("error", () => {
-    console.error(`Bild nicht gefunden: ${galleryImage.src}`);
+
+  // === Kontaktbox einklappbar ===
+  const collapsible = document.querySelector('.collapsible');
+  const collapsibleHeader = collapsible?.querySelector('.collapsible-header');
+  collapsibleHeader?.addEventListener('click', () => {
+    collapsible.classList.toggle('open');
   });
+  // Optional: Kontaktbox bei Laden zugeklappt lassen
+  collapsible.classList.remove('open');
 });
