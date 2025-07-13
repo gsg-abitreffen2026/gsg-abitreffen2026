@@ -223,52 +223,60 @@ footer p { margin: 0.3em 0; }
 }
 .menu-fab:hover { background: #005f90; }
 
-.fab-icon {
+.fab-rotator {
   position: relative;
   width: 32px;
   height: 32px;
+  transition: transform 0.42s cubic-bezier(.4,2,.6,1);
+}
+.menu-fab.open .fab-rotator {
+  transform: rotate(45deg);
 }
 
-.menu-lines {
+/* Plus-/X-Linien */
+.menu-lines,
+.menu-lines::after {
   position: absolute;
+  background: #fff;
+  content: '';
+}
+.menu-lines {
   top: 50%;
   left: 50%;
   width: 20px;
   height: 2px;
-  background: #fff;
-  transform: translate(-50%, -50%) rotate(0deg);
-  transition: transform 0.3s ease;
-}
-.menu-fab.open .menu-lines {
-  transform: translate(-50%, -50%) rotate(45deg);
+  transform: translate(-50%, -50%);
 }
 .menu-lines::after {
-  content: '';
-  position: absolute;
   width: 2px;
   height: 20px;
-  background: #fff;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
 
+/* Buchstaben absolute Position */
 .fab-letter {
   position: absolute;
   color: #fff;
   font-size: 11px;
   font-weight: bold;
-  transition: transform 0.3s ease;
+  transform-origin: center;
+  transition: transform 0.42s cubic-bezier(.4,2,.6,1);
 }
-.fab-letter.m { top: 2px; left: 2px; }
-.fab-letter.e { top: 2px; right: 2px; }
-.fab-letter.n { bottom: 2px; right: 2px; }
-.fab-letter.u { bottom: 2px; left: 2px; }
 
+.fab-letter.m { top: 0; left: 0; }
+.fab-letter.e { top: 0; right: 0; }
+.fab-letter.n { bottom: 0; right: 0; }
+.fab-letter.u { bottom: 0; left: 0; }
+
+/* Counter-Rotation für Buchstaben */
 .menu-fab.open .fab-letter.m { transform: rotate(-45deg); }
-.menu-fab.open .fab-letter.e { transform: rotate(45deg); }
-.menu-fab.open .fab-letter.n { transform: rotate(135deg); }
-.menu-fab.open .fab-letter.u { transform: rotate(-135deg); }
+.menu-fab.open .fab-letter.e { transform: rotate(-45deg); }
+.menu-fab.open .fab-letter.n { transform: rotate(-45deg); }
+.menu-fab.open .fab-letter.u { transform: rotate(-45deg); }
+
+
 
 @media (min-width: 768px) {
   .menu-fab, .mobile-menu { display: none !important; }
