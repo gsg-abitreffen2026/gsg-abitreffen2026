@@ -202,13 +202,13 @@ footer p { margin: 0.3em 0; }
   padding: 0;
 }
 
-/* ======== FAB MENÜ (M E N Ü) ======== */
+/* ======== Menü-Button: kleinere Größe ======== */
 .menu-fab {
   position: fixed;
   right: 24px;
   bottom: 32px;
-  width: 74px;
-  height: 74px;
+  width: 64px;
+  height: 64px;
   background: #0073b1;
   border-radius: 50%;
   box-shadow: 0 6px 36px 0 rgba(0,0,0,0.13);
@@ -224,8 +224,8 @@ footer p { margin: 0.3em 0; }
 .menu-fab:hover { background: #005f90; }
 
 .menu-fab svg {
-  width: 54px;
-  height: 54px;
+  width: 48px;
+  height: 48px;
   display: block;
 }
 
@@ -241,7 +241,7 @@ footer p { margin: 0.3em 0; }
 .menu-fab.open .menu-plus { opacity: 0; transform: rotate(90deg); }
 .menu-fab.open .menu-cross { opacity: 1; transform: rotate(180deg); }
 
-/* BUCHSTABEN */
+/* Buchstaben */
 .menu-fab .fab-letter {
   fill: #fff;
   font-size: 13px;
@@ -258,6 +258,26 @@ footer p { margin: 0.3em 0; }
 .menu-fab.open .fab-e { transform: rotate(45deg) translate(17px, -17px); }
 .menu-fab.open .fab-n { transform: rotate(135deg) translate(17px, 17px); }
 .menu-fab.open .fab-u { transform: rotate(-135deg) translate(-17px, 17px); }
+
+/* ======== Mobile-Menu Anpassung ======== */
+@media (min-width: 768px) {
+  .menu-fab, .mobile-menu { display: none !important; }
+}
+@media (max-width: 768px) {
+  .container { flex-direction: column; padding-bottom: 80px; }
+  nav { display: none; }
+  aside.right-column {
+    display: block; position: static; flex: 1 1 100%; margin: 0; padding: 0; width: 100%;
+  }
+  .right-column .content-box {
+    max-width: 600px; margin: 1rem auto 0 auto; width: 100%; box-sizing: border-box;
+  }
+  main { margin: 0 1rem; }
+  header { height: 18vh; margin: 1.2rem 0.5rem 1.2rem; }
+  header .hero-text { padding: 0 0.2rem; left: 50%; bottom: 6%; transform: translateX(-50%); }
+  header h1 { font-size: 2.0rem; margin: 0 0 0.3rem; letter-spacing: -1px; }
+  header p { font-size: 1.0rem; margin: 0; }
+}
 
 /* ======== MOBILE-MENÜ ======== */
 .mobile-menu {
