@@ -7,39 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ===== Custom Menü-Button MENÜ/X + SVG-Animation =====
+  // ===== Menü-Button MENÜ/X =====
   const burgerBtn = document.getElementById("burgerButton");
-  const menuIcon = document.getElementById("menuIcon");
-  const iconGroup = menuIcon?.getElementById ? menuIcon.getElementById("iconGroup") : menuIcon?.querySelector("g#iconGroup");
   const mobileMenu = document.getElementById("mobileMenu");
   let menuOpen = false;
-  const letters = [
-    { el: document.getElementById("mText"), angle: 0, x: 8, y: 20 },  // M oben links
-    { el: document.getElementById("eText"), angle: 90, x: 44, y: 20 }, // E oben rechts
-    { el: document.getElementById("nText"), angle: 180, x: 44, y: 44 }, // N unten rechts
-    { el: document.getElementById("üText"), angle: 270, x: 8, y: 44 }   // Ü unten links
-  ];
-  function rotateMenuIcon(open) {
-    // Linie und Buchstaben animieren
-    const rot = open ? 45 : 0;
-    iconGroup.setAttribute("transform", `rotate(${rot} 26 26)`);
-    // Buchstaben mitdrehen, bleiben aber gerade
-    letters.forEach((l, i) => {
-      const baseRot = [0, 90, 180, 270][i];
-      const rotVal = open ? rot : 0;
-      l.el.setAttribute("transform", `rotate(${-rotVal} ${l.x} ${l.y})`);
-    });
-  }
-  if (burgerBtn && iconGroup) {
+  if (burgerBtn && mobileMenu) {
     burgerBtn.addEventListener("click", () => {
       menuOpen = !menuOpen;
-      rotateMenuIcon(menuOpen);
-      mobileMenu.classList.toggle("active", menuOpen);
+      burgerBtn.classList.toggle("open", menuOpen);
+      mobileMenu.classList.toggle("open", menuOpen);
     });
-    // Initial: sicherstellen, dass alles zu ist
-    rotateMenuIcon(false);
-    menuOpen = false;
-    mobileMenu.classList.remove("active");
   }
 
   // ===== Share Button (Desktop + Mobil) =====
@@ -75,31 +52,27 @@ document.addEventListener("DOMContentLoaded", () => {
   updateCountdown();
   setInterval(updateCountdown, 1000 * 60 * 60);
 
-  // ===== Responsive Galerie-Login/Newsletter/Show/Hide =====
+  // ===== Login/Newsletter Status =====
   const newsletterBox = document.getElementById("newsletter");
   const galerieSection = document.getElementById("galerie");
-  const galerieLoginBox = document.getElementById("galerie-login-box");    // nav (desktop)
-  const galerieLoginMitte = document.getElementById("galerie-login-mitte");// main (desktop)
-  const galerieLoginMobile = document.getElementById("galerie-login-mobile"); // main (mobile)
+  const galerieLoginBox = document.getElementById("galerie-login-box");
+  const galerieLoginMitte = document.getElementById("galerie-login-mitte");
   function showOnlyNewsletter() {
     newsletterBox?.classList.remove("hidden");
     galerieLoginBox?.classList.add("hidden");
     galerieLoginMitte?.classList.add("hidden");
-    galerieLoginMobile?.classList.add("hidden");
     galerieSection?.classList.add("hidden");
   }
   function showOnlyGalerieLogin() {
     newsletterBox?.classList.add("hidden");
-    galerieLoginBox?.classList.add(window.innerWidth > 650 ? "hidden" : "");
-    galerieLoginMitte?.classList.toggle("hidden", window.innerWidth <= 650);
-    galerieLoginMobile?.classList.toggle("hidden", window.innerWidth > 650);
+    galerieLoginBox?.classList.remove("hidden");
+    galerieLoginMitte?.classList.remove("hidden");
     galerieSection?.classList.add("hidden");
   }
   function showGalerie() {
     newsletterBox?.classList.add("hidden");
     galerieLoginBox?.classList.add("hidden");
     galerieLoginMitte?.classList.add("hidden");
-    galerieLoginMobile?.classList.add("hidden");
     galerieSection?.classList.remove("hidden");
   }
   function checkLoginNewsletterStatus() {
@@ -174,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ====== Galerie-Login (alle Varianten) ======
+  // ===== Galerie-Login =====
   function setupLoginForm(formId, emailId, codeId, msgId) {
     const form = document.getElementById(formId);
     if (!form) return;
@@ -220,7 +193,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   setupLoginForm("loginForm", "loginEmail", "loginCode", "loginMessage");
   setupLoginForm("loginFormMitte", "loginEmailMitte", "loginCodeMitte", "loginMessageMitte");
-  setupLoginForm("loginFormMobile", "loginEmailMobile", "loginCodeMobile", "loginMessageMobile");
 
   // ===== Kontaktformular =====
   const kontaktForm = document.getElementById("kontakt-form");
