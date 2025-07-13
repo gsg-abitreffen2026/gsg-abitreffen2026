@@ -233,7 +233,7 @@ footer p { margin: 0.3em 0; }
   transform: rotate(45deg);
 }
 
-/* Plus-/X-Linien */
+/* Längere Linien */
 .menu-lines,
 .menu-lines::after {
   position: absolute;
@@ -243,19 +243,19 @@ footer p { margin: 0.3em 0; }
 .menu-lines {
   top: 50%;
   left: 50%;
-  width: 20px;
+  width: 26px;
   height: 2px;
   transform: translate(-50%, -50%);
 }
 .menu-lines::after {
   width: 2px;
-  height: 20px;
+  height: 26px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
 
-/* Buchstaben absolute Position */
+/* Buchstaben fein justiert */
 .fab-letter {
   position: absolute;
   color: #fff;
@@ -265,12 +265,12 @@ footer p { margin: 0.3em 0; }
   transition: transform 0.42s cubic-bezier(.4,2,.6,1);
 }
 
-.fab-letter.m { top: 0; left: 0; }
-.fab-letter.e { top: 0; right: 0; }
-.fab-letter.n { bottom: 0; right: 0; }
-.fab-letter.u { bottom: 0; left: 0; }
+.fab-letter.m { top: 4px; left: 4px; }
+.fab-letter.e { top: 4px; right: 4px; }
+.fab-letter.n { bottom: 4px; right: 4px; }
+.fab-letter.u { bottom: 4px; left: 4px; }
 
-/* Counter-Rotation für Buchstaben */
+/* Counter-Rotation bleibt unverändert */
 .menu-fab.open .fab-letter.m { transform: rotate(-45deg); }
 .menu-fab.open .fab-letter.e { transform: rotate(-45deg); }
 .menu-fab.open .fab-letter.n { transform: rotate(-45deg); }
