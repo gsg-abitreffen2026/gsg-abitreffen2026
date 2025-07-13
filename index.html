@@ -111,21 +111,20 @@
   </aside>
 </div>
 
-<!-- Mobiler Menü-Button (nur mobil sichtbar, rund, mit MENÜ-Icon!) -->
-<button class="custom-menu-btn" id="burgerButton" aria-label="Menü öffnen/schließen">
-  <svg id="menuIcon" viewBox="0 0 56 56" width="56" height="56">
-    <g id="iconGroup">
-      <!-- Linien für +/X -->
-      <rect x="26" y="10" width="4" height="36" rx="2" fill="#fff"/>
-      <rect x="10" y="26" width="36" height="4" rx="2" fill="#fff"/>
-      <!-- Buchstaben -->
-      <text x="9"  y="22" text-anchor="middle" alignment-baseline="middle" font-size="12" font-family="Arial" class="menu-letter" id="mText">M</text>
-      <text x="47" y="22" text-anchor="middle" alignment-baseline="middle" font-size="12" font-family="Arial" class="menu-letter" id="eText">E</text>
-      <text x="47" y="47" text-anchor="middle" alignment-baseline="middle" font-size="12" font-family="Arial" class="menu-letter" id="nText">N</text>
-      <text x="9"  y="47" text-anchor="middle" alignment-baseline="middle" font-size="12" font-family="Arial" class="menu-letter" id="üText">Ü</text>
-    </g>
+<!-- Menü-Button (FAB) -->
+<button class="menu-fab" id="burgerButton" aria-label="Menü öffnen/schließen">
+  <svg viewBox="0 0 68 68">
+    <line x1="34" y1="16" x2="34" y2="52" class="menu-plus"/>
+    <line x1="16" y1="34" x2="52" y2="34" class="menu-plus"/>
+    <line x1="20" y1="20" x2="48" y2="48" class="menu-cross"/>
+    <line x1="48" y1="20" x2="20" y2="48" class="menu-cross"/>
+    <text x="12" y="20" class="fab-letter fab-m">M</text>
+    <text x="56" y="20" class="fab-letter fab-e">E</text>
+    <text x="56" y="62" class="fab-letter fab-n">N</text>
+    <text x="12" y="62" class="fab-letter fab-u">Ü</text>
   </svg>
 </button>
+
 
   </svg>
 </button>
