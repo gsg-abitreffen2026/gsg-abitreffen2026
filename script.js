@@ -1,42 +1,54 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // === Custom Menü-Icon: Drehanimation + Buchstaben ===
-  const burgerButton = document.getElementById("burgerButton");
-  const iconGroup = document.getElementById("iconGroup");
-  const mText = document.getElementById("mText");
-  const eText = document.getElementById("eText");
-  const nText = document.getElementById("nText");
-  const üText = document.getElementById("üText");
+  // ===== Kontakt-Collapsible =====
+  document.querySelectorAll('.kontakt-collapsible').forEach(section => {
+    const header = section.querySelector('.kontakt-header');
+    header.addEventListener('click', () => {
+      section.classList.toggle('collapsed');
+    });
+  });
+
+  // ===== Custom Menü-Button MENÜ/X + SVG-Animation =====
+  const burgerBtn = document.getElementById("burgerButton");
+  const menuIcon = document.getElementById("menuIcon");
+  const iconGroup = menuIcon?.getElementById ? menuIcon.getElementById("iconGroup") : menuIcon?.querySelector("g#iconGroup");
   const mobileMenu = document.getElementById("mobileMenu");
-
   let menuOpen = false;
-
-  function setMenuIcon(open) {
-    // Drehung (IM Uhrzeigersinn)
-    iconGroup.setAttribute("transform", open ? "rotate(45,26,26)" : "rotate(0,26,26)");
-    // Buchstaben drehen gegenläufig, damit sie lesbar bleiben
-    mText.setAttribute("transform", open ? "rotate(-45,8,20)"  : "rotate(0,8,20)");
-    eText.setAttribute("transform", open ? "rotate(-45,44,20)" : "rotate(0,44,20)");
-    nText.setAttribute("transform", open ? "rotate(-45,44,44)" : "rotate(0,44,44)");
-    üText.setAttribute("transform", open ? "rotate(-45,8,44)"  : "rotate(0,8,44)");
-  }
-
-  setMenuIcon(false);
-  if (mobileMenu) mobileMenu.classList.remove("active");
-
-  if (burgerButton && mobileMenu) {
-    burgerButton.addEventListener("click", () => {
-      menuOpen = !menuOpen;
-      setMenuIcon(menuOpen);
-      mobileMenu.classList.toggle("active", menuOpen);
+  const letters = [
+    { el: document.getElementById("mText"), angle: 0, x: 8, y: 20 },  // M oben links
+    { el: document.getElementById("eText"), angle: 90, x: 44, y: 20 }, // E oben rechts
+    { el: document.getElementById("nText"), angle: 180, x: 44, y: 44 }, // N unten rechts
+    { el: document.getElementById("üText"), angle: 270, x: 8, y: 44 }   // Ü unten links
+  ];
+  function rotateMenuIcon(open) {
+    // Linie und Buchstaben animieren
+    const rot = open ? 45 : 0;
+    iconGroup.setAttribute("transform", `rotate(${rot} 26 26)`);
+    // Buchstaben mitdrehen, bleiben aber gerade
+    letters.forEach((l, i) => {
+      const baseRot = [0, 90, 180, 270][i];
+      const rotVal = open ? rot : 0;
+      l.el.setAttribute("transform", `rotate(${-rotVal} ${l.x} ${l.y})`);
     });
   }
+  if (burgerBtn && iconGroup) {
+    burgerBtn.addEventListener("click", () => {
+      menuOpen = !menuOpen;
+      rotateMenuIcon(menuOpen);
+      mobileMenu.classList.toggle("active", menuOpen);
+    });
+    // Initial: sicherstellen, dass alles zu ist
+    rotateMenuIcon(false);
+    menuOpen = false;
+    mobileMenu.classList.remove("active");
+  }
 
-  // === Share Button (Desktop + Mobil) ===
+  // ===== Share Button (Desktop + Mobil) =====
   const shareButtonDesktop = document.getElementById("shareButton");
   const shareButtonMobile = document.getElementById("shareButtonMobile");
   [shareButtonDesktop, shareButtonMobile].forEach(button => {
     if (button && navigator.share) {
-      button.addEventListener("click", () => {
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
         navigator.share({
           title: "Abi-Treffen 2026",
           text: "Sei dabei beim 20-jährigen Abiturjubiläum!",
@@ -50,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // === Countdown ===
+  // ===== Countdown =====
   const countdownDate = new Date("2026-07-01T00:00:00").getTime();
   const countdownEls = document.querySelectorAll("#countdown, #countdown-box");
   function updateCountdown() {
@@ -63,68 +75,82 @@ document.addEventListener("DOMContentLoaded", () => {
   updateCountdown();
   setInterval(updateCountdown, 1000 * 60 * 60);
 
-  // === Galerie-Login/Newsletter Sichtbarkeit (mittig, mobil/Tablet) ===
+  // ===== Responsive Galerie-Login/Newsletter/Show/Hide =====
   const newsletterBox = document.getElementById("newsletter");
-  const galerieLoginMitte = document.getElementById("galerie-login-mitte");
   const galerieSection = document.getElementById("galerie");
-  const loginFormMitte = document.getElementById("loginFormMitte");
-  const loginMessageMitte = document.getElementById("loginMessageMitte");
-
-  function updateMitteBoxen() {
-    if (!localStorage.getItem("newsletterVorname")) {
-      // Newsletter sichtbar, Galerie-Login (mittig) und Galerie versteckt
-      newsletterBox?.classList.remove("hidden");
-      galerieLoginMitte?.classList.add("hidden");
-      galerieSection?.classList.add("hidden");
-    } else if (!localStorage.getItem("loggedIn")) {
-      // Newsletter erledigt, jetzt Galerie-Login zeigen
-      newsletterBox?.classList.add("hidden");
-      galerieLoginMitte?.classList.remove("hidden");
-      galerieSection?.classList.add("hidden");
+  const galerieLoginBox = document.getElementById("galerie-login-box");    // nav (desktop)
+  const galerieLoginMitte = document.getElementById("galerie-login-mitte");// main (desktop)
+  const galerieLoginMobile = document.getElementById("galerie-login-mobile"); // main (mobile)
+  function showOnlyNewsletter() {
+    newsletterBox?.classList.remove("hidden");
+    galerieLoginBox?.classList.add("hidden");
+    galerieLoginMitte?.classList.add("hidden");
+    galerieLoginMobile?.classList.add("hidden");
+    galerieSection?.classList.add("hidden");
+  }
+  function showOnlyGalerieLogin() {
+    newsletterBox?.classList.add("hidden");
+    galerieLoginBox?.classList.add(window.innerWidth > 650 ? "hidden" : "");
+    galerieLoginMitte?.classList.toggle("hidden", window.innerWidth <= 650);
+    galerieLoginMobile?.classList.toggle("hidden", window.innerWidth > 650);
+    galerieSection?.classList.add("hidden");
+  }
+  function showGalerie() {
+    newsletterBox?.classList.add("hidden");
+    galerieLoginBox?.classList.add("hidden");
+    galerieLoginMitte?.classList.add("hidden");
+    galerieLoginMobile?.classList.add("hidden");
+    galerieSection?.classList.remove("hidden");
+  }
+  function checkLoginNewsletterStatus() {
+    if (localStorage.getItem("loggedIn") === "true") {
+      showGalerie();
+    } else if (localStorage.getItem("newsletterVorname")) {
+      showOnlyGalerieLogin();
     } else {
-      // Erfolgreich eingeloggt – Galerie zeigen
-      newsletterBox?.classList.add("hidden");
-      galerieLoginMitte?.classList.add("hidden");
-      galerieSection?.classList.remove("hidden");
+      showOnlyNewsletter();
     }
   }
-  updateMitteBoxen();
+  checkLoginNewsletterStatus();
+  window.addEventListener("resize", checkLoginNewsletterStatus);
 
-  // === Newsletter-Formular ===
+  // ===== Newsletter-Formular =====
   const newsletterForm = document.getElementById("newsletter-form");
-  let newsletterLocked = false;
+  if (newsletterForm) {
+    let lock = false;
+    newsletterForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (lock) return;
+      lock = true;
+      const submitBtn = newsletterForm.querySelector("button[type='submit']");
+      if (submitBtn) submitBtn.disabled = true;
+      setTimeout(() => {
+        lock = false;
+        if (submitBtn) submitBtn.disabled = false;
+      }, 5000);
 
-  newsletterForm?.addEventListener("submit", function (e) {
-    e.preventDefault();
-    if (newsletterLocked) return; // Button blocken!
-    newsletterLocked = true;
-    newsletterForm.querySelector("button").disabled = true;
-    setTimeout(() => {
-      newsletterLocked = false;
-      newsletterForm.querySelector("button").disabled = false;
-    }, 5000);
+      const email = document.getElementById("newsletter-email").value.trim();
+      const vorname = document.getElementById("newsletter-vorname").value.trim();
+      const nachname = document.getElementById("newsletter-nachname").value.trim();
+      const honey = document.getElementById("newsletter-honey").value;
 
-    const email = document.getElementById("newsletter-email").value.trim();
-    const vorname = document.getElementById("newsletter-vorname").value.trim();
-    const nachname = document.getElementById("newsletter-nachname").value.trim();
-    const honey = document.getElementById("newsletter-honey").value;
-    if (honey) return;
+      if (honey) return;
 
-    fetch("https://gsg-proxy.vercel.app/api/proxy", {
-      method: "POST",
-      body: new URLSearchParams({
-        action: "newsletter",
-        email,
-        vorname,
-        nachname,
-        _honey: honey
+      fetch("https://gsg-proxy.vercel.app/api/proxy", {
+        method: "POST",
+        body: new URLSearchParams({
+          action: "newsletter",
+          email,
+          vorname,
+          nachname,
+          _honey: honey
+        })
       })
-    })
       .then(async response => {
         const text = await response.text();
-        try {
-          return JSON.parse(text);
-        } catch (err) {
+        try { return JSON.parse(text); }
+        catch (err) {
+          alert("Fehlerhafte Serverantwort!");
           throw err;
         }
       })
@@ -133,9 +159,9 @@ document.addEventListener("DOMContentLoaded", () => {
           localStorage.setItem("newsletterVorname", vorname);
           alert(`Danke für deine Anmeldung, ${vorname || "Freund/in"}!`);
           newsletterForm.reset();
-          updateMitteBoxen();
+          checkLoginNewsletterStatus();
         } else if (data.result === "ignored") {
-          // Spam-Schutz
+          console.log("Spam-Schutz ausgelöst");
         } else {
           alert("Fehler bei der Anmeldung. Bitte versuche es später.");
           console.error(data.message || "Unbekannter Fehler");
@@ -145,44 +171,79 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Es ist ein Fehler aufgetreten.");
         console.error("Fetch-Fehler:", error);
       });
-  });
+    });
+  }
 
-  // === Galerie-Login (mittig) ===
-  loginFormMitte?.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const email = document.getElementById("loginEmailMitte").value.trim();
-    const code = document.getElementById("loginCodeMitte").value.trim();
-    if (!email || !code) return;
-
-    fetch("https://gsg-proxy.vercel.app/api/proxy", {
-      method: "POST",
-      body: new URLSearchParams({
-        action: "login",
-        email,
-        code
+  // ====== Galerie-Login (alle Varianten) ======
+  function setupLoginForm(formId, emailId, codeId, msgId) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const email = document.getElementById(emailId).value.trim();
+      const code = document.getElementById(codeId).value.trim();
+      const msg = document.getElementById(msgId);
+      if (!email || !code) return;
+      fetch("https://gsg-proxy.vercel.app/api/proxy", {
+        method: "POST",
+        body: new URLSearchParams({
+          action: "login",
+          email,
+          code
+        })
       })
-    })
       .then(response => response.json())
       .then(data => {
         if (data.result === "success") {
           localStorage.setItem("loggedIn", "true");
           localStorage.setItem("subscriberName", data.name || "");
-          loginMessageMitte.textContent = "Erfolgreich eingeloggt.";
-          loginMessageMitte.style.color = "green";
-          updateMitteBoxen();
+          if (msg) {
+            msg.textContent = "Erfolgreich eingeloggt.";
+            msg.style.color = "green";
+          }
+          checkLoginNewsletterStatus();
         } else {
-          loginMessageMitte.textContent = "Login fehlgeschlagen. Bitte prüfe deine Angaben.";
-          loginMessageMitte.style.color = "red";
+          if (msg) {
+            msg.textContent = "Login fehlgeschlagen. Bitte prüfe deine Angaben.";
+            msg.style.color = "red";
+          }
         }
       })
       .catch(error => {
-        loginMessageMitte.textContent = "Ein Fehler ist aufgetreten.";
-        loginMessageMitte.style.color = "red";
+        if (msg) {
+          msg.textContent = "Ein Fehler ist aufgetreten.";
+          msg.style.color = "red";
+        }
+        console.error("Login-Fehler:", error);
       });
+    });
+  }
+  setupLoginForm("loginForm", "loginEmail", "loginCode", "loginMessage");
+  setupLoginForm("loginFormMitte", "loginEmailMitte", "loginCodeMitte", "loginMessageMitte");
+  setupLoginForm("loginFormMobile", "loginEmailMobile", "loginCodeMobile", "loginMessageMobile");
+
+  // ===== Kontaktformular =====
+  const kontaktForm = document.getElementById("kontakt-form");
+  kontaktForm?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const name = kontaktForm.elements["name"].value.trim();
+    const email = kontaktForm.elements["email"].value.trim();
+    const message = kontaktForm.elements["message"].value.trim();
+    try {
+      const res = await fetch("https://gsg-proxy.vercel.app/api/proxy", {
+        method: "POST",
+        body: new URLSearchParams({ name, email, message })
+      });
+      const text = await res.text();
+      alert(text === "Erfolg" ? "Nachricht erfolgreich gesendet!" : "Unbekannte Antwort.");
+      kontaktForm.reset();
+    } catch (error) {
+      alert("Fehler beim Absenden. Bitte versuche es später.");
+      console.error(error);
+    }
   });
 
-  // === Galerie-Slideshow ===
+  // ===== Galerie-Slideshow =====
   const images = [
     "bilder/bild1.jpg",
     "bilder/bild2.jpg",
@@ -195,9 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
   function updateImage() {
-    if (galleryImage) {
-      galleryImage.src = images[currentIndex];
-    }
+    if (galleryImage) galleryImage.src = images[currentIndex];
   }
   updateImage();
   prevBtn?.addEventListener("click", () => {
@@ -208,20 +267,8 @@ document.addEventListener("DOMContentLoaded", () => {
     currentIndex = (currentIndex + 1) % images.length;
     updateImage();
   });
+  galleryImage?.addEventListener("error", () => {
+    console.error(`Bild nicht gefunden: ${galleryImage.src}`);
+  });
 
-  // === Kontaktbox – Einklappen ===
-  const kontaktHeader = document.querySelector(".kontakt-header");
-  const kontaktContent = document.querySelector(".kontakt-content");
-  const arrow = document.querySelector(".kontakt-header .arrow");
-  if (kontaktHeader && kontaktContent && arrow) {
-    kontaktHeader.addEventListener("click", () => {
-      const collapsed = kontaktContent.classList.toggle("hidden");
-      kontaktHeader.classList.toggle("collapsed", collapsed);
-      arrow.innerHTML = collapsed ? "&#9654;" : "&#9660;";
-    });
-    // Initial: Kontakt-Box zu
-    kontaktContent.classList.add("hidden");
-    kontaktHeader.classList.add("collapsed");
-    arrow.innerHTML = "&#9654;";
-  }
 });
