@@ -1,19 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ===== MENÜ-ICON (animiert mit MENÜ/X und Buchstaben) =====
-  const burgerButton = document.getElementById("burgerButton");
-  const mobileMenu = document.getElementById("mobileMenu");
-  let menuOpen = false;
+ // === Animierter MENÜ-Button (SVG) ===
+const burgerButton = document.getElementById("burgerButton");
+const mobileMenu = document.getElementById("mobileMenu");
+let menuOpen = false;
 
-  if (burgerButton && mobileMenu) {
-    burgerButton.addEventListener("click", () => {
-      menuOpen = !menuOpen;
-      mobileMenu.classList.toggle("active", menuOpen);
-      burgerButton.classList.toggle("open", menuOpen);
-    });
-    // Menü am Start immer zu!
-    mobileMenu.classList.remove("active");
-    burgerButton.classList.remove("open");
-  }
+if (burgerButton && mobileMenu) {
+  // Menü beim Laden immer zu!
+  mobileMenu.classList.remove("active");
+  burgerButton.setAttribute("aria-expanded", "false");
+
+  burgerButton.addEventListener("click", () => {
+    menuOpen = !menuOpen;
+    mobileMenu.style.display = menuOpen ? "block" : "none";
+    mobileMenu.classList.toggle("active");
+    burgerButton.setAttribute("aria-expanded", menuOpen);
+
+    // --- Animation: Plus <-> X ---
+    const svg = document.getElementById("menueIcon");
+    if (svg) {
+      svg.style.transition = "transform 0.35s cubic-bezier(.67,-0.13,.49,1.18)";
+      svg.style.transform = menuOpen ? "rotate(-45deg)" : "rotate(0deg)";
+    }
+  });
+}
+
 
   // ===== SHARE BUTTON (Desktop + Mobil) =====
   const shareButtonDesktop = document.getElementById("shareButton");
