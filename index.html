@@ -49,35 +49,24 @@
     </section>
 
     <section id="newsletter" class="content-box">
-  <h2>Newsletter</h2>
-  <form id="newsletter-form">
-    <input type="text" id="newsletter-vorname" placeholder="Vorname" required />
-    <input type="text" id="newsletter-nachname" placeholder="Nachname" required />
-    <input type="email" id="newsletter-email" placeholder="E-Mail" required />
-    <input type="text" id="newsletter-honey" style="display: none" autocomplete="off" />
-    <button type="submit" class="button">Anmelden</button>
-  </form>
-</section>
+      <h2>Newsletter</h2>
+      <form id="newsletter-form">
+        <input type="text" id="newsletter-vorname" placeholder="Vorname" required />
+        <input type="text" id="newsletter-nachname" placeholder="Nachname" required />
+        <input type="email" id="newsletter-email" placeholder="E-Mail" required />
+        <input type="text" id="newsletter-honey" style="display: none" autocomplete="off" />
+        <button type="submit" class="button">Anmelden</button>
+      </form>
+    </section>
 
-<section id="galerie-login-mitte" class="content-box hidden">
-  <h3>Galerie-Login</h3>
-  <form id="loginFormMitte">
-    <input type="email" id="loginEmailMitte" placeholder="E-Mail" required />
-    <input type="text" id="loginCodeMitte" placeholder="Zugangscode" required />
-    <button type="submit" class="button">Einloggen</button>
-  </form>
-  <p id="loginMessageMitte"></p>
-</section>
-
-    <!-- Galerie-Login für Mobil: Erscheint nach Newsletter-Anmeldung -->
-    <section id="galerie-login-mobile" class="content-box hidden">
+    <section id="galerie-login-mitte" class="content-box hidden">
       <h3>Galerie-Login</h3>
-      <form id="loginFormMobile">
-        <input type="email" id="loginEmailMobile" placeholder="E-Mail" required />
-        <input type="text" id="loginCodeMobile" placeholder="Zugangscode" required />
+      <form id="loginFormMitte">
+        <input type="email" id="loginEmailMitte" placeholder="E-Mail" required />
+        <input type="text" id="loginCodeMitte" placeholder="Zugangscode" required />
         <button type="submit" class="button">Einloggen</button>
       </form>
-      <p id="loginMessageMobile"></p>
+      <p id="loginMessageMitte"></p>
     </section>
 
     <section id="galerie" class="content-box hidden">
@@ -90,20 +79,19 @@
     </section>
 
     <section id="kontakt" class="content-box kontakt-collapsible collapsed">
-  <h2 class="kontakt-header">
-    <span class="arrow">&#9654;</span> <!-- Nur ein Pfeil -->
-    Kontakt
-  </h2>
-  <div class="kontakt-content">
-    <form id="kontakt-form">
-      <input type="text" name="name" placeholder="Name" required />
-      <input type="email" name="email" placeholder="E-Mail" required />
-      <textarea name="message" placeholder="Nachricht" rows="5" required></textarea>
-      <button type="submit" class="button">Absenden</button>
-    </form>
-  </div>
-</section>
-
+      <h2 class="kontakt-header">
+        <span class="arrow">&#9654;</span>
+        Kontakt
+      </h2>
+      <div class="kontakt-content">
+        <form id="kontakt-form">
+          <input type="text" name="name" placeholder="Name" required />
+          <input type="email" name="email" placeholder="E-Mail" required />
+          <textarea name="message" placeholder="Nachricht" rows="5" required></textarea>
+          <button type="submit" class="button">Absenden</button>
+        </form>
+      </div>
+    </section>
   </main>
 
   <!-- Rechte Spalte -->
@@ -124,22 +112,20 @@
 </div>
 
 <!-- Mobiles Menü-Icon (MENÜ/X) -->
-<!-- Menü-Button: SVG-Version -->
 <button class="custom-menu-btn" id="burgerButton" aria-label="Menü öffnen/schließen">
-  <svg id="menuIcon" width="52" height="52" viewBox="0 0 52 52">
+  <svg id="menuIcon" width="56" height="56" viewBox="0 0 52 52">
     <g id="iconGroup">
       <!-- Linien für +/X -->
-      <rect x="24" y="10" width="4" height="32" rx="2" />
-      <rect x="10" y="24" width="32" height="4" rx="2" />
+      <rect x="24" y="10" width="4" height="32" rx="2" fill="black"/>
+      <rect x="10" y="24" width="32" height="4" rx="2" fill="black"/>
       <!-- Buchstaben -->
-      <text x="8"  y="20"  text-anchor="middle" alignment-baseline="middle" font-size="10" font-family="Arial" class="menu-letter" id="mText">M</text>
-      <text x="44" y="20"  text-anchor="middle" alignment-baseline="middle" font-size="10" font-family="Arial" class="menu-letter" id="eText">E</text>
-      <text x="44" y="44"  text-anchor="middle" alignment-baseline="middle" font-size="10" font-family="Arial" class="menu-letter" id="nText">N</text>
-      <text x="8"  y="44"  text-anchor="middle" alignment-baseline="middle" font-size="10" font-family="Arial" class="menu-letter" id="üText">Ü</text>
+      <text x="7"  y="19"  text-anchor="middle" alignment-baseline="middle" font-size="11" font-family="Arial" class="menu-letter" id="mText">M</text>
+      <text x="45" y="19"  text-anchor="middle" alignment-baseline="middle" font-size="11" font-family="Arial" class="menu-letter" id="eText">E</text>
+      <text x="45" y="47"  text-anchor="middle" alignment-baseline="middle" font-size="11" font-family="Arial" class="menu-letter" id="nText">N</text>
+      <text x="7"  y="47"  text-anchor="middle" alignment-baseline="middle" font-size="11" font-family="Arial" class="menu-letter" id="üText">Ü</text>
     </g>
   </svg>
 </button>
-
 <div class="mobile-menu" id="mobileMenu">
   <a href="#infos">Infos</a>
   <a href="#newsletter">Newsletter</a>
