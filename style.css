@@ -253,6 +253,10 @@ footer p {
   align-items: center;
   transition: background 0.2s;
 }
+.hamburger:active, .hamburger:hover {
+  background: #005f90;
+}
+
 .hamburger svg {
   width: 42px;
   height: 42px;
