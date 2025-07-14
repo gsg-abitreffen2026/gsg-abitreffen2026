@@ -225,15 +225,15 @@ footer p { margin: 0.3em 0; }
 
 .fab-rotator {
   position: relative;
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   transition: transform 0.42s cubic-bezier(.4,2,.6,1);
 }
 .menu-fab.open .fab-rotator {
   transform: rotate(45deg);
 }
 
-/* Längere Linien */
+/* Lange Linien für "X" Style */
 .menu-lines,
 .menu-lines::after {
   position: absolute;
@@ -243,45 +243,42 @@ footer p { margin: 0.3em 0; }
 .menu-lines {
   top: 50%;
   left: 50%;
-  width: 26px;
+  width: 40px;
   height: 2px;
   transform: translate(-50%, -50%);
 }
 .menu-lines::after {
   width: 2px;
-  height: 26px;
+  height: 40px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
 
-/* Buchstaben feiner positioniert */
+/* Buchstaben optisch auf Achsen positionieren */
 .fab-letter {
   position: absolute;
   color: #fff;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: bold;
   transition: transform 0.42s cubic-bezier(.4,2,.6,1);
 }
 
-/* Diagonal-Positionierung mit Offset */
-.fab-letter.m { top: 2px; left: 2px; }
-.fab-letter.e { top: 2px; right: 2px; }
-.fab-letter.n { bottom: 2px; right: 2px; }
-.fab-letter.u { bottom: 2px; left: 2px; }
+.fab-letter.m { top: -6px; left: 50%; transform: translateX(-50%); }
+.fab-letter.e { top: 50%; right: -6px; transform: translateY(-50%); }
+.fab-letter.n { bottom: -6px; left: 50%; transform: translateX(-50%); }
+.fab-letter.u { top: 50%; left: -6px; transform: translateY(-50%); }
 
-/* Counter-Rotation individuell für jede Ecke */
-.menu-fab.open .fab-letter.m { transform: rotate(-45deg); }
-.menu-fab.open .fab-letter.e { transform: rotate(-45deg); }
-.menu-fab.open .fab-letter.n { transform: rotate(-45deg); }
-.menu-fab.open .fab-letter.u { transform: rotate(-45deg); }
-
-
-
+/* Counter-Rotation für Animation */
+.menu-fab.open .fab-letter.m { transform: translateX(-50%) rotate(-45deg); }
+.menu-fab.open .fab-letter.e { transform: translateY(-50%) rotate(-45deg); }
+.menu-fab.open .fab-letter.n { transform: translateX(-50%) rotate(-45deg); }
+.menu-fab.open .fab-letter.u { transform: translateY(-50%) rotate(-45deg); }
 
 @media (min-width: 768px) {
   .menu-fab, .mobile-menu { display: none !important; }
 }
+
 
 }
 @media (max-width: 768px) {
