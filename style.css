@@ -265,10 +265,10 @@ footer p { margin: 0.3em 0; }
 }
 
 /* Diese Offsets platzieren sie optisch perfekt „zwischen den Linien“ */
-.fab-letter.m { top: 4px; left: 16px; }
-.fab-letter.e { top: 16px; right: 4px; }
-.fab-letter.n { bottom: 4px; left: 16px; }
-.fab-letter.u { top: 16px; left: 4px; }
+.fab-letter.m { top: 5px; left: 13px; }
+.fab-letter.e { top: 5px; right: 13px; }
+.fab-letter.n { bottom: 5px; right: 13px; }
+.fab-letter.u { bottom: 5px; left: 13px; }
 
 /* Counter-Rotation bleibt */
 .menu-fab.open .fab-letter.m { transform: rotate(-45deg); }
