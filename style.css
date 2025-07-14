@@ -270,6 +270,7 @@ footer p { margin: 0.3em 0; }
 .fab-letter.n { bottom: 5px; right: 13px; }
 .fab-letter.u { bottom: 5px; left: 13px; }
 
+
 /* Counter-Rotation bleibt */
 .menu-fab.open .fab-letter.m { transform: rotate(-45deg); }
 .menu-fab.open .fab-letter.e { transform: rotate(-45deg); }
