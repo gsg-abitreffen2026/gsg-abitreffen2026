@@ -243,13 +243,13 @@ footer p { margin: 0.3em 0; }
 .menu-lines {
   top: 50%;
   left: 50%;
-  width: 40px;
-  height: 2px;
+  width: 48px;
+  height: 1px;
   transform: translate(-50%, -50%);
 }
 .menu-lines::after {
-  width: 2px;
-  height: 40px;
+  width: 1px;
+  height: 48px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -259,8 +259,8 @@ footer p { margin: 0.3em 0; }
 .fab-letter {
   position: absolute;
   color: #fff;
-  font-size: 10px;
-  font-weight: bold;
+  font-size: 11px;
+  font-weight: 800;
   transition: transform 0.42s cubic-bezier(.4,2,.6,1);
 }
 
