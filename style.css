@@ -261,21 +261,20 @@ footer p { margin: 0.3em 0; }
   color: #fff;
   font-size: 11px;
   font-weight: bold;
-  transform-origin: center;
   transition: transform 0.42s cubic-bezier(.4,2,.6,1);
 }
 
-/* Feintuning der Positionierung, weiter außen */
-.fab-letter.m { top: 2px; left: 50%; transform: translateX(-50%); }
-.fab-letter.e { top: 50%; right: 2px; transform: translateY(-50%); }
-.fab-letter.n { bottom: 2px; left: 50%; transform: translateX(-50%); }
-.fab-letter.u { top: 50%; left: 2px; transform: translateY(-50%); }
+/* Diagonal-Positionierung mit Offset */
+.fab-letter.m { top: 2px; left: 2px; }
+.fab-letter.e { top: 2px; right: 2px; }
+.fab-letter.n { bottom: 2px; right: 2px; }
+.fab-letter.u { bottom: 2px; left: 2px; }
 
-/* Counter-Rotation bleibt unverändert */
-.menu-fab.open .fab-letter.m { transform: translateX(-50%) rotate(-45deg); }
-.menu-fab.open .fab-letter.e { transform: translateY(-50%) rotate(-45deg); }
-.menu-fab.open .fab-letter.n { transform: translateX(-50%) rotate(-45deg); }
-.menu-fab.open .fab-letter.u { transform: translateY(-50%) rotate(-45deg); }
+/* Counter-Rotation individuell für jede Ecke */
+.menu-fab.open .fab-letter.m { transform: rotate(-45deg); }
+.menu-fab.open .fab-letter.e { transform: rotate(-45deg); }
+.menu-fab.open .fab-letter.n { transform: rotate(-45deg); }
+.menu-fab.open .fab-letter.u { transform: rotate(-45deg); }
 
 
 
