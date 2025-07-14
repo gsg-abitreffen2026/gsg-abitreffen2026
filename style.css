@@ -266,9 +266,9 @@ footer p { margin: 0.3em 0; }
 
 /* Diese Offsets platzieren sie optisch perfekt „zwischen den Linien“ */
 .fab-letter.m { top: 3px; left: 6px; }
-.fab-letter.e { top: 3px; right: 7px; }
+.fab-letter.e { top: 3px; right: 7,5px; }
 .fab-letter.n { bottom: 3px; right: 6px; }
-.fab-letter.u { bottom: 3px; left: 7px; }
+.fab-letter.u { bottom: 3px; left: 7,5px; }
 
 
 /* Counter-Rotation bleibt */
