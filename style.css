@@ -259,7 +259,7 @@ footer p { margin: 0.3em 0; }
 .fab-letter {
   position: absolute;
   color: #fff;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
   transition: transform 0.42s cubic-bezier(.4,2,.6,1);
 }
