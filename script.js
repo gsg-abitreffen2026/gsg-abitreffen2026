@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(data => {
         if (data.result === "success") {
           localStorage.setItem("newsletterVorname", vorname);
-          alert(`Danke für deine Anmeldung, ${vorname || "Freund/in"}!`);
+          alert(`Danke für deine Anmeldung, ${vorname || "Freund/in"}! Bitte prüfe, ob die Bestätigungsmail angekommen ist (auch im Spam-Ordner). Nur so kannst du später auch die News bekommnen!`);
           newsletterForm.reset();
           checkLoginNewsletterStatus();
         } else if (data.result === "ignored") {
