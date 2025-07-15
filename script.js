@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ===== Countdown =====
-  const countdownDate = new Date("2026-07-01T00:00:00").getTime();
+  const countdownDate = new Date("2026-07-11T00:00:00").getTime();
   const countdownEls = document.querySelectorAll("#countdown, #countdown-box");
   function updateCountdown() {
     const now = new Date().getTime();
