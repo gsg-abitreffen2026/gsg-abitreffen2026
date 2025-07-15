@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         navigator.share({
           title: "Abi-Treffen 2026",
-          text: "Sei dabei beim 20-jährigen Abiturjubiläum!",
+          text: "Sei dabei beim 20. Klassentreffen der GSG-Jahrgangsstufe 2006!",
           url: window.location.href
         }).catch(err => {
           console.error("Teilen abgebrochen oder nicht möglich:", err);
