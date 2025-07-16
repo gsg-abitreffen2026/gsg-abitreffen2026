@@ -131,6 +131,13 @@ form textarea {
 }
 .button:hover { background-color: #005f90; }
 
+.newsletter-hint {
+  font-size: 0.8em;
+  font-style: italic;
+  color: #666; /* Optional: etwas dezenter als Standardtext */
+  margin-top: -0.5rem;
+}
+
 .gallery-wrapper {
   position: relative;
   text-align: center;
