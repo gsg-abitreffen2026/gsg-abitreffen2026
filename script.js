@@ -87,70 +87,23 @@ document.addEventListener("DOMContentLoaded", () => {
   checkLoginNewsletterStatus();
   window.addEventListener("resize", checkLoginNewsletterStatus);
 
-  // ===== Newsletter-Formular =====
+  // ===== Newsletter-Formular (robust, ohne Dopplung!) =====
   const newsletterForm = document.getElementById("newsletter-form");
-if (newsletterForm) {
-  newsletterForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const submitBtn = newsletterForm.querySelector("button[type='submit']");
-    if (submitBtn) submitBtn.disabled = true;
-
-    const email = document.getElementById("newsletter-email").value.trim();
-    const vorname = document.getElementById("newsletter-vorname").value.trim();
-    const nachname = document.getElementById("newsletter-nachname").value.trim();
-    const honey = document.getElementById("newsletter-honey").value;
-
-    if (honey) {
-      if (submitBtn) submitBtn.disabled = false;
-      return;
-    }
-
-    fetch("https://gsg-proxy.vercel.app/api/proxy", {
-      method: "POST",
-      body: new URLSearchParams({
-        action: "newsletter",
-        email,
-        vorname,
-        nachname,
-        _honey: honey
-      })
-    })
-    .then(async response => {
-      const text = await response.text();
-      try { return JSON.parse(text); }
-      catch (err) {
-        alert("Fehlerhafte Serverantwort!");
-        throw err;
-      }
-    })
-    .then(data => {
-      if (data.result === "success") {
-        localStorage.setItem("newsletterVorname", vorname);
-        alert(`Danke für deine Anmeldung, ${vorname || "Freund/in"}!`);
-        newsletterForm.reset();
-        checkLoginNewsletterStatus();
-      } else if (data.result === "ignored") {
-        console.log("Spam-Schutz ausgelöst");
-      } else {
-        alert("Fehler bei der Anmeldung. Bitte versuche es später.");
-        console.error(data.message || "Unbekannter Fehler");
-      }
-    })
-    .catch(error => {
-      alert("Es ist ein Fehler aufgetreten.");
-      console.error("Fetch-Fehler:", error);
-    })
-    .finally(() => {
-      if (submitBtn) submitBtn.disabled = false;
-    });
-  }
+  if (newsletterForm) {
+    newsletterForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const submitBtn = newsletterForm.querySelector("button[type='submit']");
+      if (submitBtn) submitBtn.disabled = true;
 
       const email = document.getElementById("newsletter-email").value.trim();
       const vorname = document.getElementById("newsletter-vorname").value.trim();
       const nachname = document.getElementById("newsletter-nachname").value.trim();
       const honey = document.getElementById("newsletter-honey").value;
 
-      if (honey) return;
+      if (honey) {
+        if (submitBtn) submitBtn.disabled = false;
+        return;
+      }
 
       fetch("https://gsg-proxy.vercel.app/api/proxy", {
         method: "POST",
@@ -173,7 +126,7 @@ if (newsletterForm) {
       .then(data => {
         if (data.result === "success") {
           localStorage.setItem("newsletterVorname", vorname);
-          alert(`Danke für deine Anmeldung, ${vorname || "Freund/in"}! Bitte prüfe, ob die Bestätigungsmail angekommen ist (auch im Spam-Ordner). Nur so kannst du später auch die News bekommnen!`);
+          alert(`Danke für deine Anmeldung, ${vorname || "Freund/in"}! Bitte prüfe, ob die Bestätigungsmail angekommen ist (auch im Spam-Ordner). Nur so kannst du später auch die News bekommen!`);
           newsletterForm.reset();
           checkLoginNewsletterStatus();
         } else if (data.result === "ignored") {
@@ -186,6 +139,9 @@ if (newsletterForm) {
       .catch(error => {
         alert("Es ist ein Fehler aufgetreten.");
         console.error("Fetch-Fehler:", error);
+      })
+      .finally(() => {
+        if (submitBtn) submitBtn.disabled = false;
       });
     });
   }
@@ -285,5 +241,4 @@ if (newsletterForm) {
   galleryImage?.addEventListener("error", () => {
     console.error(`Bild nicht gefunden: ${galleryImage.src}`);
   });
-
 });
