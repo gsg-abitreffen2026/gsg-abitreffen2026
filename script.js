@@ -143,6 +143,7 @@ if (newsletterForm) {
     .finally(() => {
       if (submitBtn) submitBtn.disabled = false;
     });
+  }
 
       const email = document.getElementById("newsletter-email").value.trim();
       const vorname = document.getElementById("newsletter-vorname").value.trim();
