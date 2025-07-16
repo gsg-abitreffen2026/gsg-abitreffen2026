@@ -120,6 +120,13 @@ form textarea {
   box-sizing: border-box;
 }
 
+form button[type="submit"] {
+  display: block;  /* Zwingt den Button in eine eigene Zeile */
+  width: 100%;     /* Optional: passt sich an Input-Breite an */
+  max-width: 500px; /* gleiche max-Breite wie Inputs */
+  margin-top: 0.2rem;
+}
+
 .button {
   background-color: #0073b1;
   color: white;
