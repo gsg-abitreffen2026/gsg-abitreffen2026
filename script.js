@@ -241,4 +241,45 @@ document.addEventListener("DOMContentLoaded", () => {
   galleryImage?.addEventListener("error", () => {
     console.error(`Bild nicht gefunden: ${galleryImage.src}`);
   });
+ // ===== ICS (.ics) Kalender-Link =====
+(function () {
+  const a = document.getElementById('icsLink');
+  if (!a) return; // falls der Link auf der Seite nicht existiert
+
+  // UTC-Zeitstempel fürs ICS
+  function toUtcStamp(date) {
+    const pad = n => String(n).padStart(2, '0');
+    const d = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+    return (
+      d.getUTCFullYear() + pad(d.getUTCMonth() + 1) + pad(d.getUTCDate()) + 'T' +
+      pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + pad(d.getUTCSeconds()) + 'Z'
+    );
+  }
+
+  // 11.07.2026 15–24 Uhr CEST ⇒ 13:00–22:00 UTC
+  const DTSTART = '20260711T130000Z';
+  const DTEND   = '20260711T220000Z';
+
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Abi2006//Website//DE',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    'UID:klassentreffen-20260711T130000Z@abi2006.de',
+    'DTSTAMP:' + toUtcStamp(new Date()),
+    'DTSTART:' + DTSTART,
+    'DTEND:' + DTEND,
+    'SUMMARY:Klassentreffen 2026',
+    'DESCRIPTION:Wirtshaus Ratze\\nAdresse: Raichberg 4\\, 70186 Stuttgart\\nTelefon: 0711 45146902',
+    'LOCATION:Wirtshaus Ratze\\, Raichberg 4\\, 70186 Stuttgart',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n'); // <-- echte CRLFs, nicht "\\r\\n"
+
+  a.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+  a.download = 'klassentreffen-2026.ics'; // iOS öffnet meist direkt den Kalender
+})();
+
 });
