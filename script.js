@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const now = new Date().getTime();
     const diff = countdownDate - now;
     const days = Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
-    const text = diff < 0 ? "Es ist so weit!" : `${days} Tage noch!`;
+    const text = diff < 0 ? "Es ist so weit!" : `Noch ${days} Tage!`;
     countdownEls.forEach(el => el.textContent = text);
   }
   updateCountdown();
