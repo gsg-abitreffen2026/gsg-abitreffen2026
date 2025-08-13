@@ -29,13 +29,9 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
-    .hidden {
-      display: none;
-    }
+    .hidden { display: none; }
 
-    .form-group {
-      margin-bottom: 1rem;
-    }
+    .form-group { margin-bottom: 1rem; }
 
     label {
       font-weight: bold;
@@ -59,10 +55,7 @@
       border-radius: 4px;
       cursor: pointer;
     }
-
-    button:hover {
-      background-color: #005f90;
-    }
+    button:hover { background-color: #005f90; }
 
     table {
       width: 100%;
@@ -75,27 +68,24 @@
       border-bottom: 1px solid #ddd;
       text-align: left;
     }
+    th { background-color: #f0f0f0; }
 
-    th {
-      background-color: #f0f0f0;
-    }
-
-    .section {
-      margin-top: 2rem;
-    }
+    .section { margin-top: 2rem; }
 
     .newsletter-controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 1rem;
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1rem;
     }
+    @media (max-width: 600px) { .newsletter-controls { flex-direction: column; } }
 
-    @media (max-width: 600px) {
-      .newsletter-controls {
-        flex-direction: column;
-      }
+    /* ===== Mini-Rich-Text-Editor ===== */
+    .rte-wrap { border: 1px solid #ddd; border-radius: 10px; overflow: hidden; font: 14px/1.4 system-ui, sans-serif; max-width: 700px; }
+    .rte-toolbar { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px; background: #f7f7f7; border-bottom: 1px solid #eee; }
+    .rte-toolbar button {
+      border: 1px solid #ddd; background: #fff; border-radius: 8px; padding: 6px 8px; cursor: pointer;
     }
+    .rte-toolbar button:hover { background: #f0f0f0; }
+    .rte-editor { min-height: 220px; padding: 12px; background: #fff; outline: none; }
+    .rte-editor:empty:before { content: attr(data-placeholder); color: #999; }
   </style>
 </head>
 <body>
@@ -161,10 +151,30 @@
 
     <div class="section">
       <h3>Newsletter schreiben</h3>
+
+      <!-- RICH-TEXT EDITOR statt Textarea -->
       <div class="form-group">
-        <label for="newsletterText">Nachricht</label>
-        <textarea id="newsletterText" placeholder="Text hier eingeben..."></textarea>
+        <label>Nachricht</label>
+        <div class="rte-wrap" id="newsletterEditor">
+          <div class="rte-toolbar">
+            <button type="button" data-cmd="bold"><b>B</b></button>
+            <button type="button" data-cmd="italic"><i>I</i></button>
+            <button type="button" data-cmd="underline"><u>U</u></button>
+            <button type="button" data-cmd="insertUnorderedList">• Liste</button>
+            <button type="button" data-cmd="insertOrderedList">1. Liste</button>
+            <button type="button" data-action="link">Link</button>
+            <button type="button" data-cmd="removeFormat">Format löschen</button>
+            <button type="button" data-cmd="undo">↺</button>
+            <button type="button" data-cmd="redo">↻</button>
+          </div>
+          <div id="rte"
+               class="rte-editor"
+               contenteditable="true"
+               data-placeholder="Hier deinen Newsletter-Text schreiben… Enter = neuer Absatz, Shift+Enter = Zeilenumbruch">
+          </div>
+        </div>
       </div>
+
       <div class="newsletter-controls">
         <input type="text" id="newsletterSubject" placeholder="Betreff..." />
         <input type="email" id="testEmail" placeholder="Test-E-Mail" />
@@ -284,86 +294,7 @@
     loadAdminData();
   }
 
-  async function sendTest() {
-    const text = document.getElementById("newsletterText").value;
-    const subject = document.getElementById("newsletterSubject").value;
-    const test = document.getElementById("testEmail").value;
-
-    const res = await fetch("https://gsg-proxy.vercel.app/api/proxy", {
-      method: "POST",
-      body: new URLSearchParams({
-        action: "testmail",
-        passwort: ADMIN_PASSWORD,
-        text,
-        subject,
-        email: test
-      })
-    });
-
-    const result = await res.text();
-    document.getElementById("newsletterStatus").textContent = result;
-  }
-
-  async function sendNewsletter() {
-    const text = document.getElementById("newsletterText").value;
-    const subject = document.getElementById("newsletterSubject").value;
-
-    const res = await fetch("https://gsg-proxy.vercel.app/api/proxy", {
-      method: "POST",
-      body: new URLSearchParams({
-        action: "newsletter",
-        passwort: ADMIN_PASSWORD,
-        text,
-        subject
-      })
-    });
-
-    const result = await res.text();
-    document.getElementById("newsletterStatus").textContent = result;
-  }
-</script>
-<style>
-  /* --- Mini-Editor Styles --- */
-  .rte-wrap { border: 1px solid #ddd; border-radius: 10px; overflow: hidden; font: 14px/1.4 system-ui, sans-serif; }
-  .rte-toolbar {
-    display: flex; flex-wrap: wrap; gap: 6px; padding: 8px; background: #f7f7f7; border-bottom: 1px solid #eee;
-  }
-  .rte-toolbar button {
-    border: 1px solid #ddd; background: #fff; border-radius: 8px; padding: 6px 8px; cursor: pointer;
-  }
-  .rte-toolbar button:hover { background: #f0f0f0; }
-  .rte-editor {
-    min-height: 220px; padding: 12px; background: #fff; outline: none;
-  }
-  .rte-editor:empty:before { content: attr(data-placeholder); color: #999; }
-</style>
-
-<div class="rte-wrap" id="newsletterEditor">
-  <div class="rte-toolbar">
-    <button type="button" data-cmd="bold"><b>B</b></button>
-    <button type="button" data-cmd="italic"><i>I</i></button>
-    <button type="button" data-cmd="underline"><u>U</u></button>
-    <button type="button" data-cmd="insertUnorderedList">• Liste</button>
-    <button type="button" data-cmd="insertOrderedList">1. Liste</button>
-    <button type="button" data-action="link">Link</button>
-    <button type="button" data-cmd="removeFormat">Format löschen</button>
-    <button type="button" data-cmd="undo">↺</button>
-    <button type="button" data-cmd="redo">↻</button>
-  </div>
-  <div id="rte"
-       class="rte-editor"
-       contenteditable="true"
-       data-placeholder="Hier deinen Newsletter-Text schreiben… Enter = neuer Absatz, Shift+Enter = Zeilenumbruch">
-  </div>
-</div>
-
-<!-- Optional: Betreff/Test-E-Mail bleiben wie gehabt
-<input id="newsletterSubject" ...>
-<input id="testEmail" ...>
--->
-
-<script>
-  // ===== RTE Toolbar Verhalten (execCommand ist deprecated, funktioniert aber in allen gängigen Clients) =====
+  /* ===== RTE Toolbar ===== */
   (function () {
     const rte = document.getElementById('rte');
     const toolbar = document.querySelector('#newsletterEditor .rte-toolbar');
@@ -385,8 +316,6 @@
         const url = prompt('Link-URL eingeben (inkl. https://):');
         if (url) {
           document.execCommand('createLink', false, url);
-          // Links standardmäßig klickbar & sicherer:
-          // Nachträglich rel & target setzen
           sanitizeLinks(rte);
         }
       }
@@ -400,27 +329,23 @@
     }
   })();
 
-  // ===== HTML aus dem Editor holen + leicht „sanitizen“ =====
+  /* HTML aus dem Editor holen + leicht „sanitizen“ */
   function getEditorHtml() {
     const allowed = new Set(['B','STRONG','I','EM','U','A','UL','OL','LI','BR','P','DIV','SPAN']);
     const wrapper = document.createElement('div');
     wrapper.innerHTML = normalizeHtml(document.getElementById('rte').innerHTML || '');
 
-    // Whitelist-Sanitizer: unerlaubte Tags entfernen, erlaubte Attribute behalten (nur a[href])
     const walker = document.createTreeWalker(wrapper, NodeFilter.SHOW_ELEMENT, null);
     const toRemove = [];
     while (walker.nextNode()) {
       const el = walker.currentNode;
       if (!allowed.has(el.tagName)) {
-        // Ersetze unerlaubte Elemente durch ihren Inhalt
         const parent = el.parentNode;
         while (el.firstChild) parent.insertBefore(el.firstChild, el);
         toRemove.push(el);
         continue;
       }
-      // Nur für <a> href erlauben
       if (el.tagName !== 'A') {
-        // alle Attribute droppen
         [...el.attributes].forEach(attr => el.removeAttribute(attr.name));
       } else {
         const href = el.getAttribute('href') || '';
@@ -429,7 +354,6 @@
         }
         el.setAttribute('target', '_blank');
         el.setAttribute('rel', 'noopener noreferrer');
-        // andere Attribute entfernen
         [...el.attributes].forEach(attr => {
           if (!['href','target','rel'].includes(attr.name)) el.removeAttribute(attr.name);
         });
@@ -437,30 +361,23 @@
     }
     toRemove.forEach(n => n.remove());
 
-    // Leere Wrapper-DIVs/Ps säubern
     wrapper.querySelectorAll('p,div,span').forEach(n => {
       if (!n.textContent.trim() && !n.querySelector('img,br,ul,ol,li,a,b,strong,i,em,u')) n.remove();
     });
 
-    // Falls komplett leer → ein Platzhalter-Absatz, damit Gmail kein alles-in-einem-Block rendert
-    if (!wrapper.innerHTML.trim()) {
-      wrapper.innerHTML = '<p><br></p>';
-    }
+    if (!wrapper.innerHTML.trim()) wrapper.innerHTML = '<p><br></p>';
     return wrapper.innerHTML.trim();
   }
 
-  // Normalisierung: Wandelt editor-typische <div>-Absätze in <p> um, doppelte <br> konsolidieren
   function normalizeHtml(html) {
-    // Manche Clients erzeugen <div> als Absätze – in <p> konvertieren
     html = html
       .replace(/<div><br><\/div>/gi, '<p><br></p>')
       .replace(/<div>([\s\S]*?)<\/div>/gi, '<p>$1</p>');
-    // Mehrfache <br> reduzieren
     html = html.replace(/(<br>\s*){3,}/gi, '<br><br>');
     return html;
   }
 
-  // ===== Neue Version deiner Sende-Funktionen: nutzt Editor-HTML statt Textarea =====
+  /* ===== Versand: nutzt Editor-HTML ===== */
   async function sendTest() {
     const subject = document.getElementById("newsletterSubject").value;
     const test = document.getElementById("testEmail").value;
@@ -473,7 +390,7 @@
         passwort: ADMIN_PASSWORD,
         subject,
         email: test,
-        text: html            // ← jetzt HTML!
+        text: html
       })
     });
 
@@ -491,7 +408,7 @@
         action: "newsletter",
         passwort: ADMIN_PASSWORD,
         subject,
-        text: html            // ← jetzt HTML!
+        text: html
       })
     });
 
