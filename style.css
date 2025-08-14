@@ -11,6 +11,7 @@ body {
   display: flex;
   align-items: flex-start;
   max-width: 1200px;
+
   margin: 2rem auto 0 auto;
   padding: 20px;
 }
@@ -369,7 +370,7 @@ footer p { margin: 0.3em 0; }
   aside.right-column {
     display: block; position: static; flex: 1 1 100%; margin: 0; padding: 0; width: 100%;
   }
-
+ }
 
 /* ===== FINAL: dezente, kompakte Kalender-Buttons (ID-basiert, überschreibt alles) ===== */
 .addcal-row{ display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
