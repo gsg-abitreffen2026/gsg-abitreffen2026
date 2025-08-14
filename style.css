@@ -423,19 +423,44 @@ footer p { margin: 0.3em 0; }
 
 /* Ort-Links (rechts, dezent) */
 .right-column .content-box .place-line{
-  margin: 0; display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap;
+  margin: 0;
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  flex-wrap: wrap;
 }
-.right-column .content-box .place-link{
-  color: #0b5e8f; text-decoration: none; border-bottom: 1px dashed #c6d8ea;
-  font-weight: 400;
+
+.right-column .content-box .place-link,
+.right-column .content-box .place-link:visited{
+  font-weight: 400 !important;            /* nicht fett */
+  color: #0b5e8f;
+  text-decoration: none;
+  border-bottom: 1px dashed #c6d8ea;
 }
+
 .right-column .content-box .place-link:hover{
-  background: #eef6fc; border-bottom-color: #aecdde;
+  background: #eef6fc;
+  border-bottom-color: #aecdde;
 }
-.right-column .content-box .place-link.secondary{
-  color: #374151; border-bottom-color: #d1d5db;
+
+.right-column .content-box .place-link.secondary,
+.right-column .content-box .place-link.secondary:visited{
+  color: #374151;
+  border-bottom-color: #d1d5db;
 }
+
 .right-column .content-box .place-link.secondary:hover{
-  background: #f3f4f6; border-bottom-color: #c4cbd3;
+  background: #f3f4f6;
+  border-bottom-color: #c4cbd3;
 }
+
 .right-column .content-box .muted{ color:#6b7280; }
+
+/* Pin-Icon hinter "Stuttgart-Ost" */
+.right-column .content-box .place-link .pin{
+  width: 0.95em;
+  height: 0.95em;
+  margin-left: 6px;
+  vertical-align: text-bottom;
+  fill: #6b7280; /* dezent */
+}
