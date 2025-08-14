@@ -540,3 +540,18 @@ aside.right-column .content-box {
     height: 100%;
   }
 }
+/* Linke Nav und Hauptinhalt auf gleiche Höhe */
+.container {
+  align-items: flex-start;
+}
+
+/* Sicherstellen, dass nav oben bündig mit main startet */
+nav {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Falls main oben mehr Abstand hat, ebenfalls angleichen */
+main {
+  margin-top: 0 !important;
+}
