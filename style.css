@@ -456,23 +456,63 @@ footer p { margin: 0.3em 0; }
 
 .right-column .content-box .muted{ color:#6b7280; }
 
-/* Stecknadel-Icon */
+/* Ort-Links (rechts, dezent) – belass das so, nur ergänzen wir Bold & Icon */
+.right-column .content-box .place-line{
+  margin: 0;
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+.right-column .content-box .place-link,
+.right-column .content-box .place-link:visited{
+  font-weight: 400;
+  color: #0b5e8f;
+  text-decoration: none;
+  border-bottom: 1px dashed #c6d8ea;
+}
+.right-column .content-box .place-link:hover{
+  background: #eef6fc; border-bottom-color: #aecdde;
+}
+.right-column .content-box .place-link.secondary,
+.right-column .content-box .place-link.secondary:visited{
+  color: #374151; border-bottom-color: #d1d5db;
+}
+.right-column .content-box .place-link.secondary:hover{
+  background: #f3f4f6; border-bottom-color: #c4cbd3;
+}
+.right-column .content-box .muted{ color:#6b7280; }
+
+/* Wirtshaus Ratze explizit fett (übersteuert evtl. 400er Defaults) */
+.right-column .content-box .place-link strong{
+  font-weight: 700 !important;
+}
+
+/* Stecknadel-Icon (roter Kopf, Nadel nach links, durch Bullseye) */
 .right-column .content-box .place-link .pin{
   width: 1em;
   height: 1em;
   margin-left: 6px;
-  vertical-align: +0.12em; /* sitzt schön auf der Textgrundlinie */
+  vertical-align: -0.12em;
 }
-
-.right-column .content-box .place-link .pin-head{
-  fill: #ef4444;           /* Rot */
-  stroke: #b91c1c;         /* dunkler Rand */
-  stroke-width: 1;
+.right-column .content-box .place-link .target-outer{
+  fill: none;
+  stroke: #d1d5db;        /* äußere Ringlinie */
+  stroke-width: 1.4;
 }
-
+.right-column .content-box .place-link .target-inner{
+  fill: #ffffff;          /* innerer Kreis */
+  stroke: #cbd5e1;        /* feine Linie */
+  stroke-width: 1.2;
+}
 .right-column .content-box .place-link .pin-needle{
-  stroke: #6b7280;         /* dezentes Grau */
+  stroke: #6b7280;        /* dezentes Grau */
   stroke-width: 1.6;
   stroke-linecap: round;
+}
+.right-column .content-box .place-link .pin-head{
+  fill: #ef4444;          /* Rot */
+  stroke: #b91c1c;        /* dunklere Kontur */
+  stroke-width: 1.2;
 }
 
