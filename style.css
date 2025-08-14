@@ -482,3 +482,13 @@ header h1{
   justify-content: center;
   text-align: center;
 }
+/* Weniger seitlicher Innenabstand nur in der rechten Spalte */
+aside.right-column .content-box {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Optional: Text in Ort-Box & Countdown mittig vertikal etwas lockerer */
+aside.right-column .content-box h3 {
+  margin-bottom: 6px;
+}
