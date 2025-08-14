@@ -116,26 +116,33 @@
         </div> 
     </div>
    
-    <div class="content-box">
+   <div class="content-box">
   <h3><i class="fas fa-map-marker-alt"></i> Ort</h3>
   <p class="place-line">
     <a class="place-link"
        href="https://www.wirtshaus-ratze.de"
        target="_blank" rel="noopener noreferrer"
-       title="Website des Wirtshaus Ratze">Wirtshaus Ratze</a>
+       title="Website des Wirtshaus Ratze"><strong>Wirtshaus Ratze</strong></a>
     <span class="muted">in</span>
     <a class="place-link secondary"
        href="https://www.google.com/maps/search/?api=1&query=Wirtshaus%20Ratze%2C%20Raichberg%204%2C%2070186%20Stuttgart"
        target="_blank" rel="noopener noreferrer"
-       title="Wirtshaus Ratze auf Google Maps öffnen">
+       title="Wirtshaus Ratze auf Google Maps">
       Stuttgart-Ost
+      <!-- Stecknadel mit rotem Kopf, Nadel zeigt NACH LINKS durch zwei Kreise -->
       <svg class="pin pin-nail" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <circle class="pin-head" cx="9" cy="7" r="4"/>
-        <path class="pin-needle" d="M9 11 L16.5 18.5"/>
+        <!-- Bullseye (zwei konzentrische Kreise), Mittelpunkt exakt auf der Nadel -->
+        <circle class="target-outer" cx="12" cy="12" r="5.5"/>
+        <circle class="target-inner" cx="12" cy="12" r="2.5"/>
+        <!-- Nadel (durch die Kreismitte nach links zeigend) -->
+        <line class="pin-needle" x1="20" y1="12" x2="4" y2="12"/>
+        <!-- roter Kopf rechts (entgegengesetzte Seite der Spitze) -->
+        <circle class="pin-head" cx="20" cy="12" r="3"/>
       </svg>
     </a>
   </p>
 </div>
+
 
 
     <div class="content-box">
