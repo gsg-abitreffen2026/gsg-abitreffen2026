@@ -512,3 +512,31 @@ aside.right-column .content-box {
   flex-direction: column !important;
   align-items: center !important;
 }
+/* ===== Mobile Layout aktualisieren: Ort oben rechts, Countdown darunter; Date spannt 2 Zeilen ===== */
+@media (max-width: 768px){
+  .container{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    /* Date links über 2 Zeilen, rechts: oben Ort, unten Countdown */
+    grid-template-areas:
+      "date place"
+      "date count"
+      "main main";
+    gap: 12px;
+    align-items: stretch;      /* Elemente in den Zellen strecken */
+    grid-auto-rows: 1fr;       /* gleiche Zeilenhöhen für 'place' und 'count' */
+  }
+
+  aside.right-column{ display: contents; } /* Boxen als direkte Grid-Items */
+
+  /* Grid-Areas zuweisen und auf volle Zellenhöhe strecken */
+  .box-date{ grid-area: date; align-self: stretch; }
+  .box-place{ grid-area: place; align-self: stretch; }
+  .box-countdown{ grid-area: count; align-self: stretch; }
+
+  /* Inhalt der Boxen darf die Zellenhöhe ausfüllen */
+  .right-column .content-box,
+  .box-date.content-box{
+    height: 100%;
+  }
+}
