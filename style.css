@@ -420,4 +420,22 @@ footer p { margin: 0.3em 0; }
   font-weight:600;
   margin-bottom:8px;
 }
-html{outline:1px solid red}
+
+/* Ort-Links (rechts, dezent) */
+.right-column .content-box .place-line{
+  margin: 0; display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap;
+}
+.right-column .content-box .place-link{
+  color: #0b5e8f; text-decoration: none; border-bottom: 1px dashed #c6d8ea;
+  font-weight: 400;
+}
+.right-column .content-box .place-link:hover{
+  background: #eef6fc; border-bottom-color: #aecdde;
+}
+.right-column .content-box .place-link.secondary{
+  color: #374151; border-bottom-color: #d1d5db;
+}
+.right-column .content-box .place-link.secondary:hover{
+  background: #f3f4f6; border-bottom-color: #c4cbd3;
+}
+.right-column .content-box .muted{ color:#6b7280; }
