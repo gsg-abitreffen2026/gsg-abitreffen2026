@@ -1,21 +1,21 @@
+/* ===== Base ===== */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #f3f2ef;
   color: #1c1e21;
 }
-
 .hidden { display: none !important; }
 
 .container {
   display: flex;
   align-items: flex-start;
   max-width: 1200px;
-
   margin: 2rem auto 0 auto;
   padding: 20px;
 }
 
+/* ===== Hero ===== */
 header {
   position: relative;
   height: 30vh;
@@ -32,7 +32,7 @@ header img.hero-img {
   transition: filter 0.3s ease;
   display: block;
 }
-/* Hero-Typo: skaliert automatisch zwischen Mobil & Desktop */
+/* Typo skaliert zwischen Mobil & Desktop */
 header h1{
   font-size: clamp(1.8rem, 6vw, 3.8rem);
   line-height: 1.1;
@@ -44,10 +44,11 @@ header p{
 }
 header .hero-text{
   max-width: min(95vw, 820px);
-  text-wrap: balance;         /* modern browsers: schönere Zeilenbrüche */
-  hyphens: auto;              /* falls nötig */
+  text-wrap: balance;
+  hyphens: auto;
 }
 
+/* ===== Sidebar-Nav ===== */
 nav {
   flex: 0 0 220px;
   position: sticky;
@@ -83,6 +84,7 @@ nav .share-button {
 }
 nav .share-button i { color: #fff !important; }
 
+/* ===== Main / Right Column ===== */
 main { flex: 1; margin: 0 20px; }
 
 aside.right-column {
@@ -91,6 +93,7 @@ aside.right-column {
   top: 0;
   align-self: flex-start;
 }
+
 #galerie-login-box { margin-top: 20px; }
 
 .content-box {
@@ -106,6 +109,7 @@ aside.right-column {
 h2 { margin-top: 0; color: #1c1e21; }
 h3 { margin-top: 0; }
 
+/* ===== Forms ===== */
 form { padding: 1rem 0; }
 form input,
 form textarea {
@@ -117,14 +121,14 @@ form textarea {
   border-radius: 5px;
   box-sizing: border-box;
 }
-
 form button[type="submit"] {
-  display: block;  /* Zwingt den Button in eine eigene Zeile */
-  width: 100%;     /* Optional: passt sich an Input-Breite an */
-  max-width: 500px; /* gleiche max-Breite wie Inputs */
+  display: block;
+  width: 100%;
+  max-width: 500px;
   margin-top: 0.2rem;
 }
 
+/* ===== Buttons (generic) ===== */
 .button {
   background-color: #0073b1;
   color: white;
@@ -136,17 +140,16 @@ form button[type="submit"] {
 }
 .button:hover { background-color: #005f90; }
 
+/* ===== Newsletter Hint ===== */
 .newsletter-hint {
   font-size: 0.8em;
   font-style: italic;
-  color: #666; /* Optional: etwas dezenter als Standardtext */
+  color: #666;
   margin-top: -0.5rem;
 }
 
-.gallery-wrapper {
-  position: relative;
-  text-align: center;
-}
+/* ===== Gallery ===== */
+.gallery-wrapper { position: relative; text-align: center; }
 .gallery-wrapper img {
   width: 100%;
   max-width: 600px;
@@ -170,6 +173,7 @@ form button[type="submit"] {
 #nextBtn { right: 10px; }
 .gallery-button:hover { background-color: rgba(0, 0, 0, 0.6); }
 
+/* ===== Footer ===== */
 footer {
   text-align: center;
   font-size: 0.9em;
@@ -185,7 +189,7 @@ footer a {
 }
 footer p { margin: 0.3em 0; }
 
-/* ======= KLAPPBOX Kontakt ======= */
+/* ===== Kontakt-Klappbox ===== */
 .kontakt-collapsible .kontakt-header {
   cursor: pointer;
   user-select: none;
@@ -214,7 +218,7 @@ footer p { margin: 0.3em 0; }
   padding: 0;
 }
 
-/* ======== Menü-Button: kleinere Größe ======== */
+/* ===== Floating Action Button + Mobile Menu ===== */
 .menu-fab {
   position: fixed;
   right: 24px;
@@ -235,84 +239,30 @@ footer p { margin: 0.3em 0; }
 }
 .menu-fab:hover { background: #005f90; }
 
-.fab-rotator {
-  position: relative;
-  width: 48px;
-  height: 48px;
-  transition: transform 0.42s cubic-bezier(.4,2,.6,1);
-}
-.menu-fab.open .fab-rotator {
-  transform: rotate(45deg);
-}
+.fab-rotator { position: relative; width: 48px; height: 48px; transition: transform 0.42s cubic-bezier(.4,2,.6,1); }
+.menu-fab.open .fab-rotator { transform: rotate(45deg); }
 
-/* Lange Linien für "X" Style */
-.menu-lines,
-.menu-lines::after {
+/* X-Shape */
+.menu-lines, .menu-lines::after {
   position: absolute;
   background: #fff;
   content: '';
 }
-.menu-lines {
-  top: 50%;
-  left: 50%;
-  width: 48px;
-  height: 1px;
-  transform: translate(-50%, -50%);
-}
-.menu-lines::after {
-  width: 1px;
-  height: 48px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
+.menu-lines { top: 50%; left: 50%; width: 48px; height: 1px; transform: translate(-50%, -50%); }
+.menu-lines::after { width: 1px; height: 48px; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 
-/* Buchstaben in „Zwischen-Positionen“ platzieren */
-.fab-letter {
-  position: absolute;
-  color: #fff;
-  font-size: 15px;
-  font-weight: 500;
-  transition: transform 0.42s cubic-bezier(.4,2,.6,1);
-}
-
-/* Diese Offsets platzieren sie optisch perfekt „zwischen den Linien“ */
+/* MENÜ-Buchstaben */
+.fab-letter { position: absolute; color: #fff; font-size: 15px; font-weight: 500; transition: transform 0.42s cubic-bezier(.4,2,.6,1); }
 .fab-letter.m { top: 3px; left: 6px; }
 .fab-letter.e { top: 3px; right: 8px; }
 .fab-letter.n { bottom: 3px; right: 7px; }
 .fab-letter.u { bottom: 3px; left: 7px; }
-
-
-/* Counter-Rotation bleibt */
-.menu-fab.open .fab-letter.m { transform: rotate(-45deg); }
-.menu-fab.open .fab-letter.e { transform: rotate(-45deg); }
-.menu-fab.open .fab-letter.n { transform: rotate(-45deg); }
+.menu-fab.open .fab-letter.m,
+.menu-fab.open .fab-letter.e,
+.menu-fab.open .fab-letter.n,
 .menu-fab.open .fab-letter.u { transform: rotate(-45deg); }
 
-
-@media (min-width: 768px) {
-  .menu-fab, .mobile-menu { display: none !important; }
-}
-
-
-}
-@media (max-width: 768px) {
-  .container { flex-direction: column; padding-bottom: 80px; }
-  nav { display: none; }
-  aside.right-column {
-    display: block; position: static; flex: 1 1 100%; margin: 0; padding: 0; width: 100%;
-  }
-  .right-column .content-box {
-    max-width: 600px; margin: 1rem auto 0 auto; width: 100%; box-sizing: border-box;
-  }
-  main { margin: 0 1rem; }
-  header { height: 18vh; margin: 1.2rem 0.5rem 1.2rem; }
-  header .hero-text { padding: 0 0.2rem; left: 50%; bottom: 6%; transform: translateX(-50%); }
-  header h1 { font-size: 2.0rem; margin: 0 0 0.3rem; letter-spacing: -1px; }
-  header p { font-size: 1.0rem; margin: 0; }
-}
-
-/* ======== MOBILE-MENÜ ======== */
+/* Mobile Menu Panel */
 .mobile-menu {
   display: none;
   position: fixed;
@@ -330,12 +280,7 @@ footer p { margin: 0.3em 0; }
   transform: translateY(18px) scale(0.97);
   transition: opacity 0.3s, transform 0.32s;
 }
-.mobile-menu.open {
-  display: block;
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0) scale(1);
-}
+.mobile-menu.open { display: block; opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
 .mobile-menu a {
   display: block;
   padding: 14px 24px;
@@ -356,167 +301,106 @@ footer p { margin: 0.3em 0; }
 }
 .mobile-menu a:hover { background: #e5eef5; }
 
+/* Desktop-only hide mobile menu/fab */
+@media (min-width: 768px) {
+  .menu-fab, .mobile-menu { display: none !important; }
+}
 @media (min-width: 900px) {
   .menu-fab, .mobile-menu { display: none !important; }
 }
 
-/* ======= MOBILE BREAKPOINT (ab 900px Desktop!) ======= */
+/* Kleinere Phones – grobes Stacking (Fallback) */
 @media (max-width: 700px) {
   .container { flex-direction: column; padding-bottom: 80px; }
   nav { display: none; }
   aside.right-column {
     display: block; position: static; flex: 1 1 100%; margin: 0; padding: 0; width: 100%;
   }
- }
+}
 
-/* ===== FINAL: dezente, kompakte Kalender-Buttons (ID-basiert, überschreibt alles) ===== */
+/* ===== Mobile Layout: Datum & Ort oben nebeneinander, Countdown unten ===== */
+@media (max-width: 768px){
+  .container{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "date  place"
+      "main  main"
+      "count count";
+    gap: 12px;
+    align-items: start;
+  }
+  aside.right-column{ display: contents; }
+  main{ grid-area: main; }
+  .box-date{ grid-area: date; }
+  .box-place{ grid-area: place; }
+  .box-countdown{ grid-area: count; }
+
+  /* rechte Spalte-Boxen mobil auf volle Breite */
+  .right-column .content-box{
+    max-width: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  /* etwas kompakterer Hero auf Mobil */
+  header { height: 18vh; margin: 1.2rem 0.5rem 1.2rem; }
+  header .hero-text { padding: 0 0.2rem; left: 50%; bottom: 6%; transform: translateX(-50%); }
+}
+
+/* ===== Kalender-Buttons (dezent & kompakt) ===== */
 .addcal-row{ display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
 
-/* Basiszustand + visited */
 .right-column .content-box a#icsLink.addcal,
 .right-column .content-box a#icsLink.addcal:visited,
 .right-column .content-box a#gcalLink.addcal,
 .right-column .content-box a#gcalLink.addcal:visited{
-  display:inline-flex !important;
-  align-items:center !important;
-  gap:8px !important;
-  padding:6px 10px !important;
-  border-radius:8px !important;
-  border:1px solid #d7e3ef !important;   /* feine Linie */
-  background:transparent !important;
-  color:#0b5e8f !important;               /* dezentes Blau */
-  font-size:.85rem !important;
-  font-weight:400 !important;             /* nicht fett */
-  line-height:1.25 !important;
-  text-decoration:none !important;
-  box-shadow:none !important;
-  width:auto !important;                  /* nie 100% Breite */
-  cursor:pointer !important;
+  display:inline-flex; align-items:center; gap:8px;
+  padding:6px 10px; border-radius:8px;
+  border:1px solid #d7e3ef; background:transparent;
+  color:#0b5e8f; font-size:.85rem; font-weight:400; line-height:1.25;
+  text-decoration:none; box-shadow:none; width:auto; cursor:pointer;
 }
-
-/* Hover */
-.right-column .content-box a#icsLink.addcal:hover{
-  background:#eef6fc !important;
-  border-color:#c6d8ea !important;
-}
-
-/* Sekundärer (Google) – grauer Text/Linie */
+.right-column .content-box a#icsLink.addcal:hover{ background:#eef6fc; border-color:#c6d8ea; }
 .right-column .content-box a#gcalLink.addcal,
-.right-column .content-box a#gcalLink.addcal:visited{
-  border-color:#e5e7eb !important;
-  color:#374151 !important;
-}
-.right-column .content-box a#gcalLink.addcal:hover{
-  background:#f3f4f6 !important;
-  border-color:#d1d5db !important;
-}
+.right-column .content-box a#gcalLink.addcal:visited{ border-color:#e5e7eb; color:#374151; }
+.right-column .content-box a#gcalLink.addcal:hover{ background:#f3f4f6; border-color:#d1d5db; }
 
 /* Datum leicht hervorheben */
 .right-column .content-box h3 + p{
-  font-size:1.125rem;
-  font-weight:600;
-  margin-bottom:8px;
+  font-size:1.125rem; font-weight:600; margin-bottom:8px;
 }
 
-/* Ort-Links (rechts, dezent) */
+/* ===== Ort-Links (dezent) ===== */
 .right-column .content-box .place-line{
-  margin: 0;
-  display: flex;
-  gap: 6px;
-  align-items: baseline;
-  flex-wrap: wrap;
-}
-
-.right-column .content-box .place-link,
-.right-column .content-box .place-link:visited{
-  font-weight: 400 !important;            /* nicht fett */
-  color: #0b5e8f;
-  text-decoration: none;
-  border-bottom: 1px dashed #c6d8ea;
-}
-
-.right-column .content-box .place-link:hover{
-  background: #eef6fc;
-  border-bottom-color: #aecdde;
-}
-
-.right-column .content-box .place-link.secondary,
-.right-column .content-box .place-link.secondary:visited{
-  color: #374151;
-  border-bottom-color: #d1d5db;
-}
-
-.right-column .content-box .place-link.secondary:hover{
-  background: #f3f4f6;
-  border-bottom-color: #c4cbd3;
-}
-
-.right-column .content-box .muted{ color:#6b7280; }
-
-/* Ort-Links (rechts, dezent) – belass das so, nur ergänzen wir Bold & Icon */
-.right-column .content-box .place-line{
-  margin: 0;
-  display: flex;
-  gap: 6px;
-  align-items: baseline;
-  flex-wrap: wrap;
+  margin:0; display:flex; gap:6px; align-items:baseline; flex-wrap:wrap;
 }
 .right-column .content-box .place-link,
 .right-column .content-box .place-link:visited{
-  font-weight: 400;
-  color: #0b5e8f;
-  text-decoration: none;
-  border-bottom: 1px dashed #c6d8ea;
+  font-weight:400; color:#0b5e8f; text-decoration:none; border-bottom:1px dashed #c6d8ea;
 }
-.right-column .content-box .place-link:hover{
-  background: #eef6fc; border-bottom-color: #aecdde;
-}
+.right-column .content-box .place-link:hover{ background:#eef6fc; border-bottom-color:#aecdde; }
 .right-column .content-box .place-link.secondary,
-.right-column .content-box .place-link.secondary:visited{
-  color: #374151; border-bottom-color: #d1d5db;
-}
-.right-column .content-box .place-link.secondary:hover{
-  background: #f3f4f6; border-bottom-color: #c4cbd3;
-}
+.right-column .content-box .place-link.secondary:visited{ color:#374151; border-bottom-color:#d1d5db; }
+.right-column .content-box .place-link.secondary:hover{ background:#f3f4f6; border-bottom-color:#c4cbd3; }
 .right-column .content-box .muted{ color:#6b7280; }
-
-/* Wirtshaus Ratze explizit fett (übersteuert evtl. 400er Defaults) */
-.right-column .content-box .place-link strong{
-  font-weight: 700 !important;
-}
+.right-column .content-box .place-link strong{ font-weight:700 !important; }
 
 /* Stecknadel – schräg, Spitze im Bullseye, Kopf rot */
 .right-column .content-box .place-link .pin{
-  width: 1em;                  /* ≈ Schrifthöhe */
-  height: 1em;
-  margin-left: 6px;
-  vertical-align: -0.12em;     /* sitzt sauber auf der Grundlinie */
+  width: 1em; height: 1em; margin-left: 6px; vertical-align: -0.12em;
 }
-
 .right-column .content-box .place-link .target-outer{
-  fill: none;
-  stroke: #d1d5db;             /* äußerer Ring */
-  stroke-width: 1.4;
+  fill: none; stroke: #d1d5db; stroke-width: 1.4;
 }
 .right-column .content-box .place-link .target-inner{
-  fill: #ffffff;               /* innerer Kreis */
-  stroke: #cbd5e1;             /* feine Linie */
-  stroke-width: 1.2;
+  fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.2;
 }
 .right-column .content-box .place-link .pin-needle{
-  stroke: #6b7280;             /* dezentes Grau */
-  stroke-width: 1.6;
-  stroke-linecap: round;
+  stroke: #6b7280; stroke-width: 1.6; stroke-linecap: round;
 }
 .right-column .content-box .place-link .pin-head{
-  fill: #ef4444;               /* roter Kopf */
-  stroke: #b91c1c;             /* dunklere Kontur */
-  stroke-width: 1.1;
+  fill: #ef4444; stroke: #b91c1c; stroke-width: 1.1;
 }
-
-/* verhindert, dass Text+Icon unschön umbrechen */
-.right-column .content-box .place-link.secondary{
-  white-space: nowrap;
-}
-
-
+/* kein unschöner Umbruch zwischen Text & Icon */
+.right-column .content-box .place-link.secondary{ white-space: nowrap; }
