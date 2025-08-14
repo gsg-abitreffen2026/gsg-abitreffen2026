@@ -488,31 +488,38 @@ footer p { margin: 0.3em 0; }
   font-weight: 700 !important;
 }
 
-/* Stecknadel-Icon (roter Kopf, Nadel nach links, durch Bullseye) */
+/* Stecknadel – schräg, Spitze im Bullseye, Kopf rot */
 .right-column .content-box .place-link .pin{
-  width: 1em;
+  width: 1em;                  /* ≈ Schrifthöhe */
   height: 1em;
   margin-left: 6px;
-  vertical-align: -0.12em;
+  vertical-align: -0.12em;     /* sitzt sauber auf der Grundlinie */
 }
+
 .right-column .content-box .place-link .target-outer{
   fill: none;
-  stroke: #d1d5db;        /* äußere Ringlinie */
+  stroke: #d1d5db;             /* äußerer Ring */
   stroke-width: 1.4;
 }
 .right-column .content-box .place-link .target-inner{
-  fill: #ffffff;          /* innerer Kreis */
-  stroke: #cbd5e1;        /* feine Linie */
+  fill: #ffffff;               /* innerer Kreis */
+  stroke: #cbd5e1;             /* feine Linie */
   stroke-width: 1.2;
 }
 .right-column .content-box .place-link .pin-needle{
-  stroke: #6b7280;        /* dezentes Grau */
+  stroke: #6b7280;             /* dezentes Grau */
   stroke-width: 1.6;
   stroke-linecap: round;
 }
 .right-column .content-box .place-link .pin-head{
-  fill: #ef4444;          /* Rot */
-  stroke: #b91c1c;        /* dunklere Kontur */
-  stroke-width: 1.2;
+  fill: #ef4444;               /* roter Kopf */
+  stroke: #b91c1c;             /* dunklere Kontur */
+  stroke-width: 1.1;
 }
+
+/* verhindert, dass Text+Icon unschön umbrechen */
+.right-column .content-box .place-link.secondary{
+  white-space: nowrap;
+}
+
 
