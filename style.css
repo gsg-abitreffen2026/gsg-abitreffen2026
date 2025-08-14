@@ -369,112 +369,52 @@ footer p { margin: 0.3em 0; }
   aside.right-column {
     display: block; position: static; flex: 1 1 100%; margin: 0; padding: 0; width: 100%;
   }
- /* FINAL: kompakte, dezente Kalender-Buttons NUR in der rechten Spalte */
-.right-column .addcal-row{ gap:6px; margin-top:6px; }
-
-.right-column .addcal,
-.right-column .addcal.secondary{
-  font-size:.85rem !important;     /* ~halb so groß */
-  font-weight:400 !important;       /* nicht fett */
-  padding:6px 10px !important;
-  border-radius:8px !important;
-  box-shadow:none !important;
-
-  background:transparent !important;     /* kein Vollflächenlook */
-  text-decoration:none !important;
-  border:1px solid #d7e3ef !important;   /* dezente Linie */
-  color:#0b5e8f !important;              /* dezentes Blau (Standard-Button) */
+/* ===== Kalender-Buttons (dezent & kompakt, nur in der rechten Spalte) ===== */
+.right-column .addcal-row{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:6px;
 }
 
-/* Sekundärer Button (Google) – grauer Text + Linie */
-.right-column .addcal.secondary{
-  border-color:#e5e7eb !important;
-  color:#374151 !important;
+.right-column .content-box .addcal,
+.right-column .content-box .addcal.secondary{
+  display:inline-flex;           /* nie volle Breite */
+  align-items:center;
+  gap:8px;
+
+  font-size:.85rem;              /* deutlich kleiner */
+  font-weight:400;               /* nicht fett */
+  line-height:1.25;
+  padding:6px 10px;
+  border-radius:8px;
+
+  background:transparent;        /* „quiet“ */
+  color:#0b5e8f;                 /* dezentes Blau */
+  border:1px solid #d7e3ef;      /* feine Linie */
+  text-decoration:none;
+  box-shadow:none;
 }
 
-/* sanfter Hover */
-.right-column .addcal:hover{
-  background:#eef6fc !important;
-  border-color:#c6d8ea !important;
-}
-.right-column .addcal.secondary:hover{
-  background:#f3f4f6 !important;
-  border-color:#d1d5db !important;
+.right-column .content-box .addcal:hover{
+  background:#eef6fc;
+  border-color:#c6d8ea;
 }
 
-/* ===== Add-to-Calendar Buttons ===== */
-.addcal-row {
-  display: inline-flex; /* oder display:flex für ganze Zeile */
-  gap: 8px;
-  flex-wrap: wrap;
+.right-column .content-box .addcal.secondary{
+  color:#374151;                 /* Grau-Variante */
+  border-color:#e5e7eb;
+}
+.right-column .content-box .addcal.secondary:hover{
+  background:#f3f4f6;
+  border-color:#d1d5db;
 }
 
-.addcal{
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: #0073b1;              /* Primär (blau) */
-  border: 1px solid #0073b1;
-  color: #fff !important;            /* sicher weiß, auch bei globalen Link-Styles */
-  text-decoration: none;
-  font-weight: 600;
-  line-height: 1;
-  transition: background .15s ease, border-color .15s ease, transform .05s ease;
-  box-shadow: 0 1px 2px rgba(0,0,0,.06);
-}
-.addcal:hover{
-  background: #005f90;
-  border-color: #005f90;
-  transform: translateY(-1px);
-}
-.addcal:active{
-  transform: translateY(0);
-}
-.addcal:focus-visible{
-  outline: 3px solid #93c5fd;       /* Fokus-Ring */
-  outline-offset: 2px;
+/* Datum leicht hervorheben, ohne übertrieben zu wirken */
+.right-column .content-box h3 + p{
+  font-size:1.125rem;
+  font-weight:600;
+  margin-bottom:8px;
 }
 
-.addcal.secondary{
-  background: #374151;               /* Dunkelgrau */
-  border-color: #374151;
-}
-.addcal.secondary:hover{
-  background: #4B5563;
-  border-color: #4B5563;
-}
-
-/* Optional: kompaktere Variante */
-.addcal.small{ padding: 8px 12px; font-size: .95rem; }
-
-/* Erzwingt Button-Look auch innerhalb von .content-box etc. */
-.content-box .addcal,
-.right-column .addcal{
-  display: inline-flex !important;
-  text-decoration: none !important;
-  background: #0073b1 !important;
-  border-color: #0073b1 !important;
-  color: #fff !important;
-}
-
-.content-box .addcal:hover,
-.right-column .addcal:hover{
-  background: #005f90 !important;
-  border-color: #005f90 !important;
-}
-
-.content-box .addcal.secondary,
-.right-column .addcal.secondary{
-  background: #374151 !important;
-  border-color: #374151 !important;
-}
-
-.content-box .addcal.secondary:hover,
-.right-column .addcal.secondary:hover{
-  background: #4B5563 !important;
-  border-color: #4B5563 !important;
-}
-/* Kompakte, zurückhaltende Buttons NUR in der rechten Spalte */
 
