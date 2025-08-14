@@ -32,23 +32,20 @@ header img.hero-img {
   transition: filter 0.3s ease;
   display: block;
 }
-header .hero-text {
-  position: absolute;
-  left: 50%;
-  bottom: 5%;
-  transform: translateX(-50%);
-  text-align: center;
-  color: #fff;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
-  padding: 0 1rem;
+/* Hero-Typo: skaliert automatisch zwischen Mobil & Desktop */
+header h1{
+  font-size: clamp(1.8rem, 6vw, 3.8rem);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
 }
-header h1 {
-  font-size: 3.8rem;
-  margin: 0 0 0.4rem;
+header p{
+  font-size: clamp(1rem, 3.6vw, 1.8rem);
+  line-height: 1.2;
 }
-header p {
-  font-size: 1.8rem;
-  margin: 0;
+header .hero-text{
+  max-width: min(95vw, 820px);
+  text-wrap: balance;         /* modern browsers: schönere Zeilenbrüche */
+  hyphens: auto;              /* falls nötig */
 }
 
 nav {
