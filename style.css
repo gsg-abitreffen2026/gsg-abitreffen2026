@@ -424,3 +424,31 @@ footer p { margin: 0.3em 0; }
 
 /* Optional: kompaktere Variante */
 .addcal.small{ padding: 8px 12px; font-size: .95rem; }
+
+/* Erzwingt Button-Look auch innerhalb von .content-box etc. */
+.content-box .addcal,
+.right-column .addcal{
+  display: inline-flex !important;
+  text-decoration: none !important;
+  background: #0073b1 !important;
+  border-color: #0073b1 !important;
+  color: #fff !important;
+}
+
+.content-box .addcal:hover,
+.right-column .addcal:hover{
+  background: #005f90 !important;
+  border-color: #005f90 !important;
+}
+
+.content-box .addcal.secondary,
+.right-column .addcal.secondary{
+  background: #374151 !important;
+  border-color: #374151 !important;
+}
+
+.content-box .addcal.secondary:hover,
+.right-column .addcal.secondary:hover{
+  background: #4B5563 !important;
+  border-color: #4B5563 !important;
+}
