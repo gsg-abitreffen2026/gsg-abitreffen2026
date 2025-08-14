@@ -34,7 +34,6 @@ header img.hero-img {
   position: relative;
   z-index: 0;
 }
-
 /* Overlay für bessere Lesbarkeit */
 header::after{
   content:"";
@@ -42,8 +41,7 @@ header::after{
   background: linear-gradient(transparent 40%, rgba(0,0,0,.35) 100%);
   z-index:1;
 }
-
-/* Hero-Typo und Positionierung (sichtbar über dem Bild) */
+/* Hero-Typo / Positionierung */
 header .hero-text{
   position: absolute;
   left: 50%;
@@ -63,6 +61,10 @@ header h1{
   line-height: 1.2;
   letter-spacing: -0.5px;
   margin: 0.2em 0;
+  -webkit-hyphens: none;
+  hyphens: none;
+  word-break: keep-all;
+  overflow-wrap: normal;
 }
 header p{
   font-size: clamp(0.9rem, 3.5vw, 1.8rem);
@@ -106,7 +108,7 @@ nav .share-button {
 }
 nav .share-button i { color: #fff !important; }
 
-/* ===== Main / Right Column ===== */
+/* ===== Hauptspalte / Rechte Spalte ===== */
 main { flex: 1; margin: 0 20px; }
 
 aside.right-column {
@@ -116,9 +118,7 @@ aside.right-column {
   align-self: flex-start;
 }
 
-#galerie-login-box { margin-top: 20px; }
-
-/* Boxen zentrieren */
+/* Boxen – Standards */
 .content-box {
   background-color: white;
   padding: 20px;
@@ -127,255 +127,25 @@ aside.right-column {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   width: 100%;
   box-sizing: border-box;
+}
+
+/* Hauptteil-Boxen linksbündig, rechte Boxen zentriert */
+main .content-box{
+  text-align: left;
+}
+aside.right-column .content-box{
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* ===== Forms / Buttons etc. (gekürzt) ===== */
 h2 { margin-top: 0; color: #1c1e21; }
 h3 { margin-top: 0; }
 
-/* ===== Forms ===== */
-form { padding: 1rem 0; }
-form input,
-form textarea {
-  width: 100%;
-  max-width: 500px;
-  padding: 10px;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-form button[type="submit"] {
-  display: block;
-  width: 100%;
-  max-width: 500px;
-  margin-top: 0.2rem;
-}
-
-/* ===== Buttons (generic) ===== */
-.button {
-  background-color: #0073b1;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.button:hover { background-color: #005f90; }
-
-/* ===== Newsletter Hint ===== */
-.newsletter-hint {
-  font-size: 0.8em;
-  font-style: italic;
-  color: #666;
-  margin-top: -0.5rem;
-}
-
-/* ===== Gallery ===== */
-.gallery-wrapper { position: relative; text-align: center; }
-.gallery-wrapper img {
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-.gallery-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.4);
-  border: none;
-  color: white;
-  padding: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-#prevBtn { left: 10px; }
-#nextBtn { right: 10px; }
-.gallery-button:hover { background-color: rgba(0, 0, 0, 0.6); }
-
-/* ===== Footer ===== */
-footer {
-  text-align: center;
-  font-size: 0.9em;
-  padding: 20px;
-  color: #888;
-  background: none;
-}
-footer a {
-  color: #0073b1;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 0.95em;
-}
-footer p { margin: 0.3em 0; }
-
-/* ===== Kontakt-Klappbox ===== */
-.kontakt-collapsible .kontakt-header {
-  cursor: pointer;
-  user-select: none;
-  display: flex;
-  align-items: center;
-  font-size: 1.35em;
-  margin-bottom: 0.2em;
-  transition: color 0.2s;
-}
-.kontakt-collapsible .arrow {
-  font-size: 0.5em;
-  margin-right: 10px;
-  transition: transform 0.26s;
-  display: inline-block;
-}
-.kontakt-collapsible.collapsed .arrow { transform: rotate(0deg); }
-.kontakt-collapsible:not(.collapsed) .arrow { transform: rotate(90deg); }
-.kontakt-collapsible .kontakt-content {
-  max-height: 1000px;
-  transition: max-height 0.4s;
-  overflow: hidden;
-}
-.kontakt-collapsible.collapsed .kontakt-content {
-  max-height: 0;
-  overflow: hidden;
-  padding: 0;
-}
-
-/* ===== Floating Action Button + Mobile Menu ===== */
-.menu-fab {
-  position: fixed;
-  right: 24px;
-  bottom: 32px;
-  width: 64px;
-  height: 64px;
-  background: #0073b1;
-  border-radius: 50%;
-  box-shadow: 0 6px 36px 0 rgba(0,0,0,0.13);
-  z-index: 1100;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.25s;
-}
-.menu-fab:hover { background: #005f90; }
-
-.fab-rotator { position: relative; width: 48px; height: 48px; transition: transform 0.42s cubic-bezier(.4,2,.6,1); }
-.menu-fab.open .fab-rotator { transform: rotate(45deg); }
-
-/* X-Shape */
-.menu-lines, .menu-lines::after {
-  position: absolute;
-  background: #fff;
-  content: '';
-}
-.menu-lines { top: 50%; left: 50%; width: 48px; height: 1px; transform: translate(-50%, -50%); }
-.menu-lines::after { width: 1px; height: 48px; left: 50%; top: 50%; transform: translate(-50%, -50%); }
-
-/* MENÜ-Buchstaben */
-.fab-letter { position: absolute; color: #fff; font-size: 15px; font-weight: 500; transition: transform 0.42s cubic-bezier(.4,2,.6,1); }
-.fab-letter.m { top: 3px; left: 6px; }
-.fab-letter.e { top: 3px; right: 8px; }
-.fab-letter.n { bottom: 3px; right: 7px; }
-.fab-letter.u { bottom: 3px; left: 7px; }
-.menu-fab.open .fab-letter.m,
-.menu-fab.open .fab-letter.e,
-.menu-fab.open .fab-letter.n,
-.menu-fab.open .fab-letter.u { transform: rotate(-45deg); }
-
-/* Mobile Menu Panel */
-.mobile-menu {
-  display: none;
-  position: fixed;
-  bottom: 112px;
-  right: 24px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 18px 0 rgba(0,0,0,0.16);
-  z-index: 1101;
-  min-width: 180px;
-  overflow: hidden;
-  padding: 0;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(18px) scale(0.97);
-  transition: opacity 0.3s, transform 0.32s;
-}
-.mobile-menu.open { display: block; opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
-.mobile-menu a {
-  display: block;
-  padding: 14px 24px;
-  border-bottom: 1px solid #f0f0f0;
-  color: #0073b1;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.09em;
-  background: none;
-  transition: background 0.16s;
-}
-.mobile-menu a:last-child { border-bottom: none; }
-.mobile-menu a.share-button {
-  background: #0073b1;
-  color: #fff !important;
-  text-align: center;
-  border-radius: 0 0 16px 16px;
-}
-.mobile-menu a:hover { background: #e5eef5; }
-
-/* Desktop-only hide mobile menu/fab */
-@media (min-width: 768px) {
-  .menu-fab, .mobile-menu { display: none !important; }
-}
-@media (min-width: 900px) {
-  .menu-fab, .mobile-menu { display: none !important; }
-}
-
-/* Kleinere Phones – grobes Stacking (Fallback) */
-@media (max-width: 700px) {
-  .container { flex-direction: column; padding-bottom: 80px; }
-  nav { display: none; }
-  aside.right-column {
-    display: block; position: static; flex: 1 1 100%; margin: 0; padding: 0; width: 100%;
-  }
-}
-
-/* ===== Mobile Layout: Datum & Ort oben nebeneinander, Countdown unten ===== */
-@media (max-width: 768px){
-  .container{
-    display: grid !important;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "date  place"
-      "main  main"
-      "count count";
-    gap: 12px;
-    align-items: start;
-  }
-  aside.right-column{ display: contents; }
-  main{ grid-area: main; }
-  .box-date{ grid-area: date; }
-  .box-place{ grid-area: place; }
-  .box-countdown{ grid-area: count; }
-
-  /* rechte Spalte-Boxen mobil auf volle Breite */
-  .right-column .content-box{
-    max-width: none !important;
-    margin: 0 !important;
-    width: 100% !important;
-  }
-
-  /* etwas kompakterer Hero auf Mobil */
-  header { height: 18vh; margin: 1.2rem 0.5rem 1.2rem; }
-}
-
-/* ===== Kalender-Buttons (dezent & kompakt) ===== */
 .addcal-row{ display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+.box-date .addcal-row{ justify-content:center; }
 
 .right-column .content-box a#icsLink.addcal,
 .right-column .content-box a#icsLink.addcal:visited,
@@ -397,11 +167,10 @@ footer p { margin: 0.3em 0; }
   font-size:1.125rem; font-weight:600; margin-bottom:8px;
 }
 
-/* ===== Ort-Links ===== */
-/* WICHTIG: Kein Flex mehr, damit <br> nach "Wirtshaus Ratze" wirkt. */
+/* ===== Ort-Links: gewünschter Umbruch ===== */
 .right-column .content-box .place-line{
   margin:0;
-  display:block !important;
+  display:block;            /* <br> wirkt */
   text-align:center;
 }
 .right-column .content-box .place-link,
@@ -415,7 +184,7 @@ footer p { margin: 0.3em 0; }
 .right-column .content-box .muted{ color:#6b7280; }
 .right-column .content-box .place-link strong{ font-weight:700 !important; }
 
-/* Stecknadel – schräg, Spitze im Bullseye, Kopf rot */
+/* Stecknadel-Icon */
 .right-column .content-box .place-link .pin{
   width: 1em; height: 1em; margin-left: 6px; vertical-align: -0.12em;
 }
@@ -431,127 +200,62 @@ footer p { margin: 0.3em 0; }
 .right-column .content-box .place-link .pin-head{
   fill: #ef4444; stroke: #b91c1c; stroke-width: 1.1;
 }
-/* "in Stuttgart‑Ost 📍" immer zusammenhalten */
+
+/* "in Stuttgart-Ost" mit Icon immer zusammenhalten */
+.box-place .place-after{
+  display:inline-flex;
+  align-items:baseline;
+  gap:6px;
+  white-space:nowrap;
+}
 .right-column .content-box .place-link.secondary{ white-space: nowrap; }
 
-/* === Hauptteil-Boxen wieder linksbündig === */
-main .content-box{
-  text-align: left !important;
-  display: block !important;      /* überschreibt evtl. display:flex */
-  align-items: initial !important; /* falls von vorher noch gesetzt */
-}
-
-/* === Hero-Überschrift: keine Silbentrennung === */
-header h1{
-  -webkit-hyphens: none;
-  hyphens: none;
-  word-break: keep-all;
-  overflow-wrap: normal;
-}
-
-/* === ORT-Box: Umbruch nach "Wirtshaus Ratze", danach eine Zeile === */
-.box-place .place-line{
-  display: block !important;       /* <br> greift */
-  margin: 0;
-}
-.box-place .place-after{
-  display: inline-flex;            /* "in" + Link bleiben zusammen */
-  align-items: baseline;
-  gap: 6px;
-  white-space: nowrap;
-}
-.box-place .place-link.secondary{   /* Link + Pin zusammenhalten */
-  white-space: nowrap;
-}
-
-
-/* === Datums-Box: Kalender-Links mittig === */
-.box-date .addcal-row{
-  display: flex !important;      /* sicherstellen, dass es Flex ist */
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center !important;  /* mittig ausrichten */
-  width: 100%;                    /* volle Box-Breite, sonst kein echtes Zentrieren */
-  align-self: stretch;            /* wenn Parent flex ist */
-  margin-top: 10px;               /* kleiner Abstand unter dem Datum */
-}
-
-.box-date .addcal-row a{
-  display: inline-flex;           /* hübsche Button-Ausrichtung */
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-/* Weniger seitlicher Innenabstand nur in der rechten Spalte */
-aside.right-column .content-box {
-  padding-left: 12px;
-  padding-right: 12px;
-}
-
-/* === Rechte Spalte: fix schmaler & Inhalt zentriert (nur Desktop) === */
-@media (min-width: 900px){
-  aside.right-column{
-    flex: 0 0 220px; /* Spaltenbreite */
-  }
-
-  aside.right-column .content-box{
-    max-width: 200px;  /* gleiche Breite wie Spalte */
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center; /* Inhalte zentrieren */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-}
-/* Rechte Spalte: Inhalte immer mittig */
-aside.right-column .content-box {
-  text-align: center !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-}
-/* ===== Mobile Layout aktualisieren: Ort oben rechts, Countdown darunter; Date spannt 2 Zeilen ===== */
+/* ===== Mobile Layout: Date links (2 Reihen), rechts Ort + Countdown (gleich hoch) ===== */
 @media (max-width: 768px){
   .container{
     display: grid !important;
     grid-template-columns: 1fr 1fr;
-    /* Date links über 2 Zeilen, rechts: oben Ort, unten Countdown */
     grid-template-areas:
-      "date place"
-      "date count"
+      "date right"
+      "date right"
       "main main";
     gap: 12px;
-    align-items: stretch;      /* Elemente in den Zellen strecken */
-    grid-auto-rows: 1fr;       /* gleiche Zeilenhöhen für 'place' und 'count' */
+    align-items: stretch;
   }
+  /* Damit die Boxen im aside Grid-Items sind */
+  aside.right-column{ display: contents; }
 
-  aside.right-column{ display: contents; } /* Boxen als direkte Grid-Items */
-
-  /* Grid-Areas zuweisen und auf volle Zellenhöhe strecken */
-  .box-date{ grid-area: date; align-self: stretch; }
-  .box-place{ grid-area: place; align-self: stretch; }
-  .box-countdown{ grid-area: count; align-self: stretch; }
-
-  /* Inhalt der Boxen darf die Zellenhöhe ausfüllen */
-  .right-column .content-box,
-  .box-date.content-box{
+  /* Grid-Areas */
+  .box-date{ grid-area: date; align-self: stretch; height: 100%; }
+  .right-pair{ 
+    grid-area: right;
+    display: grid;
+    grid-template-rows: 1fr 1fr;  /* Ort + Countdown exakt gleich hoch */
+    gap: 12px;
     height: 100%;
+    align-self: stretch;
   }
-}
-/* Linke Nav und Hauptinhalt auf gleiche Höhe */
-.container {
-  align-items: flex-start;
+  .right-pair > .content-box{
+    height: 100%;
+    margin: 0;
+  }
+
+  /* Main auf volle Breite darunter */
+  main{ grid-area: main; }
+
+  /* Hero etwas kompakter */
+  header { height: 18vh; margin: 1.2rem 0.5rem 1.2rem; }
 }
 
-/* Sicherstellen, dass nav oben bündig mit main startet */
-nav {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* Falls main oben mehr Abstand hat, ebenfalls angleichen */
-main {
-  margin-top: 0 !important;
+/* ===== Desktop: rechte Spalte fix und Inhalte zentriert ===== */
+@media (min-width: 900px){
+  aside.right-column{
+    flex: 0 0 220px; /* Spaltenbreite */
+  }
+  aside.right-column .content-box{
+    max-width: 220px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
