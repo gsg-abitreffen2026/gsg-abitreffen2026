@@ -456,11 +456,23 @@ footer p { margin: 0.3em 0; }
 
 .right-column .content-box .muted{ color:#6b7280; }
 
-/* Pin-Icon hinter "Stuttgart-Ost" */
+/* Stecknadel-Icon */
 .right-column .content-box .place-link .pin{
-  width: 0.95em;
-  height: 0.95em;
+  width: 1em;
+  height: 1em;
   margin-left: 6px;
-  vertical-align: text-bottom;
-  fill: #6b7280; /* dezent */
+  vertical-align: -0.12em; /* sitzt schön auf der Textgrundlinie */
 }
+
+.right-column .content-box .place-link .pin-head{
+  fill: #ef4444;           /* Rot */
+  stroke: #b91c1c;         /* dunkler Rand */
+  stroke-width: 1;
+}
+
+.right-column .content-box .place-link .pin-needle{
+  stroke: #6b7280;         /* dezentes Grau */
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
