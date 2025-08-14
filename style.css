@@ -97,6 +97,7 @@ aside.right-column {
 #galerie-login-box { margin-top: 20px; }
 
 .content-box {
+  text-align: center;
   background-color: white;
   padding: 20px;
   margin-bottom: 20px;
