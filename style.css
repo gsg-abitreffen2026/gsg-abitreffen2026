@@ -452,3 +452,32 @@ footer p { margin: 0.3em 0; }
   background: #4B5563 !important;
   border-color: #4B5563 !important;
 }
+/* Kompakte, zurückhaltende Buttons NUR in der rechten Spalte */
+.right-column .addcal-row{ gap:6px; margin-top:6px; }
+
+.right-column .addcal{
+  font-size: .85rem !important;   /* ~halb so groß */
+  font-weight: 400 !important;     /* nicht fett */
+  padding: 6px 10px !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-color: #d7e3ef !important;   /* dezente Linie (blaugrau) */
+  color: #0b5e8f !important;          /* dezentes Blau für Text */
+  text-decoration: none !important;
+}
+
+.right-column .addcal:hover{
+  background: #eef6fc !important;     /* sanfter Hover */
+  border-color: #c6d8ea !important;
+}
+
+.right-column .addcal.secondary{
+  border-color: #e5e7eb !important;   /* graue Linie */
+  color: #374151 !important;          /* grauer Text */
+}
+
+.right-column .addcal.secondary:hover{
+  background: #f3f4f6 !important;
+  border-color: #d1d5db !important;
+}
