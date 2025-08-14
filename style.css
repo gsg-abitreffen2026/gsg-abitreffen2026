@@ -369,61 +369,53 @@ footer p { margin: 0.3em 0; }
   aside.right-column {
     display: block; position: static; flex: 1 1 100%; margin: 0; padding: 0; width: 100%;
   }
-/* ===== FINAL: Dezente, kompakte Kalender-Buttons ===== */
 
-/* Container */
-.addcal-row{
-  display:flex !important;
-  gap:6px !important;
-  flex-wrap:wrap !important;
-  margin-top:6px !important;
-}
 
-/* Basis-Button (und visited!) */
-.addcal,
-.addcal:visited{
+/* ===== FINAL: dezente, kompakte Kalender-Buttons (ID-basiert, überschreibt alles) ===== */
+.addcal-row{ display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+
+/* Basiszustand + visited */
+.right-column .content-box a#icsLink.addcal,
+.right-column .content-box a#icsLink.addcal:visited,
+.right-column .content-box a#gcalLink.addcal,
+.right-column .content-box a#gcalLink.addcal:visited{
   display:inline-flex !important;
   align-items:center !important;
   gap:8px !important;
-
   padding:6px 10px !important;
   border-radius:8px !important;
-  border:1px solid #d7e3ef !important; /* feine Linie */
+  border:1px solid #d7e3ef !important;   /* feine Linie */
   background:transparent !important;
-
+  color:#0b5e8f !important;               /* dezentes Blau */
   font-size:.85rem !important;
-  font-weight:400 !important;          /* nicht fett */
+  font-weight:400 !important;             /* nicht fett */
   line-height:1.25 !important;
-
-  color:#0b5e8f !important;            /* dezentes Blau */
   text-decoration:none !important;
   box-shadow:none !important;
-
-  width:auto !important;               /* nie 100% Breite */
+  width:auto !important;                  /* nie 100% Breite */
+  cursor:pointer !important;
 }
 
 /* Hover */
-.addcal:hover{
+.right-column .content-box a#icsLink.addcal:hover{
   background:#eef6fc !important;
   border-color:#c6d8ea !important;
-  color:#0b5e8f !important;
 }
 
-/* Sekundärer Button (Google) – graue Variante */
-.addcal.secondary,
-.addcal.secondary:visited{
+/* Sekundärer (Google) – grauer Text/Linie */
+.right-column .content-box a#gcalLink.addcal,
+.right-column .content-box a#gcalLink.addcal:visited{
   border-color:#e5e7eb !important;
   color:#374151 !important;
 }
-.addcal.secondary:hover{
+.right-column .content-box a#gcalLink.addcal:hover{
   background:#f3f4f6 !important;
   border-color:#d1d5db !important;
 }
 
-/* Datum dezent hervorheben */
+/* Datum leicht hervorheben */
 .right-column .content-box h3 + p{
   font-size:1.125rem;
   font-weight:600;
   margin-bottom:8px;
 }
-
