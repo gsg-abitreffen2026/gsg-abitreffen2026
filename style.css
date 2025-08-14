@@ -433,3 +433,34 @@ footer p { margin: 0.3em 0; }
 }
 /* "in Stuttgart‑Ost 📍" immer zusammenhalten */
 .right-column .content-box .place-link.secondary{ white-space: nowrap; }
+
+/* === Hauptteil-Boxen wieder linksbündig === */
+main .content-box{
+  text-align: left !important;
+  display: block !important;      /* überschreibt evtl. display:flex */
+  align-items: initial !important; /* falls von vorher noch gesetzt */
+}
+
+/* === Hero-Überschrift: keine Silbentrennung === */
+header h1{
+  -webkit-hyphens: none;
+  hyphens: none;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+/* === ORT-Box: Umbruch nach "Wirtshaus Ratze", danach eine Zeile === */
+.box-place .place-line{
+  display: block !important;       /* <br> greift */
+  margin: 0;
+}
+.box-place .place-after{
+  display: inline-flex;            /* "in" + Link bleiben zusammen */
+  align-items: baseline;
+  gap: 6px;
+  white-space: nowrap;
+}
+.box-place .place-link.secondary{   /* Link + Pin zusammenhalten */
+  white-space: nowrap;
+}
+
