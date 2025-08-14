@@ -464,3 +464,13 @@ header h1{
   white-space: nowrap;
 }
 
+/* Kalender-Buttons in der Datums-Box mittig */
+.box-date .addcal-row {
+  justify-content: center; /* Buttons horizontal zentrieren */
+}
+
+.box-date .addcal-row a {
+  margin-left: auto;
+  margin-right: auto;
+}
+
