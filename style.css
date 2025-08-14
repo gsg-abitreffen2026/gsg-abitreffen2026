@@ -495,7 +495,7 @@ aside.right-column .content-box {
   }
 
   aside.right-column .content-box{
-    max-width: 220px;  /* gleiche Breite wie Spalte */
+    max-width: 200px;  /* gleiche Breite wie Spalte */
     width: 100%;
     margin-left: auto;
     margin-right: auto;
