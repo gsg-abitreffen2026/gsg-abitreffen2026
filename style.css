@@ -488,3 +488,20 @@ aside.right-column .content-box {
   padding-right: 12px;
 }
 
+/* === Rechte Spalte: fix schmaler & Inhalt zentriert (nur Desktop) === */
+@media (min-width: 900px){
+  aside.right-column{
+    flex: 0 0 220px; /* Spaltenbreite */
+  }
+
+  aside.right-column .content-box{
+    max-width: 220px;  /* gleiche Breite wie Spalte */
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; /* Inhalte zentrieren */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
