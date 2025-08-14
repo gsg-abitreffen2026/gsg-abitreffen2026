@@ -1,187 +1,116 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Klassentreffeb 2026</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Abi-Treffen 2026</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
 
-  <!-- Hero-Bereich -->
-<header>
-  <img src="GSG_Bearbeitet_NEU.jpg" alt="Abi-Treffen 2006" class="hero-img" />
-  <div class="hero-text">
-    <h1>Klassentreffen 2026</h1>
-    <p>20 Jahre – *hier könnte ihr Abimotto stehen*</p>
-  </div>
-</header>
-<div class="container">
-
-  <!-- Navigation (links) -->
-  <nav>
-    <ul>
-      <li><a href="#infos"><i class="fas fa-info-circle"></i> Infos</a></li>
-      <li><a href="#newsletter"><i class="fas fa-newspaper"></i> Newsletter</a></li>
-      <li><a href="#galerie"><i class="fas fa-images"></i> Galerie</a></li>
-      <li><a href="#kontakt"><i class="fas fa-envelope"></i> Kontakt</a></li>
-      <li><a href="#" id="shareButton" class="share-button"><i class="fas fa-share-alt"></i> Seite teilen   </a></li>
-    </ul>
-    <div id="galerie-login-box" class="content-box hidden">
-      <h3>Galerie-Login</h3>
-      <form id="loginForm">
-        <input type="email" id="loginEmail" placeholder="E-Mail" required />
-        <input type="text" id="loginCode" placeholder="Zugangscode" required />
-        <button type="submit" class="button">Einloggen</button>
-      </form>
-      <p id="loginMessage"></p>
+  <!-- Hero -->
+  <header>
+    <img src="GSG_Bearbeitet_NEU.jpg" alt="Abi-Treffen 2006" class="hero-img" />
+    <div class="hero-text">
+      <h1>Klassentreffen 2026</h1>
+      <p>20 Jahre – <em>hier könnte ihr Abimotto stehen</em></p>
     </div>
-  </nav>
+  </header>
 
-  <!-- Hauptinhalt -->
-  <main>
-    <section id="infos" class="content-box">
-      <h2>Allgemeine Infos</h2>
-       <p>Das 20-jährige Jubiläum steht bevor! Für alle die schon langsam Panik bekommen haben: Ja wir werden nächstes Jahr ein Klassentreffen veranstalten ;) </p>
-       <p> Trage dich in den Newsletter ein und bleib auf dem Laufenden.</p>
-      <p> Beste Grüße euer Maxi</p>
-      
-       <p> PS: Und eine Bitte noch: Teilt die Seite mit allen die Ihr von damals noch kennt (geht auch über den Button im Menü).</p>
-    </section>
+  <div class="container">
+    <!-- Linke Sidebar-Navigation -->
+    <nav>
+      <ul>
+        <li><a href="#infos"><i class="fa-solid fa-circle-info"></i>Infos</a></li>
+        <li><a href="#newsletter"><i class="fa-regular fa-newspaper"></i>Newsletter</a></li>
+        <li><a href="#galerie"><i class="fa-regular fa-images"></i>Galerie</a></li>
+        <li><a href="#kontakt"><i class="fa-regular fa-envelope"></i>Kontakt</a></li>
+        <li><a class="share-button" id="shareButton"><i class="fa-solid fa-share-nodes"></i> Seite teilen</a></li>
+      </ul>
+    </nav>
 
-    <section id="news" class="content-box">
-      <h2>News 14.08.2025</h2>
-       <p>Das Klassentreffen wird am <b>11.07.2026</b> stattfinden </p>
-       <p> Die Location ist das <b>Wirtshaus Ratze</b> in Stuttgart-Ost. Ich ich in den nächsten Tagen ein paar Bilder in der Galerie posten. </p>
-      
-      <p> Beste Grüße euer Maxi</p>
-    </section>
-    
-    <section id="newsletter" class="content-box">
-      <h2>Newsletter</h2>
-      <form id="newsletter-form">
-        <input type="text" id="newsletter-vorname" placeholder="Vorname" required />
-        <input type="text" id="newsletter-nachname" placeholder="Nachname" required />
-        <input type="email" id="newsletter-email" placeholder="E-Mail" required />
-        <input type="text" id="newsletter-honey" style="display: none" autocomplete="off" />
-        <button type="submit" class="button">Anmelden</button>
-      </form>
-      <p class="newsletter-hint">*Bitte nur einmal klicken und kurz warten</p>
-    </section>
+    <!-- Hauptinhalt -->
+    <main>
+      <section class="content-box" id="infos">
+        <h2>Allgemeine Infos</h2>
+        <p>Das 20‑jährige Jubiläum steht bevor! …</p>
+      </section>
 
-    <section id="galerie-login-mitte" class="content-box hidden">
-      <h3>Galerie-Login</h3>
-      <form id="loginFormMitte">
-        <input type="email" id="loginEmailMitte" placeholder="E-Mail" required />
-        <input type="text" id="loginCodeMitte" placeholder="Zugangscode" required />
-        <button type="submit" class="button">Einloggen</button>
-      </form>
-      <p id="loginMessageMitte"></p>
-    </section>
+      <section class="content-box" id="news">
+        <h2>News 14.08.2025</h2>
+        <p>Das Klassentreffen wird am <strong>11.07.2026</strong> stattfinden.</p>
+        <p>Die Location ist das <strong>Wirtshaus Ratze</strong> in Stuttgart‑Ost.</p>
+      </section>
+    </main>
 
-    <section id="galerie" class="content-box hidden">
-      <h2>Galerie</h2>
-      <div class="gallery-wrapper">
-        <img id="gallery-image" src="bilder/bild1.jpg" alt="Galeriebild" />
-        <button id="prevBtn" class="gallery-button">&#8592;</button>
-        <button id="nextBtn" class="gallery-button">&#8594;</button>
+    <!-- Rechte Spalte -->
+    <aside class="right-column">
+
+      <!-- Datum -->
+      <div class="content-box box-date">
+        <h3><i class="fa-regular fa-calendar"></i> Datum</h3>
+        <p><strong>11. Juli 2026</strong></p>
+
+        <div class="addcal-row">
+          <a id="icsLink" class="addcal" href="#" aria-label="Termin speichern">Termin speichern</a>
+          <a id="gcalLink" class="addcal" href="#" aria-label="Google Kalender">Google Kalender</a>
+        </div>
       </div>
-    </section>
 
-    <section id="kontakt" class="content-box kontakt-collapsible collapsed">
-      <h2 class="kontakt-header">
-        <span class="arrow">&#10095;</span>
-        Kontakt
-      </h2>
-      <div class="kontakt-content">
-        <form id="kontakt-form">
-          <input type="text" name="name" placeholder="Name" required />
-          <input type="email" name="email" placeholder="E-Mail" required />
-          <textarea name="message" placeholder="Nachricht" rows="5" required></textarea>
-          <button type="submit" class="button">Absenden</button>
-        </form>
+      <!-- NEU: Wrapper für Ort + Countdown (für das mobile Layout) -->
+      <div class="right-pair">
+        <!-- Ort -->
+        <div class="content-box box-place">
+          <h3><i class="fa-solid fa-location-dot"></i> Ort</h3>
+          <p class="place-line">
+            <a class="place-link"
+               href="https://www.wirtshaus-ratze.de"
+               target="_blank" rel="noopener noreferrer"
+               title="Website des Wirtshaus Ratze"><strong>Wirtshaus Ratze</strong></a>
+            <br>
+            <span class="place-after">
+              <span class="muted">in</span>
+              <a class="place-link secondary"
+                 href="https://www.google.com/maps/search/?api=1&query=Wirtshaus%20Ratze%2C%20Raichberg%204%2C%2070186%20Stuttgart"
+                 target="_blank" rel="noopener noreferrer"
+                 title="Wirtshaus Ratze auf Google Maps">
+                Stuttgart‑Ost
+                <svg class="pin pin-diag" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <circle class="target-outer" cx="8" cy="16" r="4.25" />
+                  <circle class="target-inner" cx="8" cy="16" r="2.0" />
+                  <line class="pin-needle" x1="8" y1="16" x2="19.2" y2="6.8" />
+                  <circle class="pin-head" cx="19.2" cy="6.8" r="2.6" />
+                </svg>
+              </a>
+            </span>
+          </p>
+        </div>
+
+        <!-- Countdown -->
+        <div class="content-box box-countdown">
+          <h3><i class="fa-regular fa-hourglass"></i> Countdown</h3>
+          <p><strong>Noch 330 Tage!</strong></p>
+        </div>
       </div>
-    </section>
-  </main>
 
-  <!-- Rechte Spalte -->
-<aside class="right-column">
-  <!-- Datum -->
-  <div class="content-box box-date">
-    <h3><i class="fas fa-calendar-alt"></i> Datum</h3>
-    <p><b>11. Juli 2026</b></p>
-    <div class="addcal-row">
-      <a id="icsLink" class="addcal">Termin speichern</a>
-      <a id="gcalLink" class="addcal secondary">Google Kalender</a>
-    </div>
+    </aside>
   </div>
 
-  <!-- Ort -->
-  <div class="content-box box-place">
-  <h3><i class="fas fa-map-marker-alt"></i> Ort</h3>
-  <p class="place-line">
-    <a class="place-link"
-       href="https://www.wirtshaus-ratze.de"
-       target="_blank" rel="noopener noreferrer"
-       title="Website des Wirtshaus Ratze"><strong>Wirtshaus Ratze</strong></a>
-    <br>
-    <span class="place-after">
-      <span class="muted">in</span>
-      <a class="place-link secondary"
-         href="https://www.google.com/maps/search/?api=1&query=Wirtshaus%20Ratze%2C%20Raichberg%204%2C%2070186%20Stuttgart"
-         target="_blank" rel="noopener noreferrer"
-         title="Wirtshaus Ratze auf Google Maps">
-        Stuttgart‑Ost
-        <svg class="pin pin-diag" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <circle class="target-outer" cx="8" cy="16" r="4.25" />
-          <circle class="target-inner" cx="8" cy="16" r="2.0" />
-          <line class="pin-needle" x1="8" y1="16" x2="19.2" y2="6.8" />
-          <circle class="pin-head" cx="19.2" cy="6.8" r="2.6" />
-        </svg>
-      </a>
-    </span>
-  </p>
-</div>
+  <footer>
+    <p>© 2026 Abi‑Treffen</p>
+  </footer>
 
-
-  <!-- Countdown -->
-  <div class="content-box box-countdown">
-    <h3><i class="fas fa-hourglass-half"></i> Countdown</h3>
-    <p id="countdown-box">Läuft...</p>
-  </div>
-</aside>
-
-</div>
-
-<!-- Menü-Button (FAB) -->
-<button class="menu-fab" id="burgerButton" aria-label="Menü öffnen/schließen">
-  <div class="fab-rotator">
-    <div class="menu-lines"></div>
-    <span class="fab-letter m">M</span>
-    <span class="fab-letter e">E</span>
-    <span class="fab-letter n">N</span>
-    <span class="fab-letter u">U</span>
-  </div>
-</button>
-
-  </svg>
-</button>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#infos">Infos</a>
-  <a href="#newsletter">Newsletter</a>
-  <a href="#galerie">Galerie</a>
-  <a href="#kontakt">Kontakt</a>
-  <a href="#" id="shareButtonMobile" class="share-button">Seite teilen</a>
-</div>
-
-  
-<footer>
-  <p>&copy; 2025 by Maxi</p>
-    <p>Abi-Jahrgang 2006</p>
-  <p><a href="admin.html">Admin-Login</a></p>
-</footer>
-
-<script src="script.js"></script>
+  <script>
+    // Share Button (optional)
+    document.getElementById('shareButton')?.addEventListener('click', async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: document.title, url: location.href });
+        } catch(e) {}
+      }
+    });
+  </script>
 </body>
 </html>
