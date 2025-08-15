@@ -121,7 +121,18 @@ footer p { margin: 0.3em 0; }
   main{ grid-area: main; }
   .box-date{ grid-area: date; }
   .box-place{ grid-area: place; }
-  .box-countdown{ grid-area: countdown; }
+.box-countdown {
+  grid-area: countdown;
+  padding: 0.8rem 1rem;
+}
+.box-countdown h3 {
+  margin-bottom: 0.4rem;
+}
+.box-countdown p {
+  margin: 0;
+  line-height: 1.2;
+}
+
 
   /* WICHTIG: keine erzwungene Höhe */
   .box-date, .box-place, .box-countdown{ height: auto; }
