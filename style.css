@@ -120,7 +120,7 @@ footer p { margin: 0.3em 0; }
   main{ grid-area: main; }
   .box-date{ grid-area: date; }
   .box-place{ grid-area: place; }
-  .box-countdown{ grid-area: count; }
+  .box-countdown{ grid-area: countdown; }
 
   /* Boxen in den Grid-Zellen vollständig strecken */
   .box-date, .box-place, .box-countdown{ height: 100%; }
@@ -163,7 +163,7 @@ footer p { margin: 0.3em 0; }
 .right-column .content-box .place-link.secondary{ white-space: nowrap; }
 
 /* === Hauptteil-Boxen wieder linksbündig === */
-main .content-box{ text-align: left !important; display: block !important; align-items: initial !important; }
+main .content-box{ text-align: left !important; display: block; align-items: initial !important; }
 
 /* === Datums-Box: Kalender-Links mittig === */
 .box-date .addcal-row{ display: flex !important; flex-wrap: wrap; gap: 8px; justify-content: center !important; width: 100%; align-self: stretch; margin-top: 10px; }
