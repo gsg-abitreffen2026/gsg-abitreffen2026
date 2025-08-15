@@ -241,60 +241,58 @@ document.addEventListener("DOMContentLoaded", () => {
   galleryImage?.addEventListener("error", () => {
     console.error(`Bild nicht gefunden: ${galleryImage.src}`);
   });
-// ===== Kalender-Links (.ics + Google) =====
-(function () {
-  // 11.07.2026 15–24 Uhr CEST ⇒ 13:00–22:00 UTC
-  const DTSTART = '20260711T130000Z';
-  const DTEND   = '20260711T220000Z';
 
-  const TITLE         = 'Klassentreffen 2026';
-  const LOCATION_TEXT = 'Wirtshaus Ratze, Raichberg 4, 70186 Stuttgart';
-  const DETAILS       = 'Wirtshaus Ratze';
+  // ===== Kalender-Links (.ics + Google) =====
+  (function () {
+    // 11.07.2026 15–24 Uhr CEST ⇒ 13:00–22:00 UTC
+    const DTSTART = '20260711T130000Z';
+    const DTEND   = '20260711T220000Z';
 
-  // --- .ics-Link befüllen ---
-  const icsLink = document.getElementById('icsLink');
-  if (icsLink) {
-    function toUtcStamp(date) {
-      const pad = n => String(n).padStart(2,'0');
-      const d = new Date(date.getTime() - date.getTimezoneOffset()*60000);
-      return (
-        d.getUTCFullYear() + pad(d.getUTCMonth()+1) + pad(d.getUTCDate()) + 'T' +
-        pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + pad(d.getUTCSeconds()) + 'Z'
-      );
+    const TITLE         = 'Klassentreffen 2026';
+    const LOCATION_TEXT = 'Wirtshaus Ratze, Raichberg 4, 70186 Stuttgart';
+    const DETAILS       = 'Wirtshaus Ratze';
+
+    // --- .ics-Link befüllen ---
+    const icsLink = document.getElementById('icsLink');
+    if (icsLink) {
+      function toUtcStamp(date) {
+        const pad = n => String(n).padStart(2,'0');
+        const d = new Date(date.getTime() - date.getTimezoneOffset()*60000);
+        return (
+          d.getUTCFullYear() + pad(d.getUTCMonth()+1) + pad(d.getUTCDate()) + 'T' +
+          pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + pad(d.getUTCSeconds()) + 'Z'
+        );
+      }
+      const ics = [
+        'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Abi2006//Website//DE','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+        'BEGIN:VEVENT',
+        'UID:klassentreffen-20260711T130000Z@abi2006.de',
+        'DTSTAMP:' + toUtcStamp(new Date()),
+        'DTSTART:' + DTSTART,
+        'DTEND:' + DTEND,
+        'SUMMARY:' + TITLE,
+        'DESCRIPTION:' + 'Wirtshaus Ratze\\nAdresse: Raichberg 4\\, 70186 Stuttgart\\nTelefon: 0711 45146902',
+        'LOCATION:' + 'Wirtshaus Ratze\\, Raichberg 4\\, 70186 Stuttgart',
+        'END:VEVENT','END:VCALENDAR'
+      ].join('\r\n');
+
+      icsLink.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+      icsLink.download = 'klassentreffen-2026.ics';
     }
-    const ics = [
-      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Abi2006//Website//DE','CALSCALE:GREGORIAN','METHOD:PUBLISH',
-      'BEGIN:VEVENT',
-      'UID:klassentreffen-20260711T130000Z@abi2006.de',
-      'DTSTAMP:' + toUtcStamp(new Date()),
-      'DTSTART:' + DTSTART,
-      'DTEND:' + DTEND,
-      'SUMMARY:' + TITLE,
-      'DESCRIPTION:' + 'Wirtshaus Ratze\\nAdresse: Raichberg 4\\, 70186 Stuttgart\\nTelefon: 0711 45146902',
-      'LOCATION:' + 'Wirtshaus Ratze\\, Raichberg 4\\, 70186 Stuttgart',
-      'END:VEVENT','END:VCALENDAR'
-    ].join('\r\n');
 
-    icsLink.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
-    icsLink.download = 'klassentreffen-2026.ics';
-  }
-
-  // --- Google-Kalender-Link befüllen ---
-  const gcalLink = document.getElementById('gcalLink');
-  if (gcalLink) {
-    const base = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
-    const params = new URLSearchParams({
-      text: TITLE,
-      dates: `${DTSTART}/${DTEND}`,
-      location: LOCATION_TEXT,
-      details: DETAILS
-    });
-    gcalLink.href = `${base}&${params.toString()}`;
-    gcalLink.target = '_blank';
-    gcalLink.rel = 'noopener noreferrer';
-  }
-})();
-
-
-
+    // --- Google-Kalender-Link befüllen ---
+    const gcalLink = document.getElementById('gcalLink');
+    if (gcalLink) {
+      const base = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
+      const params = new URLSearchParams({
+        text: TITLE,
+        dates: `${DTSTART}/${DTEND}`,
+        location: LOCATION_TEXT,
+        details: DETAILS
+      });
+      gcalLink.href = `${base}&${params.toString()}`;
+      gcalLink.target = '_blank';
+      gcalLink.rel = 'noopener noreferrer';
+    }
+  })();
 });
